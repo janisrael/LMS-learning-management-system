@@ -78,11 +78,12 @@
     },
     methods: {
       handleLogout() {
-        axios.post('logout').then (res => {
-          localStorage.removeItem('user_token');
-          this.$router.go('/');
-        })
-        
+        // axios.post('logout').then (res => {
+        //   localStorage.removeItem('user_token');
+        //   this.$router.go('/login');
+        //   this.$router.push('login')
+      // })
+        this.$store.dispatch('handleLogout')
       },
       hasProfileName(){
         let flag = false;

@@ -1,15 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
+import LoginComponent from '../components/Auth/LoginComponent'
+import IndexCourseComponent from '../components/ContentPages/Course/IndexComponent'
 Vue.use(Router)
 export const routes = [
   {
       path:'/login',
-      // component:Login,
+      component:LoginComponent,
       name: 'Login',
       group: 'default',
       icon: '',
-      type: '',
+      type: 'not-page',
       key: ''
   }, 
   /**
@@ -23,16 +24,16 @@ export const routes = [
       name: 'Dashboard',
       group: 'default',
       icon: '',
-      type: '',
+      type: 'page',
       key: ''
   },
   {
       path:'/course-management/all-courses',
-      // component: IndexCourseComponent,
+      component: IndexCourseComponent,
       name: 'Courses',
       group: 'course-managemnent',
       icon: '<i class="fas fa-book parent-nav-icon"></i>',
-      type: 'child',
+      type: 'page',
       key: 'maintenance_schedule_view',
       meta: {
           permission: 'maintenance_schedule.view'
