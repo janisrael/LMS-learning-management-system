@@ -24,7 +24,7 @@ export const routes = [
       name: 'Dashboard',
       group: 'default',
       icon: '',
-      type: 'page',
+      type: 'dashboard',
       key: ''
   },
   {
@@ -45,7 +45,7 @@ export const routes = [
       name: 'Chapters',
       group: 'chapter-management',
       icon: '<i class="fas fa-layer-group"></i>',
-      type: 'child',
+      type: 'page',
       key: 'maintenance_schedule_view',
       meta: {
           permission: 'maintenance_schedule.view'
@@ -69,7 +69,7 @@ export const routes = [
       name: 'Quizzes',
       group: 'quizzes',
       icon: '<i class="fas fa-project-diagram"></i>',
-      type: 'child',
+      type: 'page',
       key: 'fe_phone_sales',
       meta: {
           permission: 'fe_phone_sales'
@@ -83,7 +83,7 @@ export const routes = [
       is_title: true,
       group: 'quizzes',
       icon: '<i class="fas fa-podcast"></i>',
-      type: 'child',
+      type: 'page',
       key: 'everwebinar_page_view',
       meta: {
           permission: 'everwebinar_page.view'
@@ -110,7 +110,7 @@ export const routes = [
       is_title: true,
       group: 'authors',
       icon: '<i class="far fa-address-card"></i>',
-      type: 'child',
+      type: 'page',
       key: 'customer_lookup_view',
       meta: {
           permission: 'customer_lookup.view'
@@ -123,7 +123,7 @@ export const routes = [
       is_title: true,
       group: 'user-management',
       icon: '<i class="fas fa-user"></i>',
-      type: 'child',
+      type: 'page',
       key: 'user_account_view',
       meta: {
           permission: 'user_account.view'

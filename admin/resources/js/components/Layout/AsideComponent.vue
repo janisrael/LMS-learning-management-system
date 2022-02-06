@@ -18,7 +18,7 @@
       <transition name="fade" >
         <div v-if="show" class="flex-grow-1" style="flex-grow: 1 !important;">
             <ul class="menu-list grid d-flex flex-wrap border rounded mx-auto">
-                <li v-for="(route, i) in routes" :key="i" @click="assignRoute(route.name)">
+                <li v-for="(route, i) in filtered_routes" :key="i" @click="assignRoute(route.name)">
                   <a class="m-link" :to="route.path" :href="'#' + route.path">
                     <span v-html="route.icon"></span>
                     <span>{{ route.name }}</span>
@@ -56,11 +56,27 @@ import NavbarComponent from './NavbarComponent.vue';
     data() {
       return {
         routes: this.$routers,
-        show: true
+        show: true,
+        filtered_routes: []
       }
     },
     created () {
       console.log(this.routes, 'routes');
+      this.mapRoutes()
+    },
+    methods: {
+      assignRoute() {
+
+      },
+      mapRoutes() {
+        let new_route = []
+        this.routes.forEach((value, i) => {
+          if(value.type === 'page') {
+            new_route.push(value)
+          }
+        })
+        this.filtered_routes = new_route
+      }
     },
   }
 </script>

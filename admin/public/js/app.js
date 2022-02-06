@@ -2028,6 +2028,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'LoginComponent',
@@ -2159,11 +2165,25 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       routes: this.$routers,
-      show: true
+      show: true,
+      filtered_routes: []
     };
   },
   created: function created() {
     console.log(this.routes, 'routes');
+    this.mapRoutes();
+  },
+  methods: {
+    assignRoute: function assignRoute() {},
+    mapRoutes: function mapRoutes() {
+      var new_route = [];
+      this.routes.forEach(function (value, i) {
+        if (value.type === 'page') {
+          new_route.push(value);
+        }
+      });
+      this.filtered_routes = new_route;
+    }
   }
 });
 
@@ -7212,6 +7232,25 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 // module
 exports.push([module.i, "\ndiv#app {\n  background: #f4f6f9 !important;\n}\nhtml {\n  background: #f4f6f9 !important;\n}\n.content-wrapper {\n  display: flow-root !important;\n  background-color: transparent !important;\n  /*min-height: none !important;*/\n}\n.edit-preview-on {\n  display: inline-block;\n  /* background-color: #fbfdff; */\n  /* border: 1px dashed #c0ccda; */\n  border-radius: 6px;\n  box-sizing: border-box;\n  /* width: 148px; */\n  height: 148px;\n  line-height: 146px;\n  vertical-align: top;\n  cursor: pointer;\n  background-size: cover;\n}\n.edit-preview {\n  display: inline-block;\n  background-color: #fbfdff;\n  border: 1px dashed #c0ccda;\n  border-radius: 6px;\n  box-sizing: border-box;\n  width: 148px;\n  height: 148px;\n  line-height: 146px;\n  vertical-align: top;\n  cursor: pointer;\n  background-size: cover;\n}\n\n.edit-preview-container {\n  vertical-align: baseline;\n  display: inline-block;\n  -webkit-font-smoothing: antialiased;\n  width: 100%;\n  text-align: center;\n}\n\n.edit-preview-container i {\n  font-size: 28px;\n  color: #8c939d;\n  font-weight: 100;\n}\n.icon-star{\n  margin-right:2px;\n}\n.drag-handler{\n  width: 20px;\n  height: 20px;\n  cursor: pointer;\n}\n.show-d{\n  margin-top: 15px;\n}\n\n\n.content-margin {\n    display: block !important;\n    /*padding-top:20px;*/\n    padding: 20px 1rem;\n}\n.alert-container {\n    margin-bottom: 20px !important;\n}\n/*country select*/\n.vue-country-select .dropdown-list {\n    top: -145px !important;\n    left: 45px !important;\n}\n.vue-country-select {\n    height: 40px !important;\n}\n\n.vue-country-select .dropdown {\n    padding: 0px 0px !important;\n    margin: 0px 10px !important;\n}\n\n\n.emailInput.el-input.is-disabled.el-input--suffix .el-input__inner {\n  color: #409EFF !important;\n}\n\n.emailInput .el-input__inner {\n  border-top-right-radius: 0px !important;\n  border-bottom-right-radius: 0px !important;\n}\n\n .emailInput > .el-input__inner {\n  border-top-right-radius: 0px !important;\n  border-bottom-right-radius: 0px !important;\n}\n\n.el-input-group__append {\n    background-color: #67C23A !important;\n    border-color: #67C23A !important;\n    color: #fff !important;\n}\n/*country select*/\n\n.component-fade-enter-active, .component-fade-leave-active {\n    transition: opacity .3s ease;\n}\n.component-fade-enter, .component-fade-leave-to\n    /* .component-fade-leave-active below version 2.1.8 */ {\n    opacity: 0;\n}\n\n.page-content-title {\n    padding: 10px;\n    background: white;\n    font-weight: 600;\n    font-family: sans-serif;\n    border-bottom: 1px solid rgba(128, 128, 128, 0.12);\n    color: rgba(90, 90, 90, 0.86);\n}\n.el-table .warning-row {\n    background: red !important;\n}\n.cell {\n    font-size: 12px;\n}\n.el-collapse-item__header.is-active {\n    background-color: #ecf5ff !important;\n    border-bottom-color: transparent;\n}\n\n/* ul.nav.nav-treeview { */\n    /*margin-left: 15px;*/\n/* } */\ndiv#paymentSuccessDialog > .el-dialog__body {\n  display: inline-block !important;\n  width: 100% !important;\n  padding: 0px !important;\n}\n\ndiv#paymentSuccessDialog .el-dialog__body {\n  display: inline-block !important;\n  width: 100% !important;\n  padding: 0px !important;\n}\n\ndiv#paymentSuccessDialog .el-dialog__header {\n  display: none !important;\n}\n\n.el-table__body tr.current-row>td{\n    background-color: #f0f9eb !important;\n}\n\ninput#planid {\n    color: #000000 !important;\n}\n\ndiv#addontableWrapper > .el-table th {\n    padding: 5px 5px !important;\n    background-color: #f0f9eb !important;\n}\n\ndiv#addontableWrapper1 > .el-table th {\n    padding: 5px 5px !important;\n    background-color: rgba(128, 128, 128, 0.09) !important;\n}\n.sidebar {\n  padding-left: 0 !important;\n  padding-right: 0 !important;\n  height: 100vh !important;\n  overflow-y: auto !important;\n}\n\na.sidebar-navlink {\n  padding: 1rem !important;\n  border-radius: 0 !important;\n}\n\n.parent-nav-icon {\n  width: 20px !important;\n}\n\n/* .nav-item { */\n  /*padding: 5px 0 !important;*/\n/* } */\nul.nav-treeview .nav-item > .nav-link {\n  padding-left: 30px !important;;\n}\n\n.nav-sidebar .nav-link > .right, .nav-sidebar .nav-link > p > .right {\n  position: absolute;\n  right: 1rem;\n  top: 1.3rem;\n}\na.nav-link {\n  /*padding: 1rem !important;*/\n  /*padding-left: 30px !important;*/\n  border-radius: 0px !important;\n}\na.nav-sidebar {\n    padding: 1rem !important;\n}\n\n.el-switch.permission_switch {\n    padding-left: 10px !important;\n}\n\n.nav-sidebar .nav-item > .nav-link {\n   margin-bottom: 0px !important;\n}\nh1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {\n  margin-bottom: 0.5rem;\n  font-family: inherit;\n  font-weight: 500;\n  line-height: 1.2;\n  color: inherit;\n  font-family: revert !important;\n  font-weight: 100 !important;\n}\n.brand-link .brand-image {\n    padding: 9px 9px 9px 0 !important;\n}\n[class*=sidebar-dark] .brand-link {\n  border-bottom: none !important;\n  /* background-color: rgb(39 43 45); */\n  /* background-color: rgb(35 35 35); */\n  padding: 29px !important;\n  background-color: transparent !important;\n}\n.elevation-3 {\n     box-shadow: none !important;\n}\n\n.form-label {\n    font-size: 14px;\n    color: #606266;\n    font-weight: 600;\n    padding: 5px 0;\n    display: block;\n}\n\n/* .el-form-item { */\n    /*margin-bottom: 10px !important;*/\n/* } */\n\nspan.modal-label {\n  background-color: rgba(128, 128, 128, 0.07);\n  width: 100%;\n  display: inline-block;\n  padding-left: 14px;\n  border-radius: 3px;\n  border: 1px solid rgba(0, 0, 0, 0.07);\n}\n.el-switch {\n    padding: 20px !important;\n}\n\n.el-date-editor--datetimerange.el-input, .el-date-editor--datetimerange.el-input__inner {\n    width: 460px !important;\n}\n\n.credit-card-form > .field:first-child {\n  display: none !important;\n}\n.credit-card-image {\n  display: none !important;\n}\n\n.credit-card-form:first-child {\n    display: none !important;\n}\n\n.vue-credit-card .card-form-and-image .credit-card-form:first-child {\n  display: none !important;\n}\n\n.el-card.box-card.layout-card.is-always-shadow > .el-card__header{\n  /* border-bottom: 3px solid rgb(63 158 255) !important; */\n  border-bottom: none !important;\n}\n .el-card__header {\n    font-weight: 300;\n    color: rgba(0, 0, 0, 0.47);\n    /*border-bottom: 3px solid rgb(63 158 255) !important;*/\n    padding: 10px 20px 10px !important;\n    /*border-bottom: 1px solid #EBEEF5;*/\n    box-sizing: border-box;\n    height: 55px !important;\n }\n\n.el-card__body {\n    padding: 0px !important;\n}\n.card-content {\n    padding: 20px;\n}\ntr.el-table__row.notadded-row {\n  background: transparent !important;\n}\ntr.el-table__row.error-row {\n  background: #fef0f0 !important;\n  /* border: 5px solid red !important; */\n}\ntr.el-table__row.added-row {\n  background-color: #ecf5ff !important;\n}\n\n.card-footer {\n    padding: 0.75rem 1.25rem;\n    background-color: rgba(0, 0, 0, 0.03);\n    border-top: 1px solid rgba(0, 0, 0, 0.125);\n    border:none !important;\n    background-color: transparent !important\n}\n.el-card.is-always-shadow {\n  box-shadow: none !important;\n}\n.el-card {\n    /* border: 1px solid rgba(0, 0, 0, 0.125) !important; */\n    border: none;\n    background-color: transparent !important\n}\n.search-input-label {\n    display: inline-block;\n    padding-right: 20px;\n}\n.search-input-suffix {\n    display: inline-block;\n    min-width: 400px;\n}\n\n.search-input {\n    width: 60% !important;\n}\n.el-date-editor .el-range-input {\n    width: 50% !important;\n}\n.el-dialog__header {\n    padding: 15px 20px 15px !important;\n    background-color: #3490dc !important;\n\n}\n.el-dialog__title {\n    color: #fff !important;\n}\n\n.el-dialog__headerbtn {\n    top: 15px !important;\n}\n.el-dialog__headerbtn .el-dialog__close {\n    color: #fff !important;\n}\nspan.required_field {\n    color: #F56C6C;\n}\n\n.fade-enter-active,\n.fade-leave-active {\n    transition-duration: 0.3s;\n    transition-property: opacity;\n    transition-timing-function: ease;\n}\n\n.fade-enter,\n.fade-leave-active {\n    opacity: 0\n}\n\n.el-pagination {\n    text-align: center;\n}\n\n\n\n.el-form-item__content {\n  padding-right: 5px !important;\n}\n\n.el-alert.error_message.el-alert--warning.is-light {\n  /*margin-top: 20px;*/\n  border: 1px solid #e2a3a3 !important;\n  background-color: #fef0f0 !important;\n  color: #F56C6C !important;\n}\n\n/* .el-alert.is-light .el-alert__closebtn {\n  color: #F56C6C;\n} */\n\nlabel {\n  margin-bottom: 0px !important;\n}\n\na.nav-link.router-link-exact-active.router-link-active {\n background-color: rgba(255, 255, 255, 0.04);\n}\n\n[class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link:hover, [class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link:focus {\n  background-color: rgba(255, 255, 255, 0.04);\n}\n[class*=sidebar-dark-] {\n    position: fixed !important;\n}\nli.nav-item {\n  cursor: pointer !important;\n}\n\n.status-active {\n  background-color: #f0f9eb !important;\n}\n\n.el-table-filter__bottom button:first-child {\n  background-color: #2594e2 !important;\n  border-radius: 3px;\n  padding: 5px 10px !important;\n  margin-right: 3px !important;\n  color: #fff !important;\n  transition: background-color 100ms linear;\n}\n\n.el-table-filter__bottom button:first-child:hover {\n  background-color: #3ba6f1 !important;\n  border-radius: 3px;\n  padding: 5px 10px !important;\n  margin-right: 3px !important;\n  color: #fff !important;\n}\n.el-table-filter__bottom button:nth-child(2) {\n  background-color: #909399 !important;\n  border-radius: 3px;\n  padding: 5px 10px !important;\n  margin-right: 3px !important;\n  color: #fff !important;\n  transition: background-color 100ms linear;\n}\n\n.el-table-filter__bottom button:nth-child(2):hover {\n  background-color: #adb0b7 !important;\n  border-radius: 3px;\n  padding: 5px 10px !important;\n  margin-right: 3px !important;\n  color: #fff !important;\n\n}\n\n.el-divider__text.is-left {\n  color: #3f9eff;\n  font-weight: 600;\n  font-style: normal;\n}\n/* .el-divider--horizontal { */\n  /* margin-top: 40px !important; */\n/* } */\n\n.logo .logo-mini {\n  visibility: hidden;\n  opacity: 0;\n  transition: visibility 0s, opacity 0.5s linear;\n  margin-left: -30px;\n}\n\n.sidebar-mini.sidebar-collapse .main-sidebar a.logo span.logo-mini {\n  visibility: visible;\n  opacity: 1;\n  margin-left: 10px;\n}\n\n.sidebar-mini.sidebar-collapse .main-sidebar a.logo span.logo-lg {\n  visibility: hidden;\n  opacity: 0;\n  transition: visibility 0s, opacity 0.5s linear;\n}\n\n.sidebar-mini.sidebar-collapse .main-sidebar:hover a.logo span.logo-lg {\n  visibility: visible;\n  opacity: 1;\n}\n\n.sidebar-mini.sidebar-collapse .main-sidebar:hover a.logo span.logo-mini {\n  visibility: hidden;\n  opacity: 0;\n  margin-left: -30px;\n  transition: visibility 0s, opacity 0.5s linear;\n}\n\nspan.logo-lg, span.logo-mini {\n  color: #a5e054;\n}\n\n.mt-2, .my-2 {\n  margin-top: 0px !important;\n}\n\n.table_message_link .el-link--inner {\n  display: inline-block;\n  max-width: 440px;\n  /* display: block; */\n  text-overflow: ellipsis;\n  /* position: relative; */\n  width: 440px;\n  overflow: hidden;\n}\n\n.el-card.box-card.dashboard-card.is-never-shadow  > .el-card__body > .card-content {\n    padding: 0px !important;\n}\n\n.el-collapse-item__header {\n    height: 70px !important;\n    padding: 20px !important;\n}\n\nspan.dashboard-collapse-title {\n    font-size: 1.2rem !important;\n}\n/* login */\n\n\na.nav-link-res {\n    position: absolute;\n    top: 14px;\n    left: 228px;\n    width: 20px;\n}\n/* for Responsive */\n\n\n/* for nav bar avatar */\n.user-image{\n    float: left;\n    width: 25px;\n    height: 25px;\n    border-radius: 50%;\n    margin-right: 10px;\n    margin-top: -2px;\n}\n.object-fit_cover {\n    -o-object-fit: cover;\n       object-fit: cover;\n}\n.img-circle {\n    height: 90px;\n    width: 90px;\n    border: 3px solid;\n    border-radius: 50%;\n}\n\n.v-modal {\n  z-index: 1033 !important;\n}\n\n.main-footer {\n    /* position: absolute; */\n    bottom: 0;\n    /* display: block;\n    width: 100%; */\n    margin-left: 0px;\n    /* position: absolute; */\n    bottom: 0;\n    display: block;\n    width: 100%;\n}\n\n.main-footer strong {\n  margin-left: 250px;\n  font-weight: 200 !important;\n  font-family: inherit !important;\n  transition: margin-left 0.3s ease-in-out;\n}\n\n.sidebar-mini .main-footer{\n  width: 100% !important;\n  margin-left: 0px !important;\n  /* width: -webkit-calc(100% - 250px) !important;\n  width:    -moz-calc(100% - 250px) !important;\n  width:         calc(100% - 250px) !important; */\n}\n\n.sidebar-mini.sidebar-collapse .main-footer strong {\n  font-weight: 200 !important;\n  font-family: inherit !important;\n  margin-left: 72px !important;\n  transition: margin-left 0.3s ease-in-out;\n}\n.sidebar-mini.sidebar-collapse .main-footer {\n  margin-left: 0px !important;\n\n}\n@media (min-width: 992px) {\n  .sidebar-mini.sidebar-collapse .content-wrapper, .sidebar-mini.sidebar-collapse .main-header {\n    margin-left: 72px !important;\n  }\n\n  .sidebar-mini.sidebar-collapse .main-sidebar {\n    margin-left: 0;\n    width: 75px !important;\n  }\n}\n\n@media only screen and (max-width: 768px) {\n    /* -- Dialog / Modal */\n    .el-dialog {\n        width: 100% !important;\n        margin-top: 0vh !important;\n    }\n\n    .el-form-item__content {\n        margin-left: 0px !important;\n    }\n\n    label.el-form-item__label {\n        width: auto !important;\n    }\n\n    /* -- Dialog / Modal */\n    .search-input.el-input.el-input--small.el-input--prefix.el-input--suffix {\n        max-width: 157px !important;\n    }\n\n    .el-range-editor.el-input__inner {\n        /* display: block; */\n        display: inline-block !important;\n        align-items: center;\n        /*padding: 3px 10px;*/\n        width: auto !important;\n        height: auto !important;\n        border: 0px;\n        padding: 0;\n\n    }\n\n    .el-range-editor .el-range-input {\n        /*background-color: red;*/\n        padding: 13px !important;\n        width: 100% !important;\n        border-radius: 5px;\n        border: 1px solid #DCDFE6 !important;\n        text-align: left !important;\n    }\n    .el-date-editor .el-range__icon, .el-date-editor .el-range-separator {\n        display: none;\n    }\n\n    .el-picker-panel {\n        width: 100% !important;\n        left: 0px !important;\n        overflow: scroll !important;\n    }\n\n    .content-margin.el-col.el-col-24 {\n        padding: 0px;\n    }\n\n  \n    .el-popover--plain {\n        width: 100% !important;\n        left: 0px !important;\n        margin-left: 0px !important;\n    }\n    .el-popover{\n        width: 100% !important;\n        left: 0px !important;\n        margin-left: 0px !important;\n    }\n    .popover-message {\n        display: block;\n        max-height: 300px;\n        overflow-x: auto;\n    }\n    .user-image {\n      float: none;\n      margin-right: 0;\n      margin-top: -8px;\n      line-height: 10px;\n    }\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Auth/LoginComponent.vue?vue&type=style&index=0&id=13ef6760&scoped=true&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Auth/LoginComponent.vue?vue&type=style&index=0&id=13ef6760&scoped=true&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.content-wrpper[data-v-13ef6760] {\n   display: block !important;\n   width: 100% !important;\n   height: 100vh !important;\n}\n.remove-padding[data-v-13ef6760] {\n   padding: 0px !important;\n}\n.remove-margin[data-v-13ef6760] {\n   margin: 0px !important;\n}\n.login-wrapper[data-v-13ef6760] {\n   display: inline-flex !important;\n   width: 100% !important;\n   position: relative !important;\n   height: inherit !important  ;\n   \n   background-size: cover;\n}\n.card[data-v-13ef6760] {\n   height: 100% !important;\n   display: inline-block !important;\n   width: 100% !important;\n}\n.card-wrapper[data-v-13ef6760] {\n   padding: 5%;\n   display: inline-block !important;\n   width: 100%;\n   /* display: table-cell; */\n   vertical-align: middle !important;\n   position: inherit !important;\n   top: 50% !important;\n   transform: translateY(-50%) !important;\n   -ms-transform: translateY(-50%) !important;\n   -moz-transform: translateY(-50%) !important;\n   -webkit-transform: translateY(-50%) !important;\n   -o-transform: translateY(-50%) !important;\n}\n", ""]);
 
 // exports
 
@@ -100951,6 +100990,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Auth/LoginComponent.vue?vue&type=style&index=0&id=13ef6760&scoped=true&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Auth/LoginComponent.vue?vue&type=style&index=0&id=13ef6760&scoped=true&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./LoginComponent.vue?vue&type=style&index=0&id=13ef6760&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Auth/LoginComponent.vue?vue&type=style&index=0&id=13ef6760&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/lib/addStyles.js":
 /*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
@@ -101687,10 +101756,10 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Auth/LoginComponent.vue?vue&type=template&id=13ef6760&":
-/*!**********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Auth/LoginComponent.vue?vue&type=template&id=13ef6760& ***!
-  \**********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Auth/LoginComponent.vue?vue&type=template&id=13ef6760&scoped=true&":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Auth/LoginComponent.vue?vue&type=template&id=13ef6760&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -101702,86 +101771,99 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-8" }, [
-        _c(
-          "div",
-          { staticClass: "card" },
-          [
+  return _c("div", { staticClass: "content-wrpper" }, [
+    _c(
+      "div",
+      {
+        staticClass:
+          "row justify-content-end remove-padding remove-margin login-wrapper",
+        staticStyle: {
+          "background-image":
+            "url('../../img/bg.svg?v=1620469277'), linear-gradient( 141deg, #1781d0 0%, #1f81b6 51%, #2d7cb0 100%) !important",
+        },
+      },
+      [
+        _c("div", { staticClass: "col-md-5 remove-padding" }, [
+          _c("div", { staticClass: "card" }, [
             _c(
-              "el-form",
-              {
-                ref: "form",
-                attrs: { model: _vm.form, "label-width": "120px" },
-              },
+              "div",
+              { staticClass: "card-wrapper" },
               [
                 _c(
-                  "el-form-item",
-                  { attrs: { label: "Email" } },
+                  "el-form",
+                  {
+                    ref: "form",
+                    attrs: { model: _vm.form, "label-width": "120px" },
+                  },
                   [
-                    _c("el-input", {
-                      model: {
-                        value: _vm.form.email,
-                        callback: function ($$v) {
-                          _vm.$set(_vm.form, "email", $$v)
-                        },
-                        expression: "form.email",
-                      },
-                    }),
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "el-form-item",
-                  { attrs: { label: "Password" } },
-                  [
-                    _c("el-input", {
-                      model: {
-                        value: _vm.form.password,
-                        callback: function ($$v) {
-                          _vm.$set(_vm.form, "password", $$v)
-                        },
-                        expression: "form.password",
-                      },
-                    }),
+                    _c(
+                      "el-form-item",
+                      { attrs: { label: "" } },
+                      [
+                        _c("i", { staticClass: "far fa-envelope" }),
+                        _vm._v(" "),
+                        _c("el-input", {
+                          attrs: { clearable: "" },
+                          model: {
+                            value: _vm.form.email,
+                            callback: function ($$v) {
+                              _vm.$set(_vm.form, "email", $$v)
+                            },
+                            expression: "form.email",
+                          },
+                        }),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "el-form-item",
+                      { attrs: { label: "" } },
+                      [
+                        _c("i", { staticClass: "fas fa-lock" }),
+                        _vm._v(" "),
+                        _c("el-input", {
+                          attrs: { clearable: "", "show-password": "" },
+                          model: {
+                            value: _vm.form.password,
+                            callback: function ($$v) {
+                              _vm.$set(_vm.form, "password", $$v)
+                            },
+                            expression: "form.password",
+                          },
+                        }),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "el-form-item",
+                      [
+                        _c(
+                          "el-button",
+                          {
+                            attrs: { type: "primary" },
+                            on: {
+                              click: function ($event) {
+                                return _vm.handleSubmit()
+                              },
+                            },
+                          },
+                          [_vm._v("Signin")]
+                        ),
+                      ],
+                      1
+                    ),
                   ],
                   1
                 ),
               ],
               1
             ),
-            _vm._v(" "),
-            _c(
-              "el-button",
-              {
-                attrs: { type: "primary" },
-                on: {
-                  click: function ($event) {
-                    return _vm.handleSubmit()
-                  },
-                },
-              },
-              [_vm._v("signin")]
-            ),
-            _vm._v(" "),
-            _c(
-              "el-button",
-              {
-                on: {
-                  click: function ($event) {
-                    return _vm.removeToken()
-                  },
-                },
-              },
-              [_vm._v("Cancel")]
-            ),
-          ],
-          1
-        ),
-      ]),
-    ]),
+          ]),
+        ]),
+      ]
+    ),
   ])
 }
 var staticRenderFns = []
@@ -101888,7 +101970,7 @@ var render = function () {
                         staticClass:
                           "menu-list grid d-flex flex-wrap border rounded mx-auto",
                       },
-                      _vm._l(_vm.routes, function (route, i) {
+                      _vm._l(_vm.filtered_routes, function (route, i) {
                         return _c(
                           "li",
                           {
@@ -119350,9 +119432,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _LoginComponent_vue_vue_type_template_id_13ef6760___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LoginComponent.vue?vue&type=template&id=13ef6760& */ "./resources/js/components/Auth/LoginComponent.vue?vue&type=template&id=13ef6760&");
+/* harmony import */ var _LoginComponent_vue_vue_type_template_id_13ef6760_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LoginComponent.vue?vue&type=template&id=13ef6760&scoped=true& */ "./resources/js/components/Auth/LoginComponent.vue?vue&type=template&id=13ef6760&scoped=true&");
 /* harmony import */ var _LoginComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LoginComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/Auth/LoginComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _LoginComponent_vue_vue_type_style_index_0_id_13ef6760_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./LoginComponent.vue?vue&type=style&index=0&id=13ef6760&scoped=true&lang=css& */ "./resources/js/components/Auth/LoginComponent.vue?vue&type=style&index=0&id=13ef6760&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -119360,13 +119444,13 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _LoginComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _LoginComponent_vue_vue_type_template_id_13ef6760___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _LoginComponent_vue_vue_type_template_id_13ef6760___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _LoginComponent_vue_vue_type_template_id_13ef6760_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _LoginComponent_vue_vue_type_template_id_13ef6760_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  null,
+  "13ef6760",
   null
   
 )
@@ -119392,19 +119476,35 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/Auth/LoginComponent.vue?vue&type=template&id=13ef6760&":
-/*!****************************************************************************************!*\
-  !*** ./resources/js/components/Auth/LoginComponent.vue?vue&type=template&id=13ef6760& ***!
-  \****************************************************************************************/
+/***/ "./resources/js/components/Auth/LoginComponent.vue?vue&type=style&index=0&id=13ef6760&scoped=true&lang=css&":
+/*!******************************************************************************************************************!*\
+  !*** ./resources/js/components/Auth/LoginComponent.vue?vue&type=style&index=0&id=13ef6760&scoped=true&lang=css& ***!
+  \******************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginComponent_vue_vue_type_style_index_0_id_13ef6760_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./LoginComponent.vue?vue&type=style&index=0&id=13ef6760&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Auth/LoginComponent.vue?vue&type=style&index=0&id=13ef6760&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginComponent_vue_vue_type_style_index_0_id_13ef6760_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginComponent_vue_vue_type_style_index_0_id_13ef6760_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginComponent_vue_vue_type_style_index_0_id_13ef6760_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginComponent_vue_vue_type_style_index_0_id_13ef6760_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Auth/LoginComponent.vue?vue&type=template&id=13ef6760&scoped=true&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/components/Auth/LoginComponent.vue?vue&type=template&id=13ef6760&scoped=true& ***!
+  \****************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginComponent_vue_vue_type_template_id_13ef6760___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./LoginComponent.vue?vue&type=template&id=13ef6760& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Auth/LoginComponent.vue?vue&type=template&id=13ef6760&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginComponent_vue_vue_type_template_id_13ef6760___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginComponent_vue_vue_type_template_id_13ef6760_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./LoginComponent.vue?vue&type=template&id=13ef6760&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Auth/LoginComponent.vue?vue&type=template&id=13ef6760&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginComponent_vue_vue_type_template_id_13ef6760_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginComponent_vue_vue_type_template_id_13ef6760___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginComponent_vue_vue_type_template_id_13ef6760_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -119951,7 +120051,7 @@ var routes = [{
   name: 'Dashboard',
   group: 'default',
   icon: '',
-  type: 'page',
+  type: 'dashboard',
   key: ''
 }, {
   path: '/course-management/all-courses',
@@ -119970,7 +120070,7 @@ var routes = [{
   name: 'Chapters',
   group: 'chapter-management',
   icon: '<i class="fas fa-layer-group"></i>',
-  type: 'child',
+  type: 'page',
   key: 'maintenance_schedule_view',
   meta: {
     permission: 'maintenance_schedule.view'
@@ -119992,7 +120092,7 @@ var routes = [{
   name: 'Quizzes',
   group: 'quizzes',
   icon: '<i class="fas fa-project-diagram"></i>',
-  type: 'child',
+  type: 'page',
   key: 'fe_phone_sales',
   meta: {
     permission: 'fe_phone_sales'
@@ -120004,7 +120104,7 @@ var routes = [{
   is_title: true,
   group: 'quizzes',
   icon: '<i class="fas fa-podcast"></i>',
-  type: 'child',
+  type: 'page',
   key: 'everwebinar_page_view',
   meta: {
     permission: 'everwebinar_page.view'
@@ -120028,7 +120128,7 @@ var routes = [{
   is_title: true,
   group: 'authors',
   icon: '<i class="far fa-address-card"></i>',
-  type: 'child',
+  type: 'page',
   key: 'customer_lookup_view',
   meta: {
     permission: 'customer_lookup.view'
@@ -120040,7 +120140,7 @@ var routes = [{
   is_title: true,
   group: 'user-management',
   icon: '<i class="fas fa-user"></i>',
-  type: 'child',
+  type: 'page',
   key: 'user_account_view',
   meta: {
     permission: 'user_account.view'
