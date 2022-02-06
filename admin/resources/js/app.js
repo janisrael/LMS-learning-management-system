@@ -8,26 +8,41 @@ import store from './store'
 import Vue from 'vue';
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+// import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import VueRouter from 'vue-router'
-
+import VueProgressBar from 'vue-progressbar'
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import '../../resources/styles/theme.css';
 import '../../resources/styles/lms_theme.css';
 import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+// import 'bootstrap-vue/dist/bootstrap-vue.css'
 import locale from 'element-ui/lib/locale/lang/en' // lang i18n
-// import Cookies from 'js-cookie'
+import VuePageTransition from 'vue-page-transition'
 import Vuex from 'vuex'
 import { routes } from './router/index';
 import axios from 'axios'
 require('./bootstrap');
 require('admin-lte');
+
+const options = {
+  color: '#bffaf3',
+  failedColor: '#874b4b',
+  thickness: '5px',
+  transition: {
+    speed: '0.2s',
+    opacity: '0.6s',
+    termination: 300
+  },
+  autoRevert: true,
+  location: 'left',
+  inverse: false
+}
+
 Vue.use(Vuex)
-
+Vue.use(VueProgressBar, options)
 Vue.prototype.$routers = routes
-
+Vue.use(VuePageTransition)
 window.Vue = require('vue');
 
 /**
@@ -42,8 +57,6 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 // Vue.use(Cookies)
 Vue.use(VueRouter)
-Vue.use(BootstrapVue)
-Vue.use(IconsPlugin)
 Vue.use(ElementUI, { locale })
 
 const router = new VueRouter({
