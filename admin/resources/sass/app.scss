@@ -1,0 +1,26 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700');
+
+// Variables
+@import 'variables';
+
+// Fontawesome
+@import '@fortawesome/fontawesome-free/scss/fontawesome';
+@import '@fortawesome/fontawesome-free/scss/regular';
+@import '@fortawesome/fontawesome-free/scss/solid';
+
+// Bootstrap
+// @import '~bootstrap/scss/bootstrap';
+
+// DataTable
+@import 'datatables.net-bs4/css/dataTables.bootstrap4.min';
+@import 'datatables.net-responsive-bs4/css/responsive.bootstrap4.min';
+
+// Daterangepicker
+@import 'daterangepicker';
+
+// iCheck
+@import 'icheck-bootstrap';
+
+// App Theme
+@import 'admin-lte';
