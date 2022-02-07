@@ -6,7 +6,7 @@ use App\Repositories\CourseRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Validator\CourseValidator;
 use App\Models\Course;
-use App\Models\CourseDetails;
+use App\Models\CourseDetail;
 use Illuminate\Support\Str;
 
 use Illuminate\Support\Facades\Auth;
@@ -68,6 +68,7 @@ class CourseController extends Controller
         }
         $data['course_id'] = $course_id;
         $data['created_by'] = 1;
+        $data['author_id'] = 1;
         
         $validated = $this->validate($data, $this->validator->rules($data), $this->validator->getMessages());
 
@@ -79,7 +80,10 @@ class CourseController extends Controller
             ];
             return $message;
         }
-        $subs_collection = $request->subs_list;
+
+        $subs_collection = [1,2];
+
+        // dd($subs_collection);
         if (!$subs_collection) {
             $err = [];
             array_push($err, 'No Subscription selected');
@@ -97,7 +101,7 @@ class CourseController extends Controller
         DB::transaction(function () use ($data, $subs_collection) {
             $newData = $this->model->create($data);
             foreach($subs_collection as $item => $value){
-                $subscriptions = new CourseDetails;
+                $subscriptions = new CourseDetail;
                 $subscriptions->course_id = $newData->id;;
                 $subscriptions->subscription_id = $value;
                 $subscriptions->created_by = 1;

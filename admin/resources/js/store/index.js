@@ -90,12 +90,13 @@ const store = new Vuex.Store({
         commit('SET_LOGOUT_COMPONENT', 'LoginComponent')
       })
     },
-    async handleCheckState({ commit }, value) {
+    async handleCheckState({ commit , dispatch }, value) {
       // let res = await axios.post('logout').then(response => {
       // localStorage.removeItem('user_token');
       let mytoken = localStorage.getItem('user_token')
       commit('SET_TOKEN', mytoken)
       commit('SET_LOGOUT_COMPONENT', 'MainWrapperComponent')
+      dispatch('attempt', mytoken)
       // })
     },
     async GetCourses({ commit, state }, value) {
@@ -154,19 +155,16 @@ const store = new Vuex.Store({
       })
     },
     AddCourse({ commit, state }, value) {
+      console.log(localStorage.getItem('user_token'),'aksdhkajsd')
       return new Promise((resolve, reject) => {
-        axios.post('/api/v1/courses', {
+        axios.post('/api/v1/courses', value, {
           headers: {
-            'Authorization': 'Bearer ' + state.token
-          },
-          params: value
+            'Authorization': 'Bearer ' + localStorage.getItem('user_token'),
+            'Accept': '*/*'
+          }
+          
         }).then(response => {
           commit('Add_COURSE', response.data.data)
-          this.$notify({
-            title: 'Success',
-            message: 'New Course Successfuly Added',
-            type: 'success'
-          });
           resolve(response)
         }).catch(error => {
           reject(error)

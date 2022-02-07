@@ -304,7 +304,15 @@ export default {
       }
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          
           this.$store.dispatch('AddCourse', this.form)
+          this.$notify({
+            title: 'Success',
+            message: 'New Course Successfuly Added',
+            type: 'success'
+          });
+
+          this.resetForm(formName)
         // let url = 'api/v1/courses'
         //  this.form.subs_list = this.subs_list
         //   axios.post(url, this.form).then(res => {
