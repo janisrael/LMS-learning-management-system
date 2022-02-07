@@ -13,7 +13,22 @@ import ContentComponent from './ContentComponent'
     components: {
       AsideComponent,
       ContentComponent
-    }
+    },
+    data() {
+      return {
+        loading: false,
+  
+      }
+    },
+    computed: {
+
+    },
+    created () {
+
+    },
+    methods: {
+     
+    },
   }
 </script>
 

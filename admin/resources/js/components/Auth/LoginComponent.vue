@@ -2,7 +2,7 @@
   <div class="content-wrpper">
     <div class="row justify-content-end remove-padding remove-margin login-wrapper" style="background-image: url('../../img/bg.svg?v=1620469277'), linear-gradient( 141deg, #1781d0 0%, #1f81b6 51%, #2d7cb0 100%) !important;">
         <div class="col-md-5 remove-padding">
-            <div class="card">
+            <div class="card" style="border-radius: 0px !important;">
               <div class="card-wrapper">
               <el-form ref="form" :model="form" label-width="120px">
                 <el-form-item label="">

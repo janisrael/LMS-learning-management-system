@@ -25,3 +25,17 @@ Route::prefix('/user')->group( function() {
     Route::middleware('auth:api')->get('/auth', 'api\v1\UserContoller@index')->name('auth');
     
 });
+Route::group(['middleware'=>'auth:api'], function(){
+    Route::group(['prefix' => 'courses','namespace'=>'api\v1'], function () {
+        Route::get('/', 'CourseController@index');
+        Route::post('/', 'CourseController@store');
+        Route::put('edit/{id}', 'CourseController@update');
+        Route::get('delete/{id}', 'CourseController@destroy');
+    });
+});
+// Route::prefix(['/courses' => 'api/v1/' => 'namespace'])->group( function() {
+//     Route::get('/', 'CourseController@index');
+//     Route::post('/', 'CourseController@store');
+//     Route::put('edit/{id}', 'CourseController@update');
+//     Route::get('delete/{id}', 'CourseController@destroy');
+// });

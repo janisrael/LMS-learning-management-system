@@ -22,3 +22,6 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+
+/resources/styles/theme.css
+/resources/styles/lms_theme.css

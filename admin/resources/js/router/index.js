@@ -79,7 +79,7 @@ export const routes = [
   {
       path:'/quiz-management/all-questions',
       // component:ViewQuestionComponent,
-      name: 'All Questions',
+      name: 'Questions',
       is_title: true,
       group: 'quizzes',
       icon: '<i class="fas fa-podcast"></i>',
@@ -106,7 +106,7 @@ export const routes = [
   {
       path:'/authors/all-authors',
       // component:ViewAuthorComponent,
-      name: 'All Authors',
+      name: 'Authors',
       is_title: true,
       group: 'authors',
       icon: '<i class="far fa-address-card"></i>',

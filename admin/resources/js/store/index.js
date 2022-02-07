@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from './auth'
-import { attempt } from 'lodash'
+// import { attempt } from 'lodash'
 
 Vue.use(Vuex)
 
@@ -10,7 +10,12 @@ const store = new Vuex.Store({
       token: '',
       user: '',
       login_in_state: false,
-      v_component_name: ''
+      v_component_name: '',
+      v_courses: [],
+      v_chapters: [],
+      v_lessons: [],
+      v_component_name: '',
+      v_component_state: false
     },
     mutations: {
       SET_TOKEN: (state, token) => {
@@ -24,6 +29,15 @@ const store = new Vuex.Store({
       },
       SET_LOGOUT_COMPONENT: (state, component) => {
         state.v_component_name = component
+      },
+      GET_COURSES: (state, authors) => {
+        state.v_courses = authors
+      },
+      GET_COMPONENT_NAME: (state, name) => {
+        state.v_component_name = name
+      },
+      GET_COMPONENT_STATE: (state, value) => {
+          state.v_component_state = value
       }
     },
     actions: {
@@ -32,7 +46,7 @@ const store = new Vuex.Store({
         let new_token = response.data.access_token   
         dispatch('attempt', new_token)
       },
-      async attempt({commit}, new_token) {
+      async attempt({commit, dispatch}, new_token) {
         commit('SET_TOKEN', new_token)
         let stored_token = ''
         if(localStorage.getItem("user_token") === null) {
@@ -40,7 +54,6 @@ const store = new Vuex.Store({
         } else {
           stored_token = localStorage.user_token
         }
-        console.log(stored_token)
         let res = await axios.get('api/v1/user/auth', {
           headers: {
             'Authorization': 'Bearer ' + stored_token
@@ -48,7 +61,7 @@ const store = new Vuex.Store({
         })
         .then(response => {
           localStorage.setItem('user_token', stored_token)
-          localStorage.setItem('key', 123)
+          dispatch('GetCourses', stored_token)
           commit('SET_USER', response.data)
           commit('SET_LOGIN_STATE', true)
           commit('SET_LOGOUT_COMPONENT', 'MainWrapperComponent')
@@ -61,13 +74,41 @@ const store = new Vuex.Store({
           localStorage.removeItem('user_token');
           commit('SET_LOGOUT_COMPONENT', 'LoginComponent')    
         })
+      },
+      async GetCourses({commit, state}, value) {
+        return new Promise((resolve, reject) => {
+           axios.get('/api/v1/courses', {
+              headers: {
+                'Authorization': 'Bearer ' + value
+              },
+              params: {
+                  term: '',
+                  author_id: 1
+              }
+            }).then(response => {
+                commit('GET_COURSES', response.data.course)
+                resolve(response)
+            }).catch(error => {
+                reject(error)
+            })
+        })
+      },
+      GetComponentName({commit, state}, value) {
+        console.log(value,'GET_COMPONENT_NAME')
+        return commit('GET_COMPONENT_NAME', value)
+      },
+      GetComponmentState({commit, state}, value) {
+          return commit('GET_COMPONENT_STATE', value)
       }
     },
     getters: {
       this_token: state => state.token,
       this_user: state => state.user,
       this_login_state: state => state.login_in_state,
-      this_component_name: state => state.v_component_name
+      this_component_name: state => state.v_component_name,
+      allCourses: state => state.v_courses,
+      componentName: state => state.v_component_name,
+      componentState: state => state.v_component_state
     },
     modules: {
       // dataStore

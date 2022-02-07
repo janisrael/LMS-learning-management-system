@@ -1,6 +1,6 @@
 <template>
 <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="display: block;">
     <!-- Left navbar links -->
 
     <ul class="navbar-nav">
@@ -15,6 +15,19 @@
       <!-- <span style="font-size: 14px;color: #3031336e;font-weight: 200; padding-left: 5px;">  /  {{ this_componentName }} </span> -->
 
     <!-- Right navbar links -->
+    
+    <div class="navbar-right-wrapper">
+      <i class="fas fa-bell"></i>
+      <el-popover
+        placement="bottom"
+        width="400"
+        trigger="click">
+           <div class="md-layout-item md-medium-size-100 md-size-33">
+             <div class="md-card md-card-profile md-theme-default"><div class="md-card-avatar"><img src="https://demos.creative-tim.com/vue-material-dashboard-pro/img/faces/marc.jpg" class="img"></div><div class="md-card-content"><h6 class="category text-gray">CEO / Co-Founder</h6><h4 class="card-title">Alec Thompson</h4><p class="card-description"> Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is... </p><button type="button" class="md-button md-round md-theme-default md-success"><div class="md-ripple"><div class="md-button-content">Follow</div> </div></button></div></div>
+          </div>
+        <el-button slot="reference" size="mini"><i class="fas fa-user"></i> Jan</el-button>
+      </el-popover>
+    </div>
     <ul class="navbar-nav ml-auto">
       
       <!-- Notifications Dropdown Menu -->
@@ -112,5 +125,11 @@
     font-size: 14px;
     color: #3031336e;
     font-weight: 200;
+}
+.navbar-right-wrapper {
+  display: inline-block;
+  float: right;
+  padding: 10px;
+  position: relative;
 }
 </style>
