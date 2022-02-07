@@ -20,7 +20,6 @@ class CourseController extends Controller
 
     public function __construct(Course $model, CourseValidator $validator)
     {
-        // $this->middleware('client');
         $this->model = $model;
         $this->validator = $validator;
         $this->repository = new CourseRepository($model);

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Chapter;
-use App\Models\Authors;
+use App\Models\Author;
 use App\Models\CourseDetails;
 use Illuminate\Support\Facades\Storage;
 
@@ -85,7 +85,7 @@ class Course extends Model
 
     public function authors()
     {
-        return $this->hasOne(Authors::class, 'id','author_id');
+        return $this->hasOne(Author::class, 'id','author_id');
     }
 
     public function getAuthorsAttribute(){
