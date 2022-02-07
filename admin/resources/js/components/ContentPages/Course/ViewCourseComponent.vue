@@ -17,7 +17,7 @@
                 </el-select>
                 <el-button slot="append" icon="el-icon-search" @click="getRecords('1')"></el-button>
               </el-input>
-              <el-button type="success" size="mini" @click="handleAdd()" style="float:right"><i class="el-icon-plus"></i> New Course</el-button>
+              <!-- <el-button type="success" size="mini" @click="handleAdd()" style="float:right"><i class="el-icon-plus"></i> New Course</el-button> -->
             </el-col>
           </div>
         </div>

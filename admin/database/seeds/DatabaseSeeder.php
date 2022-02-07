@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+// use Illuminate\Database\seeds\SubscriptionProductSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
+            SubscriptionProductSeeder:: class
             // PostSeeder::class,
             // CommentSeeder::class,
         ]);

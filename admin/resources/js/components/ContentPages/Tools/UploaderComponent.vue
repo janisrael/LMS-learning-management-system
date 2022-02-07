@@ -1,7 +1,7 @@
 <template>
   <div >
     <el-col :span="24">
-      <el-upload
+      <!-- <el-upload
         v-if="!avatar"
         id="customUploader"
         ref="upload"
@@ -20,7 +20,7 @@
         <i class="el-icon-upload" />
         <div class="el-upload__text">Drop file here or <em>click to upload</em></div>
         <div slot="tip" class="el-upload__tip">pdf files with a size less than 3mb</div>
-      </el-upload>
+      </el-upload> -->
       <el-upload
         v-if="avatar"
         ref="upload"
@@ -50,13 +50,6 @@
               >
                 <i class="el-icon-zoom-in"></i>
               </span>
-              <!-- <span
-                v-if="!disabled"
-                class="el-upload-list__item-delete"
-                @click="handleEditFile(file)"
-              >
-                <i slot="default" class="el-icon-plus"></i>
-              </span> -->
               <span
                 v-if="!disabled"
                 class="el-upload-list__item-delete"
@@ -71,6 +64,7 @@
       <el-dialog :visible.sync="dialogVisible">
         <img width="100%" :src="dialogImageUrl" alt="">
       </el-dialog>
+      
     </el-col>
   </div>
 </template>
@@ -202,3 +196,6 @@ export default {
   }
 }
 </script>
+<style scoped>
+
+</style>

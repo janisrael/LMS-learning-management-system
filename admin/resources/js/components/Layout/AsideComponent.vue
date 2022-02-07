@@ -8,17 +8,17 @@
       <a href="/" class="brand-link logo">
         <span class="logo-mini" @click="assignRoute('Dashboard')"><b>S</b>C2</span>
         <span class="logo-lg" @click="assignRoute('Dashboard')">
-          <span class="brand-text font-weight-light"><span style="font-weight: 600; padding-left: 5px; rgb(140 208 255) !important;">E</span><span>LEARNING</span>
-          <span style="color: #03558f !important;
-          font-size: 14px !important;
-          font-weight: 500 !important;">ADMIN</span></span>
+        <span class="brand-text font-weight-light">
+          <span class="logo-name-first">E</span>
+          <span class="logo-name-second">LEARNING</span>
+          <span class="logo-name-third">ADMIN</span></span>
         </span>
       </a>
 <!-- {{ routes }} -->
       <transition name="fade" >
         <div v-if="show" class="flex-grow-1" style="flex-grow: 1 !important;">
             <ul class="menu-list grid d-flex flex-wrap border rounded mx-auto">
-                <li v-for="(route, i) in filtered_routes" :key="i" @click="assignRoute(route.name)">
+                <li v-for="(route, i) in filtered_routes" :key="i" @click="assignRoute(route.name)" class="menu-li" >
                   <a class="m-link" :to="route.path" :href="'#' + route.path">
                     <span v-html="route.icon"></span>
                     <span>{{ route.name }}</span>

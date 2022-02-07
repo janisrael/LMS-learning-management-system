@@ -2,70 +2,74 @@
   <el-col :span="24">
 <!--    <el-col :span="24" class="page-content-title">Maintenance Management - Schedule List</el-col>-->
     <el-col ref="contentMargin" :span="24" class="content-margin">
-      {{ contentHeight }}
+      <!-- {{ contentHeight }} -->
       <el-card class="box-card layout-card">
-        <div slot="header" class="clearfix">
+        <!-- <div slot="header" class="clearfix">
           <div class="search-input-suffix" style="width: 100%">
             <el-col :span="24">
               <span class="search-input-label">Create New Course</span>
-              <!-- <el-button type="success" size="mini" @click="handleAdd()" style="float:right"><i class="el-icon-plus"></i> Create</el-button> -->
+            
             </el-col>
           </div>
-        </div>
+        </div> -->
         <div class="card-content">
           <template>
             <el-form ref="form" :model="form" :rules="rules" class="demo-ruleForm" label-width="200px">
-                <el-form-item label="Course Name" prop="name">
-                   <el-input ref="courseName" type="textarea" v-model="form.name"></el-input>
-                </el-form-item>
-                <el-form-item label="Subscription Products" label-width="200px">
-                  <!-- {{ form.subscriptions }} -->
-                  <el-select ref="subsList" v-model="subs_list" filterable multiple placeholder="please select products" style="width: 100%;">
-                    <el-option v-for="subs in this_subscriptions" :key="subs.id" :label="subs.name" :value="subs.id">
-                    </el-option>
-                  </el-select>
-                </el-form-item>
-                <el-form-item label="Description" prop="description">
-                   <el-input  ref="courseDesc" type="textarea" v-model="form.description"></el-input>
-                </el-form-item>
-                <el-form-item label="Status">
-                    <el-switch v-model="form.is_active"></el-switch>
-                    <span style="width: 91%; display: inline-block;"> 
-                        <el-alert
-                            title="Status of the Course, Can turn Active or Inactive"
-                            type="info">
-                        </el-alert>
-                    </span>
-                </el-form-item>
-                <el-form-item label="Live Event">
-                    <el-switch v-model="form.is_live"></el-switch>
-                    <span style="width: 91%; display: inline-block;"> 
-                        <el-alert
-                            title="Turn on to make course as Live Event"
-                            type="info">
-                        </el-alert>
-                    </span>
-                </el-form-item>
+              <el-col :span="24">
+                <el-col :span="16">
+                  <el-form-item label="Course Name" prop="name">
+                    <el-input ref="courseName" type="textarea" v-model="form.name" size="mini"></el-input>
+                  </el-form-item>
+                  <el-form-item label="Subscription Products" label-width="200px">
 
-                <el-form-item label="Global Gallery">
-                    <el-switch v-model="form.is_global"></el-switch> 
-                    <span style="width: 91%; display: inline-block;"> 
-                        <el-alert
-                            title="Turn on to add course to Global Gallery"
-                            type="info">
-                        </el-alert>
-                    </span>
-                </el-form-item>
-                <el-form-item label="Featured">
-                    <el-switch v-model="form.is_featured"></el-switch>
-                    <span style="width: 91%; display: inline-block;"> 
-                        <el-alert
-                            title="Turn on to add course to Global Gallery"
-                            type="info">
-                        </el-alert>
-                    </span>
-                </el-form-item>
-                 <el-form-item label="Course Preview">
+                    <el-select ref="subsList" v-model="subs_list" filterable multiple placeholder="please select products" style="width: 100%;">
+                      <el-option v-for="subs in this_subscriptions" :key="subs.id" :label="subs.name" :value="subs.id" size="mini">
+                      </el-option>
+                    </el-select>
+                  </el-form-item>
+                  <el-form-item label="Description" prop="description">
+                    <el-input  ref="courseDesc" type="textarea" v-model="form.description" size="mini"></el-input>
+                  </el-form-item>
+                  <el-form-item label="Status">
+                      <el-switch v-model="form.is_active" size="mini"></el-switch>
+                      <span style="width: 80%; display: inline-block;"> 
+                          <el-alert
+                              title="Status of the Course, Can turn Active or Inactive"
+                              type="info">
+                          </el-alert>
+                      </span>
+                  </el-form-item>
+                  <el-form-item label="Live Event">
+                      <el-switch v-model="form.is_live" size="mini"></el-switch>
+                      <span style="width: 80%; display: inline-block;"> 
+                          <el-alert
+                              title="Turn on to make course as Live Event"
+                              type="info">
+                          </el-alert>
+                      </span>
+                  </el-form-item>
+
+                  <el-form-item label="Global Gallery">
+                      <el-switch v-model="form.is_global" size="mini"></el-switch> 
+                      <span style="width: 80%; display: inline-block;"> 
+                          <el-alert
+                              title="Turn on to add course to Global Gallery"
+                              type="info">
+                          </el-alert>
+                      </span>
+                  </el-form-item>
+                  <el-form-item label="Featured">
+                      <el-switch v-model="form.is_featured" size="mini"></el-switch>
+                      <span style="width: 80%; display: inline-block;"> 
+                          <el-alert
+                              title="Turn on to add course to Global Gallery"
+                              type="info">
+                          </el-alert>
+                      </span>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item label="" label-width="80px">
                     <div v-if="action === 'create'">
                         <div class="edit-preview-on preview-show" style="display: inline-block;">
                           <uploader-component 
@@ -110,22 +114,22 @@
                       </div>
                     </div>
                     <span v-if="form.course_image_url">{{ form.course_image_url }}</span>
-                </el-form-item>
-                <el-row>
-                    <el-col :span="24">
-                        <el-form-item style="float:right;">
-                            <el-button type="primary" @click="handleAddCourse('form')">
-                              <span v-if="action === 'create'">
-                                Create
-                              </span>
-                              <span v-if="action === 'edit'">
-                                Save
-                              </span>
-                            </el-button>
-                            <el-button @click="handleCancel()">Close</el-button>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
+                  </el-form-item>
+                </el-col>
+              </el-col>
+              <el-col :span="24">
+                  <el-form-item style="float:right;">
+                      <el-button type="primary" @click="handleAddCourse('form')">
+                        <span v-if="action === 'create'">
+                          Create
+                        </span>
+                        <span v-if="action === 'edit'">
+                          Save
+                        </span>
+                      </el-button>
+                      <el-button @click="handleCancel()">Cancel</el-button>
+                  </el-form-item>
+              </el-col>
               </el-form>
           </template>
         </div>
@@ -195,14 +199,14 @@ export default {
     this.loading = true
     // this.getSubscriptions()
           // console.log(this.$refs.contentMargin.clientHeight. asdasd)
-    this.$store.dispatch('GetComponentName','New Course')
+    // this.$store.dispatch('GetComponentName')
     if(this.action !== 'create') {
       this.populate()
     }
   },
   computed: {
     this_subscriptions() {
-      return this.$store.getters.componentName
+      return this.$store.getters.allSubscriptions
     }
   },
   mounted () {

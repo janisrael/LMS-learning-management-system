@@ -14,6 +14,8 @@ const store = new Vuex.Store({
       v_courses: [],
       v_chapters: [],
       v_lessons: [],
+      v_authors: [],
+      v_subscriptions: [],
       v_component_name: '',
       v_component_state: false
     },
@@ -38,7 +40,13 @@ const store = new Vuex.Store({
       },
       GET_COMPONENT_STATE: (state, value) => {
           state.v_component_state = value
-      }
+      },
+      GET_AUTHORS: (state, authors) => {
+        state.v_authors = authors
+      },
+      GET_SUBSCRIPTIONS: (state, subscriptions) => {
+        state.v_subscriptions = subscriptions
+     },
     },
     actions: {
       async signIn({ dispatch}, credentials) {
@@ -62,6 +70,8 @@ const store = new Vuex.Store({
         .then(response => {
           localStorage.setItem('user_token', stored_token)
           dispatch('GetCourses', stored_token)
+          dispatch('GetAuthors', stored_token)
+          dispatch('GetSubscriptions', stored_token)
           commit('SET_USER', response.data)
           commit('SET_LOGIN_STATE', true)
           commit('SET_LOGOUT_COMPONENT', 'MainWrapperComponent')
@@ -99,7 +109,37 @@ const store = new Vuex.Store({
       },
       GetComponmentState({commit, state}, value) {
           return commit('GET_COMPONENT_STATE', value)
-      }
+      },
+      GetAuthors({commit, state}, value) {
+        return new Promise((resolve, reject) => {
+            var AjaxUrl = "/api/v1/authors";
+            axios.get(AjaxUrl, {
+              headers: {
+                'Authorization': 'Bearer ' + value
+              },
+            })
+                .then(response => {
+                    commit('GET_AUTHORS', response.data.authors)
+                    resolve(response)
+                }).catch(error => {
+                reject(error)
+            })
+        })
+      },
+      GetSubscriptions({commit, state}, value) {
+        return new Promise((resolve, reject) => {
+           axios.get('/api/v1/subscriptions', {
+            headers: {
+              'Authorization': 'Bearer ' + value
+            },
+           }).then(response => {
+                commit('GET_SUBSCRIPTIONS', response.data.subscription_product)
+                resolve(response)
+            }).catch(error => {
+                reject(error)
+            })
+        })
+      },
     },
     getters: {
       this_token: state => state.token,
@@ -108,7 +148,9 @@ const store = new Vuex.Store({
       this_component_name: state => state.v_component_name,
       allCourses: state => state.v_courses,
       componentName: state => state.v_component_name,
-      componentState: state => state.v_component_state
+      componentState: state => state.v_component_state,
+      allAuthors: state => state.v_authors,
+      allSubscriptions: state => state.v_subscriptions,
     },
     modules: {
       // dataStore
