@@ -6,67 +6,72 @@ import auth from './auth'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
-    state: {
-      token: '',
-      user: '',
-      login_in_state: false,
-      v_component_name: '',
-      v_courses: [],
-      v_chapters: [],
-      v_lessons: [],
-      v_authors: [],
-      v_subscriptions: [],
-      v_component_name: '',
-      v_component_state: false
+  state: {
+    token: '',
+    user: '',
+    login_in_state: false,
+    v_courses: [],
+    v_chapters: [],
+    v_lessons: [],
+    v_authors: [],
+    v_subscriptions: [],
+    v_component_name: 'LoginComponent',
+    v_component_state: false
+  },
+  mutations: {
+    SET_TOKEN: (state, token) => {
+      state.token = token
     },
-    mutations: {
-      SET_TOKEN: (state, token) => {
-        state.token = token
-      },
-      SET_USER: (state, user) => {
-        state.user = user
-      },
-      SET_LOGIN_STATE: (state, value) => {
-        state.login_in_state = value
-      },
-      SET_LOGOUT_COMPONENT: (state, component) => {
-        state.v_component_name = component
-      },
-      GET_COURSES: (state, authors) => {
-        state.v_courses = authors
-      },
-      GET_COMPONENT_NAME: (state, name) => {
-        state.v_component_name = name
-      },
-      GET_COMPONENT_STATE: (state, value) => {
-          state.v_component_state = value
-      },
-      GET_AUTHORS: (state, authors) => {
-        state.v_authors = authors
-      },
-      GET_SUBSCRIPTIONS: (state, subscriptions) => {
-        state.v_subscriptions = subscriptions
-     },
+    SET_USER: (state, user) => {
+      state.user = user
     },
-    actions: {
-      async signIn({ dispatch}, credentials) {
-        let response = await axios.post('api/v1/user/login', credentials)
-        let new_token = response.data.access_token   
-        dispatch('attempt', new_token)
-      },
-      async attempt({commit, dispatch}, new_token) {
-        commit('SET_TOKEN', new_token)
-        let stored_token = ''
-        if(localStorage.getItem("user_token") === null) {
-          stored_token = new_token
-        } else {
-          stored_token = localStorage.user_token
+    SET_LOGIN_STATE: (state, value) => {
+      state.login_in_state = value
+    },
+    SET_LOGOUT_COMPONENT: (state, component) => {
+      state.v_component_name = component
+    },
+    GET_COURSES: (state, authors) => {
+      state.v_courses = authors
+    },
+    GET_COMPONENT_NAME: (state, name) => {
+      state.v_component_name = name
+    },
+    GET_COMPONENT_STATE: (state, value) => {
+      state.v_component_state = value
+    },
+    GET_AUTHORS: (state, authors) => {
+      state.v_authors = authors
+    },
+    GET_SUBSCRIPTIONS: (state, subscriptions) => {
+      state.v_subscriptions = subscriptions
+    },
+    Add_COURSE: (state, course) => {
+      state.v_courses.push(course)
+    }
+  },
+  actions: {
+    async signIn({ dispatch }, credentials) {
+      let response = await axios.post('api/v1/user/login', credentials)
+      let new_token = response.data.access_token
+      dispatch('attempt', new_token)
+    },
+    async attempt({ commit, dispatch }, new_token) {
+      commit('SET_TOKEN', new_token)
+      let stored_token = ''
+      if (localStorage.getItem("user_token") === null || 
+      localStorage.getItem('user_token') === 'undefined' || 
+      localStorage.getItem('user_token') === undefined || 
+      !localStorage.getItem('user_token')) {
+        stored_token = new_token
+      } else {
+        stored_token = localStorage.user_token
+      }
+      let res = await axios.get('api/v1/user/auth', {
+        headers: {
+          'Authorization': 'Bearer ' + stored_token
         }
-        let res = await axios.get('api/v1/user/auth', {
-          headers: {
-            'Authorization': 'Bearer ' + stored_token
-          }
-        })
+      })
         .then(response => {
           localStorage.setItem('user_token', stored_token)
           dispatch('GetCourses', stored_token)
@@ -77,84 +82,112 @@ const store = new Vuex.Store({
           commit('SET_LOGOUT_COMPONENT', 'MainWrapperComponent')
         }).catch(error => {
           commit('SET_LOGOUT_COMPONENT', 'LoginComponent')
+        })
+    },
+    async handleLogout({ commit }, value) {
+      let res = await axios.post('logout').then(response => {
+        localStorage.removeItem('user_token');
+        commit('SET_LOGOUT_COMPONENT', 'LoginComponent')
       })
-      },
-      async handleLogout({commit, state}, value) {
-        let res = await axios.post('logout').then(response => {
-          localStorage.removeItem('user_token');
-          commit('SET_LOGOUT_COMPONENT', 'LoginComponent')    
-        })
-      },
-      async GetCourses({commit, state}, value) {
-        return new Promise((resolve, reject) => {
-           axios.get('/api/v1/courses', {
-              headers: {
-                'Authorization': 'Bearer ' + value
-              },
-              params: {
-                  term: '',
-                  author_id: 1
-              }
-            }).then(response => {
-                commit('GET_COURSES', response.data.course)
-                resolve(response)
-            }).catch(error => {
-                reject(error)
-            })
-        })
-      },
-      GetComponentName({commit, state}, value) {
-        console.log(value,'GET_COMPONENT_NAME')
-        return commit('GET_COMPONENT_NAME', value)
-      },
-      GetComponmentState({commit, state}, value) {
-          return commit('GET_COMPONENT_STATE', value)
-      },
-      GetAuthors({commit, state}, value) {
-        return new Promise((resolve, reject) => {
-            var AjaxUrl = "/api/v1/authors";
-            axios.get(AjaxUrl, {
-              headers: {
-                'Authorization': 'Bearer ' + value
-              },
-            })
-                .then(response => {
-                    commit('GET_AUTHORS', response.data.authors)
-                    resolve(response)
-                }).catch(error => {
-                reject(error)
-            })
-        })
-      },
-      GetSubscriptions({commit, state}, value) {
-        return new Promise((resolve, reject) => {
-           axios.get('/api/v1/subscriptions', {
-            headers: {
-              'Authorization': 'Bearer ' + value
-            },
-           }).then(response => {
-                commit('GET_SUBSCRIPTIONS', response.data.subscription_product)
-                resolve(response)
-            }).catch(error => {
-                reject(error)
-            })
-        })
-      },
     },
-    getters: {
-      this_token: state => state.token,
-      this_user: state => state.user,
-      this_login_state: state => state.login_in_state,
-      this_component_name: state => state.v_component_name,
-      allCourses: state => state.v_courses,
-      componentName: state => state.v_component_name,
-      componentState: state => state.v_component_state,
-      allAuthors: state => state.v_authors,
-      allSubscriptions: state => state.v_subscriptions,
+    async handleCheckState({ commit }, value) {
+      // let res = await axios.post('logout').then(response => {
+      // localStorage.removeItem('user_token');
+      let mytoken = localStorage.getItem('user_token')
+      commit('SET_TOKEN', mytoken)
+      commit('SET_LOGOUT_COMPONENT', 'MainWrapperComponent')
+      // })
     },
-    modules: {
-      // dataStore
+    async GetCourses({ commit, state }, value) {
+      return new Promise((resolve, reject) => {
+        axios.get('/api/v1/courses', {
+          headers: {
+            'Authorization': 'Bearer ' + value
+          },
+          params: {
+            term: '',
+            author_id: 1
+          }
+        }).then(response => {
+          commit('GET_COURSES', response.data.course)
+          resolve(response)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    GetComponentName({ commit, state }, value) {
+      console.log(value, 'GET_COMPONENT_NAME')
+      return commit('GET_COMPONENT_NAME', value)
+    },
+    GetComponmentState({ commit, state }, value) {
+      return commit('GET_COMPONENT_STATE', value)
+    },
+    GetAuthors({ commit, state }, value) {
+      return new Promise((resolve, reject) => {
+        var AjaxUrl = "/api/v1/authors";
+        axios.get(AjaxUrl, {
+          headers: {
+            'Authorization': 'Bearer ' + value
+          },
+        })
+          .then(response => {
+            commit('GET_AUTHORS', response.data.authors)
+            resolve(response)
+          }).catch(error => {
+            reject(error)
+          })
+      })
+    },
+    GetSubscriptions({ commit, state }, value) {
+      return new Promise((resolve, reject) => {
+        axios.get('/api/v1/subscriptions', {
+          headers: {
+            'Authorization': 'Bearer ' + value
+          },
+        }).then(response => {
+          commit('GET_SUBSCRIPTIONS', response.data.subscription_product)
+          resolve(response)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    AddCourse({ commit, state }, value) {
+      return new Promise((resolve, reject) => {
+        axios.post('/api/v1/courses', {
+          headers: {
+            'Authorization': 'Bearer ' + state.token
+          },
+          params: value
+        }).then(response => {
+          commit('Add_COURSE', response.data.data)
+          this.$notify({
+            title: 'Success',
+            message: 'New Course Successfuly Added',
+            type: 'success'
+          });
+          resolve(response)
+        }).catch(error => {
+          reject(error)
+        })
+      })
     }
+  },
+  getters: {
+    this_token: state => state.token,
+    this_user: state => state.user,
+    this_login_state: state => state.login_in_state,
+    this_component_name: state => state.v_component_name,
+    allCourses: state => state.v_courses,
+    componentName: state => state.v_component_name,
+    componentState: state => state.v_component_state,
+    allAuthors: state => state.v_authors,
+    allSubscriptions: state => state.v_subscriptions,
+  },
+  modules: {
+    // dataStore
+  }
 })
 
 export default store

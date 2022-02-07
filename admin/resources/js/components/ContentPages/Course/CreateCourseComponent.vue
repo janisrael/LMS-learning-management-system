@@ -304,37 +304,38 @@ export default {
       }
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          let url = 'courses'
-         this.form.subs_list = this.subs_list
-          axios.post(url, this.form).then(res => {
-            console.log(res.data.status)
-            if(res.data.status === 'error') {
-              res.data.data.errors.name.forEach((value, index) => {
-                this.$notify({
-                  title: res.data.data.messages,
-                  message: value,
-                  type: 'error'
-                })
-                // this.$refs.uploadFile.removeFile()
-              })
+          this.$store.dispatch('AddCourse', this.form)
+        // let url = 'api/v1/courses'
+        //  this.form.subs_list = this.subs_list
+        //   axios.post(url, this.form).then(res => {
+        //     console.log(res.data.status)
+        //     if(res.data.status === 'error') {
+        //       res.data.data.errors.name.forEach((value, index) => {
+        //         this.$notify({
+        //           title: res.data.data.messages,
+        //           message: value,
+        //           type: 'error'
+        //         })
+        //         // this.$refs.uploadFile.removeFile()
+        //       })
               
-            } else {
-              this.$notify({
-                title: 'Success',
-                message: 'New Course Successfuly Added',
-                type: 'success'
-              });
-              this.resetForm(formName)
-            }
+        //     } else {
+        //       this.$notify({
+        //         title: 'Success',
+        //         message: 'New Course Successfuly Added',
+        //         type: 'success'
+        //       });
+        //       this.resetForm(formName)
+        //     }
    
-          }).catch(error => {
-              this.$notify({
-              title: 'Error',
-              message: error,
-              type: 'error'
-            });
+        //   }).catch(error => {
+        //       this.$notify({
+        //       title: 'Error',
+        //       message: error,
+        //       type: 'error'
+        //     });
            
-          })
+        //   })
         } else {
           console.log('error submit!!');
           return false;
