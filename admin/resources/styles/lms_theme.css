@@ -2,14 +2,6 @@ aside.main-sidebar.sidebar-dark-primary.elevation-4 {
   background-image: url("https://lms-admin.app/storage/images/bg.svg?v=1620469277"), linear-gradient(141deg, #1781d0 0%, #1f81b6 51%, #2d7cb0 100%) !important;
 }
 
-span.brand-text.font-weight-light span {
-  font-weight: 100 !important;
-  padding-left: 5px;
-  color: white;
-  font-family: revert !important;
-  font-size: 16px !important;
-}
-
 .el-card.box-card.layout-card.is-never-shadow {
   /* border: 1px solid rgba(0, 0, 0, 0.125) !important; */
   border: none !important;
@@ -248,5 +240,65 @@ ul.menu-list.grid.d-flex.flex-wrap.border.rounded.mx-auto {
 .edit-preview:hover {
   border-color: #409EFF;
   color: #409EFF;
+}
+
+.el-upload__input {
+  display: none !important;
+}
+
+label.el-form-item__label {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  color: #aaa !important;
+}
+
+.avatar-uploader .el-upload.el-upload--picture-card {
+  background-color: #fbfdff;
+  border: 1px dashed #c0ccda;
+  border-radius: 6px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 300px !important;
+  height: 300px !important;
+  line-height: 146px;
+  vertical-align: top;
+}
+
+.avatar-uploader .el-upload.el-upload--picture-card i {
+  vertical-align: bottom !important;
+}
+
+.logo-name-second {
+  font-weight: 300 !important;
+  padding-left: 5px;
+  color: white;
+  font-family: revert !important;
+  font-size: 24px !important;
+}
+
+a.m-link:hover {
+  color: white !important;
+}
+
+a.m-link:focus {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.logo-name-first {
+  font-weight: 400;
+  padding-left: 5px;
+  color: #8cd0ff !important;
+  font-family: revert !important;
+  font-size: 24px !important;
+}
+
+.logo-name-third {
+  color: #003255 !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+
+ul.menu-list .active {
+  border: 1px solid rgba(111, 196, 247, 0.48) !important;
 }
 /*# sourceMappingURL=lms_theme.css.map */

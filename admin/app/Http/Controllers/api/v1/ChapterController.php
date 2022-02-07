@@ -17,7 +17,6 @@ class ChapterController extends Controller
 
     public function __construct(Chapter $model, ChapterValidator $validator)
     {
-        // $this->middleware('client');
         $this->model = $model;
         $this->validator = $validator;
         $this->repository = new ChapterRepository($model);

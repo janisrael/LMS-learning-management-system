@@ -32,6 +32,34 @@ Route::group(['middleware'=>'auth:api'], function(){
         Route::put('edit/{id}', 'CourseController@update');
         Route::get('delete/{id}', 'CourseController@destroy');
     });
+
+    Route::group(['prefix' => 'subscriptions','namespace'=>'api\v1'], function () {
+        Route::get('/', 'SubscriptionProductsController@index');
+        Route::post('/', 'SubscriptionProductsController@store');
+        Route::put('edit/{id}', 'SubscriptionProductsController@update');
+        Route::get('delete/{id}', 'SubscriptionProductsController@destroy');
+    });
+
+    Route::group(['prefix' => 'lessons','namespace'=>'api\v1'], function () {
+        Route::get('/', 'LessonController@index');
+        Route::post('/', 'LessonController@store');
+        Route::put('edit/{id}', 'LessonController@update');
+        Route::get('delete/{id}', 'LessonController@destroy');
+    });
+
+    Route::group(['prefix' => 'chapters','namespace'=>'api\v1'], function () {
+        Route::get('/', 'ChapterController@index');
+        Route::post('/', 'ChapterController@store');
+        Route::put('edit/{id}', 'ChapterController@update');
+        Route::get('delete/{id}', 'ChapterController@destroy');
+    });
+
+    Route::group(['prefix' => 'authors','namespace'=>'api\v1'], function () {
+        Route::get('/', 'AuthorController@index');
+        Route::post('/', 'AuthorController@store');
+        Route::put('edit/{id}', 'AuthorController@update');
+        Route::get('delete/{id}', 'AuthorController@destroy');
+    });
 });
 // Route::prefix(['/courses' => 'api/v1/' => 'namespace'])->group( function() {
 //     Route::get('/', 'CourseController@index');

@@ -66,6 +66,7 @@ const router = new VueRouter({
 
 Vue.component('index-component', require('./components/Layout/Index.vue').default);
 
+
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
