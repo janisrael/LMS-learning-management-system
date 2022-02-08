@@ -18,15 +18,15 @@ export const routes = [
       */
     // {path: '*', component: NotFoundComponent, 'name': 'error.404',},
     // {path: '/unauthorized', component: UnauthorizedComponent, 'name': 'error.403',},
-    {
-        path: '/',
-        // component:Dashboard,
-        name: 'Dashboard',
-        group: 'default',
-        icon: '',
-        type: 'dashboard',
-        key: ''
-    },
+    // {
+    //     path: '/',
+    //     // component:Dashboard,
+    //     name: 'Dashboard',
+    //     group: 'default',
+    //     icon: '',
+    //     type: 'dashboard',
+    //     key: ''
+    // },
     {
         path: '/course-management/all-courses',
         component: IndexCourseComponent,

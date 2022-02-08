@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::post('uploads/file', 'UploadsController@uploadFile');
 Route::get('/', function () {
     return view('home');
 });

@@ -56,6 +56,7 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $data = $request->only($this->model->getModel()->fillable);
         $course_id = Str::random($length = 10);
 
@@ -67,7 +68,7 @@ class CourseController extends Controller
             $data['sort_order'] = 1;
         }
         $data['course_id'] = $course_id;
-        $data['created_by'] = 1;
+        $data['created_by'] = Auth::user()->id;
         $data['author_id'] = 1;
         
         $validated = $this->validate($data, $this->validator->rules($data), $this->validator->getMessages());

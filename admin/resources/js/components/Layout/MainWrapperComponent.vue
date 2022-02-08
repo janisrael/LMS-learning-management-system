@@ -1,6 +1,6 @@
 <template>
   <div>
-    <aside-component></aside-component>
+    <aside-component :routes="new_routes"></aside-component>
     <content-component :routes="new_routes"></content-component>
   </div>
 </template>
@@ -18,7 +18,7 @@ export default {
     return {
       loading: false,
       new_routes: [],
-      routes: this.$routers,
+      collected_routes: this.$routers,
     };
   },
   computed: {},
@@ -27,13 +27,10 @@ export default {
   },
   methods: {
     mapRoutes() {
-      let new_route = [];
-      this.routes.forEach((value, i) => {
-        if (value.type === "page") {
-          new_route.push(value);
-        }
+      let routes = this.collected_routes
+      this.new_routes = routes.filter(filter => {
+          return filter.type === 'page' 
       });
-      this.new_routes = new_route;
     },
   },
 };

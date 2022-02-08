@@ -93,7 +93,7 @@ export default {
       avatarAcceptedTypes: ['image/png', 'image/jpg', 'image/jpeg'],
       multipleUpload: false,
       fileList: [],
-      fileUploadPath: 'https://lms-admin.app/api/uploads/file',
+      fileUploadPath: 'https://e-learning-admin.app/api/v1/uploads/file',
       saving: false,
       allowed: false,
       attachment_path: this.path,

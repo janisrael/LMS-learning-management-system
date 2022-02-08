@@ -30,7 +30,7 @@
               </div>
                 asdasdasdasdasd
                 <div class="bottom clearfix">
-                    <time class="time">{{ currentDate }}</time>
+                    <time class="time">currentDate</time>
                     <el-button type="success" size="mini" class="button" @click="handleLogout()">Logout</el-button>
                   </div>
             </el-card>

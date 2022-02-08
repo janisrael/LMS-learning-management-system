@@ -11,6 +11,9 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <!-- import CSS -->
+
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -27,6 +30,8 @@
             /*min-height: none !important;*/
         }
     </style>
+
+    
 </head>
 <body class="hold-transition sidebar-mini">
     <div id="app" class="wrapper">
@@ -34,6 +39,10 @@
             @yield('content')
         </main>
     </div>
-   
+    <script>
+        window.ENV = {
+          APP_URL: '{{ env('APP_URL') }}'
+        };
+      </script>
 </body>
 </html>
