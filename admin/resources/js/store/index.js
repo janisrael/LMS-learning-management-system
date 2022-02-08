@@ -164,7 +164,9 @@ const store = new Vuex.Store({
           }
           
         }).then(response => {
-          commit('Add_COURSE', response.data.data)
+          let res = response.data.data
+          res.attachment_absolute_path = window.ENV.APP_URL + '/storage/' + res.course_image_url
+          commit('Add_COURSE', res)
           resolve(response)
         }).catch(error => {
           reject(error)

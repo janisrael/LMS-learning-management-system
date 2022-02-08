@@ -30,6 +30,8 @@
             /*min-height: none !important;*/
         }
     </style>
+
+    
 </head>
 <body class="hold-transition sidebar-mini">
     <div id="app" class="wrapper">
@@ -37,6 +39,10 @@
             @yield('content')
         </main>
     </div>
-   
+    <script>
+        window.ENV = {
+          APP_URL: '{{ env('APP_URL') }}'
+        };
+      </script>
 </body>
 </html>
