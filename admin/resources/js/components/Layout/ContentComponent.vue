@@ -40,14 +40,14 @@ export default {
   },
   data() {
     return {
-      routes: this.$routers,
+      // routes: this.$routers,
       currentRoute: this.routes.path,
       currentRoute_name: this.routes.name,
       new_routes: [],
     };
   },
   created() {
-    this.mapRoutes();
+    // this.mapRoutes();
   },
   methods: {},
 };

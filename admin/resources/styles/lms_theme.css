@@ -1,3 +1,7 @@
+body {
+  -webkit-font-smoothing: antialiased !important;
+}
+
 aside.main-sidebar.sidebar-dark-primary.elevation-4 {
   background-image: url("https://lms-admin.app/storage/images/bg.svg?v=1620469277"), linear-gradient(141deg, #1781d0 0%, #1f81b6 51%, #2d7cb0 100%) !important;
 }
@@ -23,12 +27,16 @@ aside.main-sidebar.sidebar-dark-primary.elevation-4 {
 
 .course-card-details-wrapper {
   padding: 14px;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: white;
   position: absolute;
   width: 100%;
+  z-index: 2;
   overflow: hidden;
-  display: inline-block;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
   bottom: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.088) !important;
+  border: 1px solid rgba(0, 0, 0, 0.13);
 }
 
 .el-page-header__content {
@@ -300,5 +308,152 @@ a.m-link:focus {
 
 ul.menu-list .active {
   border: 1px solid rgba(111, 196, 247, 0.48) !important;
+}
+
+li.el-upload-list__item.is-success {
+  width: 300px;
+  height: 300px;
+}
+
+label.el-form-item__label {
+  font-size: 14px !important;
+  font-weight: 300 !important;
+  font-family: sans-serif !important;
+  color: #aaa !important;
+}
+
+.md-card:hover [data-header-animation=true] {
+  -webkit-transform: translate3d(0, -50px, 0);
+  transform: translate3d(0, -50px, 0);
+}
+
+.card:hover .course-item-actions {
+  display: block;
+  position: absolute;
+  z-index: 55;
+  width: 100%;
+  height: 50px;
+  bottom: 100px;
+  background-color: white;
+  visibility: visible;
+}
+
+.course-item-actions {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 50px;
+  bottom: 50px;
+  background-color: white;
+  transition: opacity .6s ease-out;
+  -moz-transition: opacity .6s ease-out;
+  -webkit-transition: opacity .6s ease-out;
+  -o-transition: opacity .6s ease-out;
+  border-left: 1px solid rgba(0, 0, 0, 0.13);
+  border-right: 1px solid rgba(0, 0, 0, 0.13);
+}
+
+.md-card-header.animated.md-card-header-blue:hover {
+  -webkit-transform: translate3d(0, -50px, 0);
+  transform: translate3d(0, -50px, 0);
+}
+
+.md-card [data-header-animation=true] {
+  -webkit-transition: all 0.3s cubic-bezier(0.34, 1.61, 0.7, 1);
+  transition: all 0.3s cubic-bezier(0.34, 1.61, 0.7, 1);
+}
+
+.md-card-header.animated.md-card-header-blue {
+  padding: 0 !important;
+  min-height: 160px;
+  background: linear-gradient(60deg, #26c6da, #00acc1);
+  border-radius: 4px;
+  border-bottom-right-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+  background-size: cover;
+}
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.md-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  overflow: unset;
+  font-size: .875rem;
+  border-radius: 6px;
+  color: #333;
+  background: #fff;
+}
+
+.md-card.md-theme-default, .md-card.md-theme-default .md-card-expand .md-card-actions {
+  background-color: #fff;
+  background-color: var(--md-theme-default-background, #fff);
+}
+
+.md-card.md-theme-default {
+  color: rgba(0, 0, 0, 0.87);
+  color: var(--md-theme-default-text-primary-on-background, rgba(0, 0, 0, 0.87));
+}
+
+.md-card {
+  position: relative;
+  z-index: 1;
+  border-radius: 2px;
+  -webkit-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-transition-property: color,background-color;
+  transition-property: color,background-color;
+  will-change: color,background-color;
+}
+
+.course-item-action-icon i:hover {
+  color: #2083bd;
+}
+
+.course-item-action-icon i {
+  font-size: 13px !important;
+  font-weight: 100 !important;
+  -webkit-transition: color 0.3s;
+  /* For Safari 3.0 to 6.0 */
+  transition: color 0.3s;
+  /* For modern browsers */
+  padding-top: 13px !important;
+  position: inherit !important;
+  display: block !important;
+  -webkit-transform: translateY(0) !important;
+          transform: translateY(0) !important;
+}
+
+.course-item-action-icon {
+  padding-left: 5px;
+  padding-right: 5px;
+  display: block;
+  height: 100%;
+  background: #fff;
+  -webkit-transition: background-color 0.2s;
+  /* For Safari 3.0 to 6.0 */
+  transition: background-color 0.2s;
+  /* For modern browsers */
+}
+
+.course-item-action-icon:hover {
+  padding-left: 5px;
+  padding-right: 5px;
+  display: block;
+  height: 100%;
+  background-color: #f3f3f3;
 }
 /*# sourceMappingURL=lms_theme.css.map */

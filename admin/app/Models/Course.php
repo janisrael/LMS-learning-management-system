@@ -43,7 +43,7 @@ class Course extends Model
 
     public function getCourseAttachmentAttribute()
     {
-        return url(self::PERMANENT_DIRECTORY.'/storage/'.$this->course_image_url);
+        return url(self::PERMANENT_DIRECTORY.'/storage/images/'.$this->course_image_url);
     }
 
     public static function boot()

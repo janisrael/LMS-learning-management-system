@@ -33,15 +33,10 @@ export default {
   },
   methods: {
     checkState() {
-      if (
-        localStorage.getItem("user_token") === null ||
-        localStorage.getItem("user_token") === "undefined" ||
-        localStorage.getItem("user_token") === undefined ||
-        !localStorage.getItem("user_token")
-      ) {
-        console.log("please login");
-      } else {
-        this.$store.dispatch("handleCheckState");
+      const has_token = localStorage.getItem("user_token") || 'new'
+
+      if(has_token !== 'new') {
+        this.$store.dispatch("handleCheckState")
       }
     },
     // setAllowedViews: function() {
