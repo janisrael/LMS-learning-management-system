@@ -44,7 +44,8 @@ export default {
     },
     methods: {
       assignRoute() {
-        this.$router.push('/course-management/create')
+        //   console.log(this.$router,'asd')
+        this.$router.push({ path: '/course-management/create', replace: true })
       }
     },
 }

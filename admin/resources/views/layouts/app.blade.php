@@ -23,8 +23,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
         div#app {
-            background: #eee !important
-            /*background: #f4f6f9 !important;
+            background: #eee !important;
             
         }
         .content-wrapper {

@@ -7,8 +7,8 @@
               <div slot="header" class="clearfix">
                   <div class="search-input-suffix" style="width: 100%">
                     <el-col :span="24">
-                      <span class="page-header-title">
-                         <el-page-header @click="handleCancel()" title="">
+                      <span class="page-header-title" @click="handleCancel()">
+                         <el-page-header title="">
                             <i class="el-icon-back"></i>
                           </el-page-header>
                           <!-- Create New Course -->
@@ -287,21 +287,6 @@ export default {
     mounted() {},
     methods: {
         handleSave(row) {},
-        // getSubscriptions() {
-        //   let url = "/subscriptions";
-        //   axios.get(url)
-        //     .then(response => {
-        //       let collection= response.data.subscription_products
-        //       this.total = response.data.meta.total
-
-        //       this.subscriptions = collection
-
-        //       this.loading = false
-        //     })
-        //     .catch( error => {
-        //       console.log(error)
-        //     });
-        // },
         triggerUploader() {
             this.$refs.uploadFile.show();
         },
@@ -345,6 +330,7 @@ export default {
             });
         },
         handleCancel() {
+          console.log('BACK')
             let value = {
                 mode: "back",
                 data: "",

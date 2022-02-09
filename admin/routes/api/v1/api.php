@@ -23,6 +23,7 @@ Route::post('uploads/file', 'UploadsController@uploadFile');
 
 Route::prefix('/user')->group( function() {
     Route::post('/login', 'api\v1\LoginController@login');
+    
     Route::middleware('auth:api')->get('/logout', 'api\v1\AuthController@logout')->name('logout');
     Route::middleware('auth:api')->get('/auth', 'api\v1\UserContoller@index')->name('auth');
     

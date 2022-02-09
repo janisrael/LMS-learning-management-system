@@ -59,10 +59,8 @@ const store = new Vuex.Store({
     async attempt({ commit, dispatch }, new_token) {
       commit('SET_TOKEN', new_token)
       let stored_token = ''
-      if (localStorage.getItem("user_token") === null || 
-      localStorage.getItem('user_token') === 'undefined' || 
-      localStorage.getItem('user_token') === undefined || 
-      !localStorage.getItem('user_token')) {
+      const has_local_token = localStorage.getItem('user_token') || 'new'
+      if (has_local_token !== 'new') {
         stored_token = new_token
       } else {
         stored_token = localStorage.user_token
@@ -81,6 +79,7 @@ const store = new Vuex.Store({
           commit('SET_LOGIN_STATE', true)
           commit('SET_LOGOUT_COMPONENT', 'MainWrapperComponent')
         }).catch(error => {
+          localStorage.removeItem('user_token')
           commit('SET_LOGOUT_COMPONENT', 'LoginComponent')
         })
     },
