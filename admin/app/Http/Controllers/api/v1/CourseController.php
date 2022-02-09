@@ -6,7 +6,7 @@ use App\Repositories\CourseRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Validator\CourseValidator;
 use App\Models\Course;
-use App\Models\CourseDetail;
+use App\Models\CourseHasSubscriptions;
 use Illuminate\Support\Str;
 
 use Illuminate\Support\Facades\Auth;
@@ -67,7 +67,7 @@ class CourseController extends Controller
         } else {
             $data['sort_order'] = 1;
         }
-        $data['course_id'] = $course_id;
+        $data['course_number'] = $course_id;
         $data['created_by'] = Auth::user()->id;
         $data['author_id'] = 1;
         
@@ -102,7 +102,7 @@ class CourseController extends Controller
         DB::transaction(function () use ($data, $subs_collection) {
             $newData = $this->model->create($data);
             foreach($subs_collection as $item => $value){
-                $subscriptions = new CourseDetail;
+                $subscriptions = new CourseHasSubscriptions;
                 $subscriptions->course_id = $newData->id;;
                 $subscriptions->subscription_id = $value;
                 $subscriptions->created_by = 1;

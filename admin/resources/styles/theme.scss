@@ -65,6 +65,7 @@ html {
 
 .content-margin {
     display: block !important;
+    margin-top: -15px;
     /*padding-top:20px;*/
     /* padding: 20px 1rem; */
 }
@@ -280,10 +281,7 @@ span.modal-label {
   display: none !important;
 }
 
-.el-card.box-card.layout-card.is-always-shadow > .el-card__header{
-  /* border-bottom: 3px solid rgb(63 158 255) !important; */
-  border-bottom: none !important;
-}
+
  .el-card__header {
     font-weight: 300;
     color: rgba(0, 0, 0, 0.47);
@@ -291,7 +289,8 @@ span.modal-label {
     padding: 10px 20px 10px !important;
     /*border-bottom: 1px solid #EBEEF5;*/
     box-sizing: border-box;
-    height: 55px !important;
+    border-bottom: 1px solid rgba(227, 227, 227, .86) !important;
+    // height: 55px !important;
  }
 
 .el-card__body {

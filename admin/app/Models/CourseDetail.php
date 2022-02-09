@@ -11,7 +11,7 @@ class CourseDetail extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'course_id',
+        'course_number',
         'subscription_id',
         'created_by'
     ];

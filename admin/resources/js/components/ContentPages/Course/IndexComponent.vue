@@ -1,9 +1,14 @@
 <template>
   <div>
+
+
     <transition name="component-fade" mode="out-in">
       <component :is="thisComponent" @change="changeComponent" :action="action" :selected="data"></component>
     </transition>
+
+
   </div>
+  
 </template>
 
 <script>
@@ -37,19 +42,26 @@
           this.thisComponent = null
           this.data = {}
           this.action = 'create'
+          // this.$router.push({ path: '/course-management/create', replace: true })
           this.thisComponent = CreateCourseComponent
+          
         }
         if(value.mode === 'back') {
+             console.log(value, 'back')
           this.thisComponent = null
           this.data = {}
-          this.action = 'create'
+          this.action = 'back'
+          // this.$router.push({ path: '/course-management/al-courses', replace: true })
           this.thisComponent = ViewCourseComponent
+          
         }
         if(value.mode === 'edit') {
           this.thisComponent = null
           this.data = value.data
           this.action = 'edit'
+          // this.$router.push({ path: '/course-management/create', replace: true })
           this.thisComponent = CreateCourseComponent
+          
         }
       }
     },

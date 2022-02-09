@@ -15,7 +15,7 @@ class Course extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'course_id',
+        'course_number',
         'name',
         'description',
         'sort_order',
@@ -79,7 +79,8 @@ class Course extends Model
 
     public function getAttachmentAbsolutePathAttribute()
     {
-        return url('storage/'.$this->course_image_url);
+        $image_url = $this->course_image_url ? 'storage/' . $this->course_image_url : '/';
+        return url($image_url);
     }
 
 

@@ -14,19 +14,19 @@ class CreateLessonsTable extends Migration
     public function up()
     {
         Schema::create('lessons', function (Blueprint $table) {
-            $table->increments('id');
-            $table->smallInteger('course_id');
-            $table->smallInteger('chapter_id');
+            $table->id();
+            $table->foreignId('course_id')->constrained()->restrictOnDelete();
+            $table->foreignId('chapter_id')->nullable()->constrained()->nullOnDelete();
             $table->string('name');
             $table->longText('description')->nullable();
             $table->longText('video_url')->nullable();
-            $table->smallInteger('sort_order');
-            $table->longText('preview_image_url')->nullable();
-            $table->boolean('is_active')->default(0);
-            $table->smallInteger('author_id');
-            $table->integer('duration');
+            $table->integer('sort_order');
+            $table->longText('image_url')->nullable();
+            $table->boolean('is_active')->default(1);
+            $table->integer('author_id')->nullable();
+            $table->integer('duration')->nullable();
             $table->decimal('percentage', 5,2)->default(0);
-            $table->smallInteger('created_by')->nullable;
+            $table->integer('created_by')->nullable;
             $table->timestamps();
         });
     }

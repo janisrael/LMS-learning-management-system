@@ -41,7 +41,12 @@ export default {
             required: true,
             type: Array
         }
-    }
+    },
+    methods: {
+      assignRoute() {
+        this.$router.push('/course-management/create')
+      }
+    },
 }
 </script>
 

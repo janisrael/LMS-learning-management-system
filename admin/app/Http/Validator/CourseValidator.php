@@ -4,7 +4,7 @@ namespace App\Http\Validator;
 
 class CourseValidator{
     const CREATE  = [
-        'course_id' => 'required',
+        'course_number' => 'required',
         'name' => 'required|unique:courses,name',
         'sort_order' => 'required',
         'is_global' => 'required',
@@ -15,7 +15,7 @@ class CourseValidator{
 
     static function rules($id) {
         return [
-            'course_id' => 'required',
+            'course_number' => 'required',
             'name' => 'required|unique:courses,name',
             'sort_order' => 'required',
             'is_global' => 'required',
@@ -27,7 +27,7 @@ class CourseValidator{
 
     static function getMessages() {
         return [
-            'course_id.required' => 'Course ID is required',
+            'course_number.required' => 'Course ID is required',
             'name.required' => 'Course Name is required',
             'name.unique' => 'Course Name Already Taken',
             'sort_order.required' => 'Sort Order is required',
