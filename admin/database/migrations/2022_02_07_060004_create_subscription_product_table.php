@@ -14,11 +14,11 @@ class CreateSubscriptionProductTable extends Migration
     public function up()
     {
         Schema::create('subscription_product', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('product_id', 20);
+            $table->id();
+            $table->string('product_number', 20);
             $table->string('name');
             $table->longText('description')->nullable();
-            $table->smallInteger('created_by')->nullable;
+            $table->integer('created_by')->nullable;
             $table->timestamps();
         });
     }

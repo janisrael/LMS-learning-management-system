@@ -60,7 +60,7 @@
             </span>
           </div>
       </el-upload>
-      <span>{{ file }}</span>
+      <span class="image-url">{{ file }}</span>
       <el-dialog :visible.sync="dialogVisible">
         <img width="100%" :src="dialogImageUrl" alt="">
       </el-dialog>

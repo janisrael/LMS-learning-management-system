@@ -4,14 +4,27 @@
         <el-col ref="contentMargin" :span="24" class="content-margin">
             <!-- {{ contentHeight }} -->
             <el-card class="box-card layout-card">
-                <!-- <div slot="header" class="clearfix">
-                          <div class="search-input-suffix" style="width: 100%">
-                            <el-col :span="24">
-                              <span class="search-input-label">Create New Course</span>
-                            
-                            </el-col>
-                          </div>
-                        </div> -->
+              <div slot="header" class="clearfix">
+                  <div class="search-input-suffix" style="width: 100%">
+                    <el-col :span="24">
+                      <span class="page-header-title">
+                         <el-page-header @click="handleCancel()" title="">
+                            <i class="el-icon-back"></i>
+                          </el-page-header>
+                          <!-- Create New Course -->
+                        </span>
+
+                      <span class="page-header-btn-wrapper">
+                        <el-button type="primary" plain @click="handleAddCourse('ruleForm')">
+                          <span v-if="action === 'create'"> <i class="el-icon-plus"></i> Create Course</span>
+                          <span v-if="action === 'edit'"> <i class="far fa-save"></i></span>
+                        </el-button>
+                        <!-- <el-button @click="handleCancel()">Cancel</el-button> -->
+                      </span>
+                     
+                    </el-col>
+                  </div>
+                </div>
                 <div class="card-content">
                     <template>
                     <el-form
@@ -66,8 +79,7 @@
                             <span style="width: 80%; display: inline-block">
                               <el-alert
                                 title="Status of the Course, Can turn Active or Inactive"
-                                type="info"
-                              >
+                                type="danger">
                               </el-alert>
                             </span>
                           </el-form-item>
@@ -76,7 +88,7 @@
                             <span style="width: 80%; display: inline-block">
                               <el-alert
                                 title="Turn on to make course as Live Event"
-                                type="info"
+                                type="danger"
                               >
                               </el-alert>
                             </span>
@@ -87,7 +99,7 @@
                             <span style="width: 80%; display: inline-block">
                               <el-alert
                                 title="Turn on to add course to Global Gallery"
-                                type="info"
+                                type="danger"
                               >
                               </el-alert>
                             </span>
@@ -100,7 +112,7 @@
                             <span style="width: 80%; display: inline-block">
                               <el-alert
                                 title="Turn on to add course to Global Gallery"
-                                type="info"
+                                type="danger"
                               >
                               </el-alert>
                             </span>
@@ -108,6 +120,7 @@
                         </el-col>
                         <el-col :span="8">
                           <el-form-item label="" label-width="80px">
+
                             <div v-if="action === 'create'">
                               <div
                                 class="edit-preview-on preview-show"
@@ -121,6 +134,7 @@
                                 />
                               </div>
                             </div>
+            
                             <div v-else>
                               <div
                                 v-if="
@@ -180,21 +194,13 @@
                                 </div>
                               </div>
                             </div>
-                            <span v-if="ruleForm.course_image_url">{{
+                            <span v-if="ruleForm.course_image_url" class="image-url">{{
                               ruleForm.course_image_url
                             }}</span>
                           </el-form-item>
                         </el-col>
                       </el-col>
-                      <el-col :span="24">
-                        <el-form-item style="float: right">
-                          <el-button type="primary" @click="handleAddCourse('ruleForm')">
-                            <span v-if="action === 'create'"> Create </span>
-                            <span v-if="action === 'edit'"> Save </span>
-                          </el-button>
-                          <el-button @click="handleCancel()">Cancel</el-button>
-                        </el-form-item>
-                      </el-col>
+                      
                     </el-form>
             </template>
   

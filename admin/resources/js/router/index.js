@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import LoginComponent from '../components/Auth/LoginComponent'
 import IndexCourseComponent from '../components/ContentPages/Course/IndexComponent'
+import CreateCourseComponent from '../components/ContentPages/Course/CreateCourseComponent'
 Vue.use(Router)
 export const routes = [
     {
@@ -34,6 +35,19 @@ export const routes = [
         group: 'course-managemnent',
         icon: '<i class="fas fa-book parent-nav-icon"></i>',
         type: 'page',
+        key: 'maintenance_schedule_view',
+        meta: {
+            permission: 'maintenance_schedule.view'
+        }
+    },
+
+    {
+        path: '/course-management/create',
+        component: CreateCourseComponent,
+        name: 'New Course',
+        group: 'course-managemnent',
+        icon: '<i class="fas fa-book parent-nav-icon"></i>',
+        type: 'create',
         key: 'maintenance_schedule_view',
         meta: {
             permission: 'maintenance_schedule.view'

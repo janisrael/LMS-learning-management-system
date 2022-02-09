@@ -256,8 +256,9 @@ ul.menu-list.grid.d-flex.flex-wrap.border.rounded.mx-auto {
 
 label.el-form-item__label {
   font-size: 14px !important;
-  font-weight: 400 !important;
-  color: #aaa !important;
+  font-weight: 300 !important;
+  font-family: sans-serif !important;
+  color: rgba(60, 72, 88, 0.8) !important;
 }
 
 .avatar-uploader .el-upload.el-upload--picture-card {
@@ -313,13 +314,6 @@ ul.menu-list .active {
 li.el-upload-list__item.is-success {
   width: 300px;
   height: 300px;
-}
-
-label.el-form-item__label {
-  font-size: 14px !important;
-  font-weight: 300 !important;
-  font-family: sans-serif !important;
-  color: #aaa !important;
 }
 
 .md-card:hover [data-header-animation=true] {
@@ -455,5 +449,44 @@ label.el-form-item__label {
   display: block;
   height: 100%;
   background-color: #f3f3f3;
+}
+
+.page-header-title {
+  color: #3c4858 !important;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 10px 0;
+  font-family: Roboto,Helvetica,Arial,sans-serif;
+  border: none !important;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: 9px;
+  /* margin: 40px 0 20px; */
+  display: inline-block;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.el-page-header {
+  display: inline-block !important;
+}
+
+.el-card__header {
+  border-bottom: 1px solid rgba(213, 213, 213, 0.39) !important;
+}
+
+span.page-header-btn-wrapper {
+  display: block;
+  float: right;
+}
+
+span.image-url {
+  margin-top: -50px;
+  position: absolute;
+}
+
+.avatar-uploader {
+  height: 300px;
+  display: block;
+  overflow: hidden;
+  /* background: red; */
 }
 /*# sourceMappingURL=lms_theme.css.map */

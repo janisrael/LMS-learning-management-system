@@ -29,9 +29,10 @@
                                     </el-card>
                                 </el-col>
                                 <el-col v-for="(course, i) in this_courses" :key="i" :xs="24" :sm="8" :md="8" :lg="6" :xl="6">
-                                    <div class="course-card course-add-card md-card md-card-chart md-theme-default">
+                                    <div class="course-card course-add-card md-card md-card-chart md-theme-default" @click="handleEdit(course)">
     
                                         <div :style="{'background-image': 'url(' + course.attachment_absolute_path + ')'}" class="md-card-header animated md-card-header-blue" data-header-animation="true">
+                                        
                                         </div>
                                         <div class="course-item-actions" data-header-animation="true">
                                             <el-col :span="8" class="course-item-action-icon">
@@ -124,7 +125,8 @@ export default {
             oldList: [],
             newList: [],
             author_id: null,
-            show: false
+            show: false,
+            current_route: this.$route.name
             // authors: []
         }
     },
@@ -181,7 +183,7 @@ export default {
         handleAdd() {
             let value = {
                 mode: 'add',
-                data: ''
+                data: this.current_route
             }
             this.$emit('change', value)
         },
