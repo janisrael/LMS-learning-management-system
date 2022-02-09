@@ -16,29 +16,31 @@
 
 ## Installation
 -   Checkout from git
--   Go to directory ./sc-admin
+-   Go to directory ./e-learning/admin
 -   Run `sudo chmod -R 777 storage`
 -   Run `sudo chmod -R 777 bootstrap/cache`
 -   Run `composer install`
 -   Copy the `.env.example` file to `.env`
 -   Provide the Database Connection (or other appropriate information)
 -   Run `php artisan migrate --seed`
+-   Run `php artisan passport: install`
+
+check node version, if not v14.9.0
+    Run `nvm use v14.9.0`
 -   Run `npm install`
 -   Run `npm run dev`
--   Set the SC2 Admin Tool **URL**
+-   Set the e-learning Admin Tool **URL**
 
 ## Staging URL
-
-[SC Admin Webtool (Development Copy)](https://dev-admin.smartchartsfx.com/login)
 
 ## Default Login Credentials
 
 ### Super Admin
-**Email:** sc_superadmin@smartchartsfx.com 
+**Email:** mFWtYzXQB4@gmail.com
 
-**Password:** SC!2020SuperAdmin 
+**Password:** password
 
 ### Admin
-**Email:** sc_admin@smartchartsfx.com
+**Email:** 
 
-**Password:** SmartCharts!2020
+**Password:** 
