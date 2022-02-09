@@ -32,7 +32,7 @@
                                     <div class="course-card course-add-card md-card md-card-chart md-theme-default" @click="handleEdit(course)">
     
                                         <div :style="{'background-image': 'url(' + course.attachment_absolute_path + ')'}" class="md-card-header animated md-card-header-blue" data-header-animation="true">
-                                        
+    
                                         </div>
                                         <div class="course-item-actions" data-header-animation="true">
                                             <el-col :span="8" class="course-item-action-icon">
@@ -58,20 +58,20 @@
                                 </el-col>
                             </el-col>
                             <!-- <el-col v-for="(course, i) in this_courses" :key="i" :xs="24" :sm="8" :md="8" :lg="6" :xl="6">
-                                    <transition name="fade" >
-                                    <el-card :body-style="{ padding: '0px' }" shadow="hover" border class="course-card">
-                                      <div :style="{'background-image': 'url(' + course.attachment_absolute_path + ')'}" class="course-card-content-wrapper">
-                                        <div style="padding: 14px;" class="course-card-details-wrapper">
-                                          <span class="card-title-course">{{ course.name }}</span>
-                                          <div class="bottom clearfix">
-                                            <i class="fas fa-certificate"></i>
-                                            <el-button type="text" class="button">Operating</el-button>
+                                        <transition name="fade" >
+                                        <el-card :body-style="{ padding: '0px' }" shadow="hover" border class="course-card">
+                                          <div :style="{'background-image': 'url(' + course.attachment_absolute_path + ')'}" class="course-card-content-wrapper">
+                                            <div style="padding: 14px;" class="course-card-details-wrapper">
+                                              <span class="card-title-course">{{ course.name }}</span>
+                                              <div class="bottom clearfix">
+                                                <i class="fas fa-certificate"></i>
+                                                <el-button type="text" class="button">Operating</el-button>
+                                              </div>
+                                            </div>
                                           </div>
-                                        </div>
-                                      </div>
-                                    </el-card>
-                                    </transition>
-                                  </el-col> -->
+                                        </el-card>
+                                        </transition>
+                                      </el-col> -->
                         </el-row>
                     </div>
                 </transition>
@@ -95,44 +95,11 @@ export default {
             search: '',
             currentComponent: null,
             passData: {},
-            total: 0,
             data: [],
-            enties: 10,
-            tabledata: [],
-
-            listQuery: {
-                page: 1,
-                limit: 20
-            },
-            chunkedData: '',
-            per_page: 10,
-            page_number: 0,
-            colwidth: '150',
             roles_and_permission: this.$store.state.user,
-            meta: {
-                total: 0,
-                page: 0,
-                per_page: 0
-            },
-            list: null,
-            total: null,
-            listLoading: true,
-            listQuery: {
-                page: 1,
-                limit: 10
-            },
-            sortable: null,
-            oldList: [],
-            newList: [],
             author_id: null,
             show: false,
             current_route: this.$route.name
-            // authors: []
-        }
-    },
-    filters: {
-        moment: function(date) {
-            return moment(date).format('lll');
         }
     },
     watch: {
@@ -156,43 +123,15 @@ export default {
     },
     created: function() {
         // this.handleResize();
-        this.loading = true
-        this.loading = false
-        this.listLoading = false
         this.show = true
     },
     methods: {
-        setSort() {
-            const el = this.$refs.dragTable.$el.querySelectorAll('.el-table__body-wrapper > table > tbody')[0]
-            this.sortable = Sortable.create(el, {
-                ghostClass: 'sortable-ghost', // Class name for the drop placeholder,
-                setData: function(dataTransfer) {
-                    // to avoid Firefox bug
-                    // Detail see : https://github.com/RubaXa/Sortable/issues/1012
-                    dataTransfer.setData('Text', '')
-                },
-                onEnd: evt => {
-                    const targetRow = this.data.splice(evt.oldIndex, 1)[0]
-                    this.data.splice(evt.newIndex, 0, targetRow)
-                    // for show the changes, you can delete in you code
-                    const tempIndex = this.newList.splice(evt.oldIndex, 1)[0]
-                    this.newList.splice(evt.newIndex, 0, tempIndex)
-                }
-            })
-        },
         handleAdd() {
             let value = {
                 mode: 'add',
                 data: this.current_route
             }
             this.$emit('change', value)
-        },
-        tableRowClassName({ row }) {
-            if (row.status === 'yes') {
-                return 'status-active'
-            } else {
-                return 'status-normal'
-            }
         },
         handleDelete(row) {
             this.forms.fill(row)
@@ -218,15 +157,6 @@ export default {
                 // });
             });
         },
-        filterTagGlobal(value, row) {
-            return row.is_global === value
-        },
-        filterTagFeatured(value, row) {
-            return row.is_featured === value
-        },
-        filterTagActive(value, row) {
-            return row.is_active === value
-        },
         handleEdit(row) {
             this.passData = row
             let value = {
@@ -234,32 +164,9 @@ export default {
                 data: row
             }
             this.$emit('change', value)
-            // this.currentComponent = EditComponent
-            // setTimeout(() => this.ex_call_modal(), 1)
         },
         ex_call_modal() {
             this.$refs.modalComponent.show()
-        },
-        chunkData(data) {
-            this.loading = true
-            Object.defineProperty(Array.prototype, 'chunk', {
-                writable: true,
-                enumerable: true,
-                configurable: true,
-                value: function(chunkSize) {
-                    let r = [];
-                    for (let i = 0; i < this.length; i += chunkSize)
-                        r.push(this.slice(i, i + chunkSize));
-                    return r;
-                }
-            });
-            // var number_of_chunk = (data.length / 10)
-            this.page_number = ''
-            let per_page = this.per_page
-            this.chunkedData = data.chunk(per_page)
-            this.page_number = this.chunkedData.length
-            this.tabledata = this.chunkedData[0]
-            this.loading = false
         },
         handlePageChange(val) {
             this.loading = true
