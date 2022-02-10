@@ -150,9 +150,9 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $res = Course::findorfail($id);
+        $newdata = Course::findorfail($id);
         $data = $request->only($this->model->getModel()->fillable);
-        $validated = $this->validate($data, $this->validator->updaterules(), $this->validator->getMessages());
+        $validated = $this->validate($data, $this->validator->storerules($data['id']), $this->validator->getMessages());
 
         if ($validated->fails()) {
             return $this->validationErrors($validated->errors());
@@ -174,18 +174,26 @@ class CourseController extends Controller
                 ];
                 return $message;
             }
-            DB::transaction(function () use ($data, $subs_collection) {
-                $newData = $this->model->create($data);
+            DB::transaction(function () use ($id, $subs_collection, $request) {
+                $check_subs = CourseHasSubscriptions::where('course_id', '=', $request->id)->get();
+
+                foreach($check_subs as $check => $check_value) {
+                    $item_to_delete = CourseHasSubscriptions::find($check_value->id);
+                    $item_to_delete->delete();
+                };
+
                 foreach($subs_collection as $item => $value){
-                    $subscriptions = new CourseDetails;
-                    $subscriptions->course_id = $newData->id;;
+                    $subscriptions = new CourseHasSubscriptions;
+                    $subscriptions->course_id = $id;
                     $subscriptions->subscription_id = $value;
                     $subscriptions->created_by = 1;
                     $subscriptions->save();
                 };
+        
             });
-            $res->update($data);
-            return $this->toJson(['status', 'success'], 200);
+
+            $newdata->update($data);
+            return $this->toJson(['status' => 'success', 'data' => $newdata], 200);
         }
     }
 

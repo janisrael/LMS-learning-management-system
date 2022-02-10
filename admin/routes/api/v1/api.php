@@ -63,6 +63,13 @@ Route::group(['middleware'=>'auth:api'], function(){
         Route::put('edit/{id}', 'AuthorController@update');
         Route::get('delete/{id}', 'AuthorController@destroy');
     });
+
+    Route::group(['prefix' => 'category','namespace'=>'api\v1'], function () {
+        Route::get('/', 'CategoryController@index');
+        Route::post('/', 'CategoryController@store');
+        Route::put('edit/{id}', 'CategoryController@update');
+        Route::get('delete/{id}', 'CategoryController@destroy');
+    });
 });
 // Route::prefix(['/courses' => 'api/v1/' => 'namespace'])->group( function() {
 //     Route::get('/', 'CourseController@index');

@@ -327,6 +327,7 @@ li.el-upload-list__item.is-success {
 
 .md-card-header.animated.md-card-header-blue {
   // margin-top: -20px;
+  background-position: center !important;
   padding: 0!important;
   min-height: 160px;
   // box-shadow: 0 12px 20px -10px rgba(0, 188, 212, .28), 0 4px 20px 0 rgba(0, 0, 0, .12), 0 7px 8px -5px rgba(0, 188, 212, 20);
@@ -443,8 +444,8 @@ span.page-header-btn-wrapper {
 }
 
 span.image-url {
-  margin-top: -50px;
   position: absolute;
+  left: 0;
 }
 
 .avatar-uploader {
@@ -452,4 +453,87 @@ span.image-url {
   display: block;
   overflow: hidden;
   /* background: red; */
+}
+
+.search-filter-icon {
+  display: block;
+  cursor: pointer;
+  transition: color 0.3s;
+  font-size: 18px;
+}
+
+.search-filter-icon:hover {
+  color: #2083bd;
+}
+
+.filter-data {
+  display: block;
+  // width: 500px;
+}
+
+.filter-data-wrapper {
+  margin-top: 20px;
+  display: inline-flex;
+  width: 100%;
+}
+
+.lms-btn-primary {
+
+}
+
+input.el-input__inner {
+  font-weight: 300 !important;
+  font-family: revert !important;
+}
+
+span.page-title {
+  display: inline-block;
+  font-size: initial;
+  font-weight: 400;
+  padding-top: 13px;
+  font-family: revert;
+  color: #868686;
+}
+
+.el-card.box-card.layout-card {
+  border: none !important;
+}
+
+.el-card.box-card.layout-card .el-card__header {
+  padding-bottom: 5px !important;
+  border: none !important;
+}
+
+.edit-preview-container i{
+  margin-top: 50%;
+  transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  font-size: 28px;
+  color: #fff;
+  font-weight: 100;
+}
+
+.edit-preview-container {
+  vertical-align: baseline;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+  width: 100%;
+  text-align: center;
+  height: 100%;
+  background-color: rgba(5, 5, 5, .47);
+}
+
+.el-alert--info.is-light {
+  background-color: #fdf6ec !important;
+  color: #c88015 !important;
+  border: 1px solid rgba(242, 136, 25, .27) !important;
+  font-style: italic !important;
+  font-weight: 400;
+  font-family: sans-serif;
+  // background-color: rgba(255, 158, 90, .7) !important;
+  // color: #535353 !important;
+  // border: 1px solid rgba(242, 136, 25, .27) !important;
 }

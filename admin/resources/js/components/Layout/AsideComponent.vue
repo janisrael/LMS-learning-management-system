@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- <NavbarComponent ref="navbarComponent" :route="currentRoute" :me="selected"  @changed="emitChange()"></NavbarComponent> -->
-        <navbar-component></navbar-component>
+        <navbar-component :route="currentRoute"></navbar-component>
         <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-image: url('../../img/bg.svg?v=1620469277'), linear-gradient( 141deg, #1781d0 0%, #1f81b6 51%, #2d7cb0 100%) !important;">
             <a href="/" class="brand-link logo">
             <span class="logo-mini" @click="assignRoute('Dashboard')"><b>S</b>C2</span>
@@ -42,8 +42,15 @@ export default {
             type: Array
         }
     },
+    data() {
+        return {
+            currentRoute: this.$route
+        }
+    },
     methods: {
-      assignRoute() {
+      assignRoute(route) {
+          console.log(route,'asd')
+        this.currentRoute = Courses
         //   console.log(this.$router,'asd')
         this.$router.push({ path: '/course-management/create', replace: true })
       }

@@ -1,8 +1,6 @@
 <template>
     <el-col :span="24">
-        <!--    <el-col :span="24" class="page-content-title">Maintenance Management - Schedule List</el-col>-->
         <el-col ref="contentMargin" :span="24" class="content-margin">
-            <!-- {{ contentHeight }} -->
             <el-card class="box-card layout-card">
               <div slot="header" class="clearfix">
                   <div class="search-input-suffix" style="width: 100%">
@@ -11,17 +9,14 @@
                          <el-page-header title="">
                             <i class="el-icon-back"></i>
                           </el-page-header>
-                          <!-- Create New Course -->
                         </span>
-
+                      <!-- {{ this.$store.getters.this_selected }} {{ action }} -->
                       <span class="page-header-btn-wrapper">
-                        <el-button type="primary" plain @click="handleAddCourse('ruleForm')">
-                          <span v-if="action === 'create'"> <i class="el-icon-plus"></i> Create Course</span>
-                          <span v-if="action === 'edit'"> <i class="far fa-save"></i></span>
+                        <el-button type="primary" plain @click="handleAddCourse('ruleForm')" size="small">
+                          <span v-if="action === 'add'"> <i class="el-icon-plus"></i> Create Course</span>
+                          <span v-if="action === 'edit'"> <i class="far fa-save"></i> Save Course</span>
                         </el-button>
-                        <!-- <el-button @click="handleCancel()">Cancel</el-button> -->
                       </span>
-                     
                     </el-col>
                   </div>
                 </div>
@@ -66,6 +61,27 @@
                               </el-option>
                             </el-select>
                           </el-form-item>
+                          <el-form-item
+                            label="Category"
+                            label-width="200px"
+                          >
+                            <el-select
+                              ref="category"
+                              v-model="ruleForm.category_id"
+                              filterable
+                              placeholder="please select category"
+                              style="width: 100%"
+                            >
+                              <el-option
+                                v-for="cat in this_categories"
+                                :key="cat.id"
+                                :label="cat.name"
+                                :value="cat.id"
+                                size="mini"
+                              >
+                              </el-option>
+                            </el-select>
+                          </el-form-item>
                           <el-form-item label="Description" prop="description">
                             <el-input
                               ref="courseDesc"
@@ -74,12 +90,13 @@
                               size="mini"
                             ></el-input>
                           </el-form-item>
-                          <el-form-item label="Status">
+                          <el-form-item label="Active">
                             <el-switch v-model="ruleForm.is_active" size="mini"></el-switch>
                             <span style="width: 80%; display: inline-block">
                               <el-alert
-                                title="Status of the Course, Can turn Active or Inactive"
-                                type="danger">
+                                title="Status of the Course, if set to Inactive will not be visible to all client. default: Active"
+                                type="info"
+                                :closable="false">
                               </el-alert>
                             </span>
                           </el-form-item>
@@ -88,7 +105,8 @@
                             <span style="width: 80%; display: inline-block">
                               <el-alert
                                 title="Turn on to make course as Live Event"
-                                type="danger"
+                                type="info"
+                                :closable="false"
                               >
                               </el-alert>
                             </span>
@@ -99,7 +117,8 @@
                             <span style="width: 80%; display: inline-block">
                               <el-alert
                                 title="Turn on to add course to Global Gallery"
-                                type="danger"
+                                type="info"
+                                :closable="false"
                               >
                               </el-alert>
                             </span>
@@ -112,7 +131,8 @@
                             <span style="width: 80%; display: inline-block">
                               <el-alert
                                 title="Turn on to add course to Global Gallery"
-                                type="danger"
+                                type="info"
+                                :closable="false"
                               >
                               </el-alert>
                             </span>
@@ -121,7 +141,7 @@
                         <el-col :span="8">
                           <el-form-item label="" label-width="80px">
 
-                            <div v-if="action === 'create'">
+                            <div v-if="action === 'add'">
                               <div
                                 class="edit-preview-on preview-show"
                                 style="display: inline-block"
@@ -134,69 +154,37 @@
                                 />
                               </div>
                             </div>
-            
+                   
                             <div v-else>
-                              <div
-                                v-if="
-                                  ruleForm.course_image_url !== '' ||
-                                  ruleForm.course_image_url !== null
-                                "
-                              >
-                                <div
-                                  class="edit-preview preview-show"
-                                  @click="triggerUploader()"
-                                  :style="{
-                                    'background-image':
-                                      'url(' + ruleForm.course_image_url + ')',
-                                  }"
-                                >
+                              <div>
+                                  <div
+                                    class="edit-preview preview-on"
+                                    @click="triggerUploader()"
+                                    :style="{
+                                      'background-image':
+                                        'url(' + ruleForm.course_image_url + ')',
+                                    }">
                                   <div class="edit-preview-container">
-                                    <i class="fas fa-edit"></i>
+                                      <i class="el-icon-upload"></i>
+                                    </div>
                                   </div>
-                                </div>
         
-                                <div
-                                  class="edit-preview-on preview-not-show"
-                                  style="display: inline-block"
-                                >
-                                  <uploader-component
-                                    ref="uploadFile"
-                                    :path.sync="ruleForm.course_image_url"
-                                    style="width: 100%"
-                                    @setAttachment="ruleForm.course_image_url = $event"
-                                  />
-                                </div>
-                              </div>
-                              <div v-else>
-                                <div
-                                  class="edit-preview preview-not-show"
-                                  @click="triggerUploader()"
-                                  :style="{
-                                    'background-image':
-                                      'url(' + ruleForm.course_image_url + ')',
-                                  }"
-                                >
-                                  <div class="edit-preview-container">
-                                    <i class="fas fa-edit"></i>
+                                  <div
+                                    class="edit-preview-on preview-not-show"
+                                    style="display: inline-block">
+                                    <uploader-component
+                                      ref="uploadFile"
+                                      :path.sync="ruleForm.course_image_url"
+                                      style="width: 100%"
+                                      @setAttachment="ruleForm.course_image_url = $event"
+                                    />
                                   </div>
-                                </div>
-        
-                                <div
-                                  class="edit-preview-on preview-show"
-                                  style="display: inline-block"
-                                >
-                                  <uploader-component
-                                    ref="uploadFile"
-                                    :path.sync="ruleForm.course_image_url"
-                                    style="width: 100%"
-                                    @setAttachment="ruleForm.course_image_url = $event"
-                                  />
-                                </div>
+                                  <span v-if="ruleForm.course_image_url" class="image-url">
+                                      {{ ruleForm.course_image_url }}
+                                  </span>
                               </div>
                             </div>
-                            <span v-if="ruleForm.course_image_url" class="image-url">{{
-                              ruleForm.course_image_url
-                            }}</span>
+
                           </el-form-item>
                         </el-col>
                       </el-col>
@@ -224,22 +212,19 @@ export default {
         selected: {
             required: false,
             type: Object,
-        },
-        action: {
-            required: false,
-            type: String,
-            default: "create",
-        },
+        }
     },
     data() {
         return {
             ruleForm: {
                 name: '',
                 description: '',
-                is_live: false,
-                is_active: false,
+                is_live: true,
+                is_active: true,
                 is_global: false,
                 is_featured: false,
+                subscriptions: [],
+                category_id: null
             },
             rules: {
                 name: [{
@@ -270,12 +255,19 @@ export default {
             disabled: false,
             subscriptions: [],
             subs_list: [],
+            action: this.$store.getters.this_selected.mode,
+            this_selected: this.$store.getters.this_selected.data
         };
+    },
+    computed: {
+      // this_selected() {
+      //   return this.$store.getters.this_selected
+      // }
     },
     created: function() {
         // this.handleResize();
         this.loading = true;
-        if (this.action !== "create") {
+        if (this.action === "edit") {
             this.populate();
         }
     },
@@ -283,6 +275,9 @@ export default {
         this_subscriptions() {
             return this.$store.getters.allSubscriptions;
         },
+        this_categories() {
+            return this.$store.getters.this_categories;
+        }
     },
     mounted() {},
     methods: {
@@ -291,11 +286,16 @@ export default {
             this.$refs.uploadFile.show();
         },
         populate() {
-            this.ruleForm = this.selected;
+            this.ruleForm = this.this_selected;
             let subs = [];
             this.ruleForm.subscriptions.forEach((value, index) => {
-                subs.push(value.id);
+                subs.push(value.subscription_id);
             });
+            this.ruleForm.is_active = this.ruleForm.is_active === 1 ? true : false
+            this.ruleForm.is_featured = this.ruleForm.is_featured === 1 ? true : false
+            this.ruleForm.is_global = this.ruleForm.is_featured === 1 ? true : false
+            this.ruleForm.is_live = this.ruleForm.is_live === 1 ? true : false
+
             this.ruleForm["subs_list"] = subs;
             this.subs_list = subs;
         },
@@ -313,16 +313,30 @@ export default {
             this.ruleForm.subs_list = this.subs_list
             this.$refs['ruleForm'].validate((valid) => {
                 if (valid) {
-                    this.$store.dispatch("AddCourse", this.ruleForm);
-                    this.$notify({
-                        title: "Success",
-                        message: "New Course Successfuly Added",
-                        type: "success",
-                    });
-
-                    // this.resetForm(formName);
-
-                    //   })
+                    if(this.action === 'edit') {
+                      let result = this.$store.dispatch("EditCourse", this.ruleForm).then(response => {
+                        this.$notify({
+                          title: "Success",
+                          message: "New Course Successfuly Updated",
+                          type: "success",
+                        });
+                      }).catch(error => {
+                        console.log('error')
+                      })
+                    
+                    } else {
+                      let result = this.$store.dispatch("AddCourse", this.ruleForm)
+                      .then(response => {
+                        this.$notify({
+                          title: "Success",
+                          message: "New Course Successfuly Added",
+                          type: "success",
+                        });
+                      }).catch(error => {
+                        console.log('adding error')
+                      })
+                      
+                    }
                 } else {
                     console.log("error submit!!");
                     return false;
@@ -330,12 +344,13 @@ export default {
             });
         },
         handleCancel() {
-          console.log('BACK')
             let value = {
                 mode: "back",
-                data: "",
+                data: "back",
             };
+            console.log(value ,'BACK')
             this.$emit("change", value);
+            this.$router.push({ name: 'Courses', replace: true })
         },
     },
 };

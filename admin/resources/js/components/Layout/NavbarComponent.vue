@@ -5,10 +5,12 @@
         <a id="toogleclick" class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
-
-      <!-- <el-page-header @back="goBack" :content="currentRoute">
-        <i class="el-icon-back"></i>
-      </el-page-header> -->
+    <span class="page-title"> 
+      {{ route.name }} 
+    </span>
+      <!-- <el-page-header :content="route.name" title=""> -->
+        <!-- <i class="el-icon-back"></i> -->
+      <!-- </el-page-header> -->
       <!-- <span style="font-size: 14px;color: #3031336e;font-weight: 200; padding-left: 5px;">  /  {{ this_componentName }} </span> -->
 
     <!-- Right navbar links -->
@@ -76,10 +78,6 @@
     name: 'NavbarComponent',
     props:{
       route: {
-        required: false,
-        type: String
-      },
-      me: {
         required: false,
         type: Object
       }

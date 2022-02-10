@@ -1,7 +1,7 @@
 <template>
     <div>
         <transition name="component-fade" mode="out-in">
-            <component :is="thisComponent" @change="changeComponent" :action="action" :selected="data"></component>
+            <component :is="thisComponent" @change="changeComponent" :act="action" :selected="selected_data"></component>
         </transition>
     </div>
 </template>
@@ -19,8 +19,8 @@ export default {
         return {
             loading: false,
             thisComponent: null,
-            data: {},
-            action: 'create',
+            selected_data: {},
+            action: '',
         }
     },
     created() {
@@ -32,34 +32,38 @@ export default {
             this.thisComponent = ViewCourseComponent
         },
         changeComponent(value) {
-            console.log(value)
+            console.log(value, 'emited')
+            this.action = value.mode
+            this.selected_data = value.data
             if (value.mode === 'add') {
                 this.thisComponent = null
-                this.data = {}
-                this.action = 'create'
-                // this.$router.push({ path: '/course-management/create', replace: true })
-                console.log(this.$router)
+                // this.data = {}
+                // this.action = 'create'
+                this.$store.dispatch("SetSelected", value);
                 this.thisComponent = CreateCourseComponent
-                this.$router.push({ path: '/course-management/create', replace: true })
+                this.$router.push({ name: 'New Course', replace: true })
                 
             }
             if (value.mode === 'back') {
                 this.thisComponent = null
-                this.data = {}
-                this.action = 'back'
+                // this.data = {}
+                // this.action = 'back'
+                this.$store.dispatch("SetSelected", value);
                 this.thisComponent = ViewCourseComponent
-                
-                this.$router.push({ path: '/course-management/al-courses', replace: true })
+          
+           
             }
             if (value.mode === 'edit') {
                 this.thisComponent = null
-                this.data = value.data
-                this.action = 'edit'
-                // this.$router.push({ path: '/course-management/create', replace: true })
-                this.thisComponent = CreateCourseComponent
-
+                // this.data = value.data
+                this.$store.dispatch("SetSelected", value);
+                this.thisComponent = CreateCourseComponent 
+              
+                this.$router.push({ name: 'New Course', replace: true })
+         
             }
-        }
+        },
+   
     },
 }
 </script>

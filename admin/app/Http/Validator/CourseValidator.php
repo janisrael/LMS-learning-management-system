@@ -5,7 +5,7 @@ namespace App\Http\Validator;
 class CourseValidator{
     const CREATE  = [
         'course_number' => 'required',
-        'name' => 'required|unique:courses,name',
+        'name' => 'required',
         'sort_order' => 'required',
         'is_global' => 'required',
         'is_featured' => 'required',
@@ -13,10 +13,23 @@ class CourseValidator{
         'created_by' => 'required'
     ];
 
-    static function rules($id) {
+    static function rules() {
         return [
             'course_number' => 'required',
             'name' => 'required|unique:courses,name',
+            'sort_order' => 'required',
+            'is_global' => 'required',
+            'is_featured' => 'required',
+            'is_active' => 'required',
+            'created_by' => 'required'
+        ];
+    }
+
+
+    static function storerules($id) {
+        return [
+            'course_number' => 'required',
+            'name' => 'required',
             'sort_order' => 'required',
             'is_global' => 'required',
             'is_featured' => 'required',
@@ -29,7 +42,7 @@ class CourseValidator{
         return [
             'course_number.required' => 'Course ID is required',
             'name.required' => 'Course Name is required',
-            'name.unique' => 'Course Name Already Taken',
+            
             'sort_order.required' => 'Sort Order is required',
             'is_global.required' => 'If Global is required',
             'is_featured.required' => 'if Featured is required',
