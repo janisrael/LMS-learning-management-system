@@ -481,9 +481,9 @@ span.image-url {
   width: 100%;
 }
 
-.lms-btn-primary {
+// .lms-btn-primary {
 
-}
+// }
 
 input.el-input__inner {
   font-weight: 300 !important;
@@ -550,4 +550,9 @@ span.page-title {
 .no-image i {
   font-size: 25px;
   color: grey;
+}
+
+.el-table.manageCourseTable.el-table--fit.el-table--border.el-table--enable-row-hover.el-table--enable-row-transition th {
+  background-color: #535353 !important;
+  color: #fff !important;
 }

@@ -581,4 +581,9 @@ span.page-title {
   font-size: 25px;
   color: grey;
 }
+
+.el-table.manageCourseTable.el-table--fit.el-table--border.el-table--enable-row-hover.el-table--enable-row-transition th {
+  background-color: #535353 !important;
+  color: #fff !important;
+}
 /*# sourceMappingURL=lms_theme.css.map */

@@ -20,14 +20,14 @@ class Chapter extends Model
         'created_by'
     ];
 
-    protected $appends= array('lessons');
+    // protected $appends= array('lessons');
 
-    public function lessons()
-    {
-        return $this->hasMany(Lesson::class);
-    }
+    // public function lessons()
+    // {
+    //     return $this->hasMany(Lesson::class);
+    // }
 
-    public function getLessonsAttribute(){
-        return $this->lessons()->get();
-    }
+    // public function getLessonsAttribute(){
+    //     return $this->lessons()->get();
+    // }
 }

@@ -3,6 +3,14 @@ import Router from 'vue-router'
 import LoginComponent from '../components/Auth/LoginComponent'
 import IndexCourseComponent from '../components/ContentPages/Course/IndexComponent'
 import CreateCourseComponent from '../components/ContentPages/Course/CreateCourseComponent'
+
+import IndexLessonComponent from '../components/ContentPages/Lesson/IndexLessonComponent'
+// import ViewLessonComponent from '../components/ContentPages/Lesson/ViewLessonComponent'
+import CreateLessonComponent from '../components/ContentPages/Lesson/CreateLessonComponent'
+
+import IndexChapterComponent from '../components/ContentPages/Chapter/IndexChapterComponent'
+import CreateChapterComponent from '../components/ContentPages/Chapter/CreateChapterComponent'
+
 Vue.use(Router)
 export const routes = [
     {
@@ -66,9 +74,11 @@ export const routes = [
             permission: 'maintenance_schedule.view'
         }
     },
+
+    // chapter
     {
         path: '/chapter-management/all-chapters',
-        // component:ViewChapterComponent,
+        component:IndexChapterComponent,
         name: 'Chapters',
         group: 'chapter-management',
         icon: '<i class="fas fa-layer-group"></i>',
@@ -79,17 +89,68 @@ export const routes = [
         }
     },
     {
+        path: '/chapter-management/new-chapter',
+        component:CreateChapterComponent,
+        name: 'New Chapter',
+        group: 'chapter-management',
+        icon: '<i class="fas fa-layer-group"></i>',
+        type: 'create',
+        key: 'maintenance_schedule_view',
+        meta: {
+            permission: 'maintenance_schedule.view'
+        }
+    },
+    {
+        path: '/chapter-management/edit-chapter',
+        component:CreateChapterComponent,
+        name: 'Edit Chapter',
+        group: 'chapter-management',
+        icon: '<i class="fas fa-layer-group"></i>',
+        type: 'edit',
+        key: 'maintenance_schedule_view',
+        meta: {
+            permission: 'maintenance_schedule.view'
+        }
+    },
+
+    // lesson
+    {
         path: '/lesson-management/all-lessons',
-        // component:ViewLessonComponent,
+        component:IndexLessonComponent,
         name: 'Lessons',
         group: 'lesson-management',
         icon: '<i class="fas fa-hand-holding-usd"></i>',
-        type: 'child',
+        type: 'page',
         key: 'fe_phone_sales',
         meta: {
             permission: 'fe_phone_sales'
         }
     },
+    {
+        path: '/lesson-management/new-lesson',
+        component:CreateLessonComponent,
+        name: 'New Lesson',
+        group: 'lesson-management',
+        icon: '<i class="fas fa-hand-holding-usd"></i>',
+        type: 'create',
+        key: 'fe_phone_sales',
+        meta: {
+            permission: 'fe_phone_sales'
+        }
+    },
+    {
+        path: '/lesson-management/edit-lesson',
+        component:CreateLessonComponent,
+        name: 'Edit Lesson',
+        group: 'lesson-management',
+        icon: '<i class="fas fa-hand-holding-usd"></i>',
+        type: 'edit',
+        key: 'fe_phone_sales',
+        meta: {
+            permission: 'fe_phone_sales'
+        }
+    },
+    // quiz
     {
         path: '/quiz-management/all-quizzes',
         // component:ViewQuizComponent,
@@ -123,7 +184,7 @@ export const routes = [
         is_title: true,
         group: 'subscription-products',
         icon: '<i class="far fa-address-card"></i>',
-        type: 'child',
+        type: 'page',
         key: 'customer_lookup_view',
         meta: {
             permission: 'customer_lookup.view'

@@ -18,7 +18,7 @@ class CreateCourseHasSubscriptionsTable extends Migration
             $table->foreignId('course_id')->restrictOnDelete();
             $table->foreignId('subscription_id')->nullOnDelete();
             $table->integer('last_viewed_lesson')->nullable();
-            $table->integer('created_by')->nullable;
+            $table->integer('created_by')->nullable();
             $table->timestamps();
         });
     }

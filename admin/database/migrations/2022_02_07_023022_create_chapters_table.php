@@ -18,7 +18,7 @@ class CreateChaptersTable extends Migration
             $table->string('name');
             $table->longText('description')->nullable();
             $table->integer('sort_order');
-            $table->boolean('is_active')->default(1);
+            $table->string('is_active', 5)->default('false');
             $table->integer('author_id')->nullable();
             $table->integer('duration');
             $table->decimal('percentage', 5,2)->default(0);
