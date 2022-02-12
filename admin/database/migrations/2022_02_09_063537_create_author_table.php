@@ -19,7 +19,7 @@ class CreateAuthorTable extends Migration
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->text('image_url')->nullable();
-            $table->integer('created_by')->nullable;
+            $table->integer('created_by')->nullable();
             $table->timestamps();
         });
     }

@@ -18,7 +18,7 @@ class CreateSubscriptionProductTable extends Migration
             $table->string('product_number', 20);
             $table->string('name');
             $table->longText('description')->nullable();
-            $table->integer('created_by')->nullable;
+            $table->integer('created_by')->nullable();
             $table->timestamps();
         });
     }

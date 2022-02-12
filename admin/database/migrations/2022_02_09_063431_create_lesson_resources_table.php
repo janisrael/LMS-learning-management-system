@@ -18,7 +18,7 @@ class CreateLessonResourcesTable extends Migration
             $table->foreignId('lesson_id')->nullable()->restrictOnDelete();
             $table->string('name');
             $table->text('file');
-            $table->integer('created_by')->nullable;
+            $table->integer('created_by')->nullable();
             $table->timestamps();
         });
     }

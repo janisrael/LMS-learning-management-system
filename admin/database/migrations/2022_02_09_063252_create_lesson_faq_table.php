@@ -18,7 +18,7 @@ class CreateLessonFaqTable extends Migration
             $table->foreignId('lesson_id')->nullable()->restrictOnDelete();
             $table->string('question');
             $table->string('answer');
-            $table->integer('created_by')->nullable;
+            $table->integer('created_by')->nullable();
             $table->timestamps();
         });
     }

@@ -20,9 +20,11 @@ class CreateLessonsTable extends Migration
             $table->string('name');
             $table->longText('description')->nullable();
             $table->longText('video_url')->nullable();
+            $table->longText('preview_url')->nullable();
             $table->integer('sort_order');
             $table->longText('image_url')->nullable();
-            $table->boolean('is_active')->default(1);
+            $table->string('is_active',5)->default('false');
+            $table->string('is_published', 5)->default('false');
             $table->integer('author_id')->nullable();
             $table->integer('duration')->nullable()->default(0);
             $table->decimal('percentage', 5,2)->nullable()->default(0);

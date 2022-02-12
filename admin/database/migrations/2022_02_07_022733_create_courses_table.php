@@ -15,11 +15,8 @@ class CreateCoursesTable extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
-
             $table->string('course_number', 20);
-
             $table->integer('author_id')->nullable();
-            
             $table->string('name');
             $table->longText('description')->nullable();
             $table->integer('category_id')->nullable();
@@ -28,6 +25,7 @@ class CreateCoursesTable extends Migration
             $table->string('is_featured',5)->default('false');
             $table->string('is_active',5)->default('true');
             $table->string('is_live',5)->default('true');
+            $table->string('is_published',5)->default('false');
             $table->text('course_image_url')->nullable();
             $table->decimal('percentage', 5,2)->nullable()->default(0);
             $table->integer('created_by')->nullable();

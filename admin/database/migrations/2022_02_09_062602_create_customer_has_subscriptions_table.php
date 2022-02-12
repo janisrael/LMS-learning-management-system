@@ -17,7 +17,7 @@ class CreateCustomerHasSubscriptionsTable extends Migration
             $table->id();
             $table->string('casesafe_id', 20);
             $table->foreignId('subscription_id')->restrictOnDelete();
-            $table->integer('created_by')->nullable;
+            $table->integer('created_by')->nullable();
             $table->timestamps();
         });
     }
