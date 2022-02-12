@@ -24,8 +24,8 @@ class CreateLessonsTable extends Migration
             $table->longText('image_url')->nullable();
             $table->boolean('is_active')->default(1);
             $table->integer('author_id')->nullable();
-            $table->integer('duration')->nullable();
-            $table->decimal('percentage', 5,2)->default(0);
+            $table->integer('duration')->nullable()->default(0);
+            $table->decimal('percentage', 5,2)->nullable()->default(0);
             $table->integer('created_by')->nullable();
             $table->timestamps();
         });

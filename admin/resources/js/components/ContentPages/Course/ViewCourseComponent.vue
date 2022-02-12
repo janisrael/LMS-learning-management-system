@@ -88,17 +88,20 @@
                 </transition>
             </el-card>
         </el-col>
+        <currentComponent :is="currentComponent" :selected="manageData" @change_close="ManageClose"/>
     </el-col>
 </template>
 
 <script>
 import CreateCourseComponent from "./CreateCourseComponent.vue";
+import ManageCourseComponent from './ManageCourseComponent.vue'
 import { Notification } from "element-ui";
 import Sortable from 'sortablejs';
 export default {
     name: "ViewCourseComponent",
     components: {
-        CreateCourseComponent
+        CreateCourseComponent,
+        ManageCourseComponent
     },
     data() {
         return {
@@ -106,6 +109,7 @@ export default {
             search: '',
             currentComponent: null,
             passData: {},
+            manageData: {},
             data: [],
             roles_and_permission: this.$store.state.user,
             author_id: null,
@@ -141,11 +145,17 @@ export default {
         this.show = true
     },
     methods: {
+        ManageClose(value) {
+          console.log('asdsd')
+          this.currentComponent = null
+        },
         handleShowFilter() {
 
         },
         manageCourse(course, i) {
-            console.log('manage')
+          console.log('manage')
+          this.manageData = course
+          this.currentComponent = ManageCourseComponent
         },
         handleAdd() {
             let value = {

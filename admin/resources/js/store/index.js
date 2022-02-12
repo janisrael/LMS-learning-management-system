@@ -1,12 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import auth from './auth'
+import * as lesson from './modules/lessons.js'
 // import VueRouter from 'vue-router';
 // import { attempt } from 'lodash'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
+  namespaced: true,
+  modules: {
+    lesson
+  },
   state: {
     token: '',
     user: '',
@@ -15,11 +19,12 @@ const store = new Vuex.Store({
     v_chapters: [],
     v_lessons: [],
     v_authors: [],
+    v_chapters: [],
     v_categories: [],
     v_subscriptions: [],
     v_component_name: 'LoginComponent',
     v_component_state: false,
-    v_selected: {}
+    v_selected: {},
   },
   mutations: {
     SET_TOKEN: (state, token) => {
@@ -62,6 +67,9 @@ const store = new Vuex.Store({
     },
     GET_CATEGORIES: (state, value) => {
       state.v_categories = value
+    },
+    GET_CHAPTERS: (state, chapters) => {
+      state.v_chapters = chapters
     }
   },
   actions: {
@@ -277,7 +285,28 @@ const store = new Vuex.Store({
     },
     SetSelected({ commit, state }, value) {
       commit('SET_SELECTED', value)
-    }
+    },
+    GetChapters({ commit, state }, id) {
+      return new Promise((resolve, reject) => {
+        var AjaxUrl = "/api/v1/chapters";
+        axios.get(AjaxUrl, {
+          headers: {
+            'Authorization': 'Bearer ' + state.token
+          },
+          params: {
+            term: '',
+            id: id
+          }
+        })
+        .then(response => {
+          commit('GET_CHAPTERS', response.data.chapter)
+          console.log(response.data.chapter)
+          resolve(response)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
   },
   getters: {
     this_token: state => state.token,
@@ -291,10 +320,11 @@ const store = new Vuex.Store({
     allSubscriptions: state => state.v_subscriptions,
     this_selected: state => state.v_selected,
     this_categories: state => state.v_categories,
-  },
-  modules: {
-    // dataStore
+    this_chapters: state => state.v_chapters,
+    // lesson.js
+    this_lessons: state => state.lesson.v_lessons 
   }
+
 })
 
 export default store

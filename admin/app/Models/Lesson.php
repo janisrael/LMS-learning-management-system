@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Chapter;
 
 class Lesson extends Model
 {
@@ -24,6 +25,15 @@ class Lesson extends Model
         'percentage',
         'craeted_by'
     ];
+    protected $appends = ['chapter'];
 
+    public function chapter()
+    {
+        return $this->hasOne(Chapter::class, 'id', 'chapter_id');
+    }
+
+    public function getChapterAttribute(){
+        return $this->chapter()->first();
+    }
   
 }

@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import LoginComponent from '../components/Auth/LoginComponent'
 import IndexCourseComponent from '../components/ContentPages/Course/IndexComponent'
 import CreateCourseComponent from '../components/ContentPages/Course/CreateCourseComponent'
+
+import IndexLessonComponent from '../components/ContentPages/Lesson/IndexLessonComponent'
 Vue.use(Router)
 export const routes = [
     {
@@ -80,11 +82,11 @@ export const routes = [
     },
     {
         path: '/lesson-management/all-lessons',
-        // component:ViewLessonComponent,
+        component:IndexLessonComponent,
         name: 'Lessons',
         group: 'lesson-management',
         icon: '<i class="fas fa-hand-holding-usd"></i>',
-        type: 'child',
+        type: 'page',
         key: 'fe_phone_sales',
         meta: {
             permission: 'fe_phone_sales'
