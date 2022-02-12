@@ -15,8 +15,8 @@ class CreateLessonsTable extends Migration
     {
         Schema::create('lessons', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->constrained()->restrictOnDelete();
-            $table->foreignId('chapter_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('course_id')->nullable()->restrictOnDelete();
+            $table->foreignId('chapter_id')->nullable()->nullOnDelete();
             $table->string('name');
             $table->longText('description')->nullable();
             $table->longText('video_url')->nullable();
@@ -26,7 +26,7 @@ class CreateLessonsTable extends Migration
             $table->integer('author_id')->nullable();
             $table->integer('duration')->nullable();
             $table->decimal('percentage', 5,2)->default(0);
-            $table->integer('created_by')->nullable;
+            $table->integer('created_by')->nullable();
             $table->timestamps();
         });
     }

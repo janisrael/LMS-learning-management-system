@@ -53,6 +53,19 @@ export const routes = [
             permission: 'maintenance_schedule.view'
         }
     },
+
+    {
+        path: '/course-management/edit-course',
+        component: CreateCourseComponent,
+        name: 'Edit Course',
+        group: 'course-managemnent',
+        icon: '<i class="fas fa-book parent-nav-icon"></i>',
+        type: 'edit',
+        key: 'maintenance_schedule_view',
+        meta: {
+            permission: 'maintenance_schedule.view'
+        }
+    },
     {
         path: '/chapter-management/all-chapters',
         // component:ViewChapterComponent,

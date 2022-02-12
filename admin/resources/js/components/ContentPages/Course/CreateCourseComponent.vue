@@ -1,8 +1,6 @@
 <template>
     <el-col :span="24">
-        <!--    <el-col :span="24" class="page-content-title">Maintenance Management - Schedule List</el-col>-->
         <el-col ref="contentMargin" :span="24" class="content-margin">
-            <!-- {{ contentHeight }} -->
             <el-card class="box-card layout-card">
               <div slot="header" class="clearfix">
                   <div class="search-input-suffix" style="width: 100%">
@@ -11,17 +9,13 @@
                          <el-page-header title="">
                             <i class="el-icon-back"></i>
                           </el-page-header>
-                          <!-- Create New Course -->
                         </span>
-
                       <span class="page-header-btn-wrapper">
-                        <el-button type="primary" plain @click="handleAddCourse('ruleForm')">
-                          <span v-if="action === 'create'"> <i class="el-icon-plus"></i> Create Course</span>
-                          <span v-if="action === 'edit'"> <i class="far fa-save"></i></span>
+                        <el-button type="primary" plain @click="handleAddCourse('ruleForm')" size="small">
+                          <span v-if="action === 'add'"> <i class="el-icon-plus"></i> Create Course</span>
+                          <span v-if="action === 'edit'"> <i class="far fa-save"></i> Save Course</span>
                         </el-button>
-                        <!-- <el-button @click="handleCancel()">Cancel</el-button> -->
                       </span>
-                     
                     </el-col>
                   </div>
                 </div>
@@ -66,6 +60,27 @@
                               </el-option>
                             </el-select>
                           </el-form-item>
+                          <el-form-item
+                            label="Category"
+                            label-width="200px"
+                          >
+                            <el-select
+                              ref="category"
+                              v-model="ruleForm.category_id"
+                              filterable
+                              placeholder="please select category"
+                              style="width: 100%"
+                            >
+                              <el-option
+                                v-for="cat in this_categories"
+                                :key="cat.id"
+                                :label="cat.name"
+                                :value="cat.id"
+                                size="mini"
+                              >
+                              </el-option>
+                            </el-select>
+                          </el-form-item>
                           <el-form-item label="Description" prop="description">
                             <el-input
                               ref="courseDesc"
@@ -74,45 +89,46 @@
                               size="mini"
                             ></el-input>
                           </el-form-item>
-                          <el-form-item label="Status">
-                            <el-switch v-model="ruleForm.is_active" size="mini"></el-switch>
+                          <el-form-item label="Active">
+                            <el-switch v-model="ruleForm.is_active === 'true' ? true : false" size="mini"></el-switch>
                             <span style="width: 80%; display: inline-block">
                               <el-alert
-                                title="Status of the Course, Can turn Active or Inactive"
-                                type="danger">
+                                title="Status of the Course, if set to Inactive will not be visible to all client. default: Active"
+                                type="info"
+                                :closable="false">
                               </el-alert>
                             </span>
                           </el-form-item>
                           <el-form-item label="Live Event">
-                            <el-switch v-model="ruleForm.is_live" size="mini"></el-switch>
+                            <el-switch v-model="ruleForm.is_live === 'true' ? true : false" size="mini"></el-switch>
                             <span style="width: 80%; display: inline-block">
                               <el-alert
                                 title="Turn on to make course as Live Event"
-                                type="danger"
+                                type="info"
+                                :closable="false"
                               >
                               </el-alert>
                             </span>
                           </el-form-item>
-        
                           <el-form-item label="Global Gallery">
-                            <el-switch v-model="ruleForm.is_global" size="mini"></el-switch>
+                            <el-switch v-model="ruleForm.is_global === 'true' ? true : false" size="mini"></el-switch>
                             <span style="width: 80%; display: inline-block">
                               <el-alert
                                 title="Turn on to add course to Global Gallery"
-                                type="danger"
+                                type="info"
+                                :closable="false"
                               >
                               </el-alert>
                             </span>
                           </el-form-item>
                           <el-form-item label="Featured">
-                            <el-switch
-                              v-model="ruleForm.is_featured"
-                              size="mini"
+                            <el-switch v-model="ruleForm.is_featured === 'true' ? true : false" size="mini"
                             ></el-switch>
                             <span style="width: 80%; display: inline-block">
                               <el-alert
                                 title="Turn on to add course to Global Gallery"
-                                type="danger"
+                                type="info"
+                                :closable="false"
                               >
                               </el-alert>
                             </span>
@@ -121,7 +137,7 @@
                         <el-col :span="8">
                           <el-form-item label="" label-width="80px">
 
-                            <div v-if="action === 'create'">
+                            <div v-if="action === 'add'">
                               <div
                                 class="edit-preview-on preview-show"
                                 style="display: inline-block"
@@ -134,69 +150,37 @@
                                 />
                               </div>
                             </div>
-            
+                   
                             <div v-else>
-                              <div
-                                v-if="
-                                  ruleForm.course_image_url !== '' ||
-                                  ruleForm.course_image_url !== null
-                                "
-                              >
-                                <div
-                                  class="edit-preview preview-show"
-                                  @click="triggerUploader()"
-                                  :style="{
-                                    'background-image':
-                                      'url(' + ruleForm.course_image_url + ')',
-                                  }"
-                                >
+                              <div>
+                                  <div
+                                    class="edit-preview preview-on"
+                                    @click="triggerUploader()"
+                                    :style="{
+                                      'background-image':
+                                        'url(' + ruleForm.course_image_url + ')',
+                                    }">
                                   <div class="edit-preview-container">
-                                    <i class="fas fa-edit"></i>
+                                      <i class="el-icon-upload"></i>
+                                    </div>
                                   </div>
-                                </div>
         
-                                <div
-                                  class="edit-preview-on preview-not-show"
-                                  style="display: inline-block"
-                                >
-                                  <uploader-component
-                                    ref="uploadFile"
-                                    :path.sync="ruleForm.course_image_url"
-                                    style="width: 100%"
-                                    @setAttachment="ruleForm.course_image_url = $event"
-                                  />
-                                </div>
-                              </div>
-                              <div v-else>
-                                <div
-                                  class="edit-preview preview-not-show"
-                                  @click="triggerUploader()"
-                                  :style="{
-                                    'background-image':
-                                      'url(' + ruleForm.course_image_url + ')',
-                                  }"
-                                >
-                                  <div class="edit-preview-container">
-                                    <i class="fas fa-edit"></i>
+                                  <div
+                                    class="edit-preview-on preview-not-show"
+                                    style="display: inline-block">
+                                    <uploader-component
+                                      ref="uploadFile"
+                                      :path.sync="ruleForm.course_image_url"
+                                      style="width: 100%"
+                                      @setAttachment="ruleForm.course_image_url = $event"
+                                    />
                                   </div>
-                                </div>
-        
-                                <div
-                                  class="edit-preview-on preview-show"
-                                  style="display: inline-block"
-                                >
-                                  <uploader-component
-                                    ref="uploadFile"
-                                    :path.sync="ruleForm.course_image_url"
-                                    style="width: 100%"
-                                    @setAttachment="ruleForm.course_image_url = $event"
-                                  />
-                                </div>
+                                  <span v-if="ruleForm.course_image_url" class="image-url">
+                                      {{ ruleForm.course_image_url }}
+                                  </span>
                               </div>
                             </div>
-                            <span v-if="ruleForm.course_image_url" class="image-url">{{
-                              ruleForm.course_image_url
-                            }}</span>
+
                           </el-form-item>
                         </el-col>
                       </el-col>
@@ -224,119 +208,187 @@ export default {
         selected: {
             required: false,
             type: Object,
-        },
-        action: {
-            required: false,
-            type: String,
-            default: "create",
-        },
+        }
     },
     data() {
-        return {
-            ruleForm: {
-                name: '',
-                description: '',
-                is_live: false,
-                is_active: false,
-                is_global: false,
-                is_featured: false,
-            },
-            rules: {
-                name: [{
-                        required: true,
-                        message: "Please input Course name",
-                        trigger: "blur",
-                    },
-                    // { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' }
-                ],
-                subs_list: [{
-                    required: true,
-                    message: "Please select Atleast one Subscription Product",
-                    trigger: ["blur", "change"],
-                }, ],
-                description: [{
-                    required: true,
-                    message: "Please input Course Description",
-                    trigger: "blur",
-                }, ],
-            },
-            loading: false,
-            data: [],
-            roles_and_permission: this.$store.state.user,
-
-            new_data: {},
-            dialogImageUrl: "",
-            dialogVisible: false,
-            disabled: false,
-            subscriptions: [],
-            subs_list: [],
-        };
+      return {
+        ruleForm: {
+          name: '',
+          description: '',
+          is_live: 'true',
+          is_active: 'true',
+          is_global: 'false',
+          is_featured: 'false',
+          subscriptions: [],
+          category_id: null
+        },
+        rules: {
+          name: [{
+                required: true,
+                message: "Please input Course name",
+                trigger: "blur",
+            }
+          ],
+          subs_list: [{
+            required: true,
+            message: "Please select Atleast one Subscription Product",
+            trigger: ["blur", "change"],
+          }],
+          description: [{
+            required: true,
+            message: "Please input Course Description",
+            trigger: "blur",
+          }]
+        },
+        loading: false,
+        data: [],
+        roles_and_permission: this.$store.state.user,
+        new_data: {},
+        dialogImageUrl: "",
+        dialogVisible: false,
+        disabled: false,
+        subscriptions: [],
+        subs_list: [],
+        action: localStorage.getItem('action'),
+        this_selected: this.$store.getters.this_selected.data,
+        current_route: this.$route.name
+      };
     },
     created: function() {
-        // this.handleResize();
-        this.loading = true;
-        if (this.action !== "create") {
-            this.populate();
+      // this.handleResize();
+      console.log(this.this_selected)
+      this.loading = true;
+      let curr_route = this.current_route.toLowerCase()
+      if(curr_route.includes('edit')) {
+        // this.action = localStorage.setItem('state_action', 'edit')
+        if(!localStorage.getItem('reactiveData') || localStorage.getItem('reactiveData') === 'undefined') {
+          this.action = 'edit'
+          localStorage.setItem('action', 'edit')
+          localStorage.setItem('reactiveData', JSON.stringify(this.this_selected))
+          localStorage.setItem('subscriptions', JSON.stringify(this.this_selected.subscriptions))
+          let data = JSON.parse(localStorage.getItem('reactiveData'))
+          let subs = JSON.parse(localStorage.getItem('subscriptions'))
+          this.populate(data, subs);
+        } else {
+          localStorage.setItem('action', 'edit')
+          let data = JSON.parse(localStorage.getItem('reactiveData'))
+          let subs = JSON.parse(localStorage.getItem('subscriptions'))
+          this.populate(data, subs);
         }
+      } else {
+        this.action = 'add'
+        localStorage.setItem('action', 'add')
+      }
+    },
+    watch: {
+      ruleForm: {
+        handler: function(after, before) {
+        let curr_route = this.current_route.toLowerCase()
+      
+        if(curr_route.includes('edit')) {
+          if(localStorage.getItem('reactiveData') || localStorage.getItem('reactiveData') !== 'undefined') {
+            localStorage.removeItem('reactiveData')
+
+            localStorage.setItem('state_action', 'edit')
+            localStorage.setItem('reactiveData', JSON.stringify(this.ruleForm))
+          } else {
+            localStorage.setItem('reactiveData', JSON.stringify(this.ruleForm))
+            localStorage.removeItem('state_action')
+            localStorage.setItem('state_action', 'edit')
+          }
+          }
+        },
+        deep: true
+      } 
     },
     computed: {
         this_subscriptions() {
             return this.$store.getters.allSubscriptions;
+        },
+        this_categories() {
+            return this.$store.getters.this_categories;
         },
     },
     mounted() {},
     methods: {
         handleSave(row) {},
         triggerUploader() {
-            this.$refs.uploadFile.show();
+          this.$refs.uploadFile.show();
         },
-        populate() {
-            this.ruleForm = this.selected;
-            let subs = [];
-            this.ruleForm.subscriptions.forEach((value, index) => {
-                subs.push(value.id);
-            });
-            this.ruleForm["subs_list"] = subs;
-            this.subs_list = subs;
+        populate(data, subscriptions) {
+          this.ruleForm = data
+          let subs = [];
+          this.ruleForm.subscriptions.forEach((value, index) => {
+            subs.push(value.subscription_id);
+          });
+          this.ruleForm["subs_list"] = subs;
+          this.subs_list = subs;
         },
         resetForm(formName) {
-            this.$refs[formName].resetFields();
+          this.$refs[formName].resetFields();
         },
         handleRemove(file) {
-            console.log(file);
+          console.log(file);
         },
         handlePictureCardPreview(file) {
-            this.dialogImageUrl = file.url;
-            this.dialogVisible = true;
+          this.dialogImageUrl = file.url;
+          this.dialogVisible = true;
         },
         handleAddCourse(formName, ruleForm) {
-            this.ruleForm.subs_list = this.subs_list
+          this.ruleForm.subs_list = this.subs_list
             this.$refs['ruleForm'].validate((valid) => {
-                if (valid) {
-                    this.$store.dispatch("AddCourse", this.ruleForm);
+              if (valid) {
+                if(this.action === 'edit') {
+                  let result = this.$store.dispatch("EditCourse", this.ruleForm).then(response => {
                     this.$notify({
-                        title: "Success",
-                        message: "New Course Successfuly Added",
-                        type: "success",
+                      title: "Success",
+                      message: "New Course Successfuly Updated",
+                      type: "success",
                     });
-
-                    // this.resetForm(formName);
-
-                    //   })
+                    this.removeCache()
+                  }).catch(error => {
+                    console.log('error')
+                    this.$notify({
+                      title: "Error",
+                      message: 'Invalid Data',
+                      type: "error",
+                    });
+                  })
+                
                 } else {
-                    console.log("error submit!!");
-                    return false;
+                  let result = this.$store.dispatch("AddCourse", this.ruleForm)
+                  .then(response => {
+                    this.$notify({
+                      title: "Success",
+                      message: "New Course Successfuly Added",
+                      type: "success",
+                    });
+                  }).catch(error => {
+                    console.log('adding error')
+                  })
+                  
                 }
-            });
+              } else {
+                console.log("error submit!!");
+                return false;
+              }
+          });
         },
         handleCancel() {
-          console.log('BACK')
-            let value = {
-                mode: "back",
-                data: "",
-            };
-            this.$emit("change", value);
+          let value = {
+            mode: "back",
+            data: "back",
+          };
+          console.log(value ,'BACK')
+          this.$emit("change", value);
+          this.$router.push({ name: 'Courses', replace: true })
+          this.removeCache()
         },
+        removeCache() {
+          localStorage.removeItem('reactiveData')
+          localStorage.removeItem('action')
+          localStorage.removeItem('subscriptions')
+        }
     },
 };
 </script>

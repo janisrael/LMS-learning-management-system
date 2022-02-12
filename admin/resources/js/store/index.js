@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from './auth'
+// import VueRouter from 'vue-router';
 // import { attempt } from 'lodash'
 
 Vue.use(Vuex)
@@ -14,9 +15,11 @@ const store = new Vuex.Store({
     v_chapters: [],
     v_lessons: [],
     v_authors: [],
+    v_categories: [],
     v_subscriptions: [],
     v_component_name: 'LoginComponent',
-    v_component_state: false
+    v_component_state: false,
+    v_selected: {}
   },
   mutations: {
     SET_TOKEN: (state, token) => {
@@ -48,12 +51,44 @@ const store = new Vuex.Store({
     },
     Add_COURSE: (state, course) => {
       state.v_courses.push(course)
+    },
+    UPDATE_COURSE: (state, data) => {
+      let collection = state.v_courses
+      collection[data.index] = data.course
+      state.v_courses = collection
+    },
+    SET_SELECTED: (state, value) => {
+      state.v_selected = value
+    },
+    GET_CATEGORIES: (state, value) => {
+      state.v_categories = value
     }
   },
   actions: {
+    async changeRoute(to, from, next) {
+      try {
+          let user = await store.dispatch('Auth/getUser');
+
+          if (!user.email_verified_at) {
+              return _user.mustBeVerified(user, next);
+          }
+
+          if (
+              !user.profile.finished_enrolment &&
+              !user.hasActiveSubscription
+          ) {
+              return _user.mustHaveFinishedEnrolment(user, next);
+          }
+
+          next({ name: 'landing' });
+      } catch (err) {
+          next();
+      }
+    },
     async signIn({ dispatch }, credentials) {
       let response = await axios.post('api/v1/user/login', credentials)
       let new_token = response.data.access_token
+      localStorage.setItem('user_token', new_token)
       dispatch('attempt', new_token)
     },
     async attempt({ commit, dispatch }, new_token) {
@@ -62,8 +97,10 @@ const store = new Vuex.Store({
       const has_local_token = localStorage.getItem('user_token') || 'new'
       if (has_local_token !== 'new') {
         stored_token = new_token
+
+        // stored_token = localStorage.setItem('user_token', new_token)
       } else {
-        stored_token = localStorage.user_token
+        stored_token = localStorage.setItem('user_token', stored_token)
       }
       let res = await axios.get('api/v1/user/auth', {
         headers: {
@@ -75,6 +112,7 @@ const store = new Vuex.Store({
           dispatch('GetCourses', stored_token)
           dispatch('GetAuthors', stored_token)
           dispatch('GetSubscriptions', stored_token)
+          dispatch('GetCategories', stored_token)
           commit('SET_USER', response.data)
           commit('SET_LOGIN_STATE', true)
           commit('SET_LOGOUT_COMPONENT', 'MainWrapperComponent')
@@ -139,6 +177,20 @@ const store = new Vuex.Store({
           })
       })
     },
+    GetCategories({commit,state}, value) {
+      return new Promise((resolve, reject) => {
+        axios.get('/api/v1/category', {
+          headers: {
+            'Authorization': 'Bearer ' + value
+          },
+        }).then(response => {
+          commit('GET_CATEGORIES', response.data.category)
+          resolve(response)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
     GetSubscriptions({ commit, state }, value) {
       return new Promise((resolve, reject) => {
         axios.get('/api/v1/subscriptions', {
@@ -171,6 +223,60 @@ const store = new Vuex.Store({
           reject(error)
         })
       })
+    },
+    EditCourse({ commit, state }, value) {
+      let index = value.index
+      let data = {
+        course: '',
+        index: ''
+      }
+      return new Promise((resolve, reject) => {
+        axios.put('/api/v1/courses/edit/' + value.id, value, {
+          headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('user_token'),
+            'Accept': '*/*'
+          }
+          
+        }).then(response => {
+          let res = response.data.data
+          
+          res.attachment_absolute_path = window.ENV.APP_URL + '/storage/' + res.course_image_url
+          data.course = res
+          data.index = index
+          commit('UPDATE_COURSE', data)
+          resolve(response)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    DeleteFunction({ commit, state }, value) {
+      let index = value.index
+      let data = {
+        course: value.data,
+        index: value.index
+      }
+      return new Promise((resolve, reject) => {
+        axios.get('/api/v1/courses/delete/' + value.data.id, {
+          headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('user_token'),
+            'Accept': '*/*'
+          }
+        }).then(response => {
+          let res = response
+          console.log(res)          
+          // res.attachment_absolute_path = window.ENV.APP_URL + '/storage/' + res.course_image_url
+          // data.course = res
+          // data.index = index
+          // commit('UPDATE_COURSE', data)
+          resolve(response)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    SetSelected({ commit, state }, value) {
+      commit('SET_SELECTED', value)
     }
   },
   getters: {
@@ -183,6 +289,8 @@ const store = new Vuex.Store({
     componentState: state => state.v_component_state,
     allAuthors: state => state.v_authors,
     allSubscriptions: state => state.v_subscriptions,
+    this_selected: state => state.v_selected,
+    this_categories: state => state.v_categories,
   },
   modules: {
     // dataStore

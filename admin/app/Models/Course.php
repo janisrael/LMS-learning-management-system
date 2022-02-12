@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Chapter;
+use App\Models\Categories;
 use App\Models\Author;
-use App\Models\CourseDetail;
+use App\Models\Lesson;
+use App\Models\CourseHasSubscriptions;
 use Illuminate\Support\Facades\Storage;
 
 class Course extends Model
@@ -20,6 +21,7 @@ class Course extends Model
         'description',
         'sort_order',
         'is_global',
+        'category_id',
         'is_featured',
         'course_image_url',
         'is_active',
@@ -39,7 +41,7 @@ class Course extends Model
     const TEMP_DIRECTORY = 'public';
     const PERMANENT_DIRECTORY = 'courses';
     
-    protected $appends = ['authors','chapters','attachment_absolute_path','subscriptions'];
+    protected $appends = ['authors','attachment_absolute_path','subscriptions','category','lessons'];
 
     public function getCourseAttachmentAttribute()
     {
@@ -93,22 +95,32 @@ class Course extends Model
         return $this->authors()->first();
     }
 
-    public function chapters()
+    public function category()
     {
-        return $this->hasMany(Chapter::class, 'course_id', 'id');
+        return $this->hasOne(Categories::class, 'id', 'category_id');
     }
 
-    public function getChaptersAttribute(){
-        return $this->chapters()->get();
+    public function getCategoryAttribute(){
+        return $this->category()->first();
     }
 
     public function subscriptions()
     {
-        return $this->hasMany(CourseDetail::class);
+        return $this->hasMany(CourseHasSubscriptions::class);
     }
 
     public function getSubscriptionsAttribute(){
         return $this->subscriptions()->get();
+    }
+
+
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);
+    }
+
+    public function getLessonsAttribute(){
+        return $this->lessons()->get();
     }
 
 
