@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from './auth'
+// import VueRouter from 'vue-router';
 // import { attempt } from 'lodash'
 
 Vue.use(Vuex)
@@ -64,6 +65,26 @@ const store = new Vuex.Store({
     }
   },
   actions: {
+    async changeRoute(to, from, next) {
+      try {
+          let user = await store.dispatch('Auth/getUser');
+
+          if (!user.email_verified_at) {
+              return _user.mustBeVerified(user, next);
+          }
+
+          if (
+              !user.profile.finished_enrolment &&
+              !user.hasActiveSubscription
+          ) {
+              return _user.mustHaveFinishedEnrolment(user, next);
+          }
+
+          next({ name: 'landing' });
+      } catch (err) {
+          next();
+      }
+    },
     async signIn({ dispatch }, credentials) {
       let response = await axios.post('api/v1/user/login', credentials)
       let new_token = response.data.access_token
@@ -223,6 +244,31 @@ const store = new Vuex.Store({
           data.course = res
           data.index = index
           commit('UPDATE_COURSE', data)
+          resolve(response)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    DeleteFunction({ commit, state }, value) {
+      let index = value.index
+      let data = {
+        course: value.data,
+        index: value.index
+      }
+      return new Promise((resolve, reject) => {
+        axios.get('/api/v1/courses/delete/' + value.data.id, {
+          headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('user_token'),
+            'Accept': '*/*'
+          }
+        }).then(response => {
+          let res = response
+          console.log(res)          
+          // res.attachment_absolute_path = window.ENV.APP_URL + '/storage/' + res.course_image_url
+          // data.course = res
+          // data.index = index
+          // commit('UPDATE_COURSE', data)
           resolve(response)
         }).catch(error => {
           reject(error)

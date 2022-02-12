@@ -24,6 +24,10 @@ aside.main-sidebar.sidebar-dark-primary.elevation-4 {
   overflow: hidden;
 }
 
+.course-card.course-add-card.md-card.md-card-chart.md-theme-default {
+  border: 1px solid rgba(0, 0, 0, 0.13);
+}
+
 .course-card-details-wrapper {
   padding: 14px;
   background-color: rgba(255, 255, 255, 1);
@@ -35,7 +39,7 @@ aside.main-sidebar.sidebar-dark-primary.elevation-4 {
   border-bottom-left-radius: 4px;
   bottom: 0;
   border-top: 1px solid rgba(0, 0, 0, 0.088) !important;
-  border: 1px solid rgba(0, 0, 0, 0.130);
+  // border: 1px solid rgba(0, 0, 0, 0.130);
 }
 .el-page-header__content {
   font-size: 14px !important;
@@ -536,4 +540,14 @@ span.page-title {
   // background-color: rgba(255, 158, 90, .7) !important;
   // color: #535353 !important;
   // border: 1px solid rgba(242, 136, 25, .27) !important;
+}
+
+.no-image {
+  display: block;
+  margin-top: 50px;
+}
+
+.no-image i {
+  font-size: 25px;
+  color: grey;
 }

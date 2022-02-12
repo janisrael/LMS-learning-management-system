@@ -25,6 +25,10 @@ aside.main-sidebar.sidebar-dark-primary.elevation-4 {
   overflow: hidden;
 }
 
+.course-card.course-add-card.md-card.md-card-chart.md-theme-default {
+  border: 1px solid rgba(0, 0, 0, 0.13);
+}
+
 .course-card-details-wrapper {
   padding: 14px;
   background-color: white;
@@ -36,7 +40,6 @@ aside.main-sidebar.sidebar-dark-primary.elevation-4 {
   border-bottom-left-radius: 4px;
   bottom: 0;
   border-top: 1px solid rgba(0, 0, 0, 0.088) !important;
-  border: 1px solid rgba(0, 0, 0, 0.13);
 }
 
 .el-page-header__content {
@@ -567,5 +570,15 @@ span.page-title {
   font-style: italic !important;
   font-weight: 400;
   font-family: sans-serif;
+}
+
+.no-image {
+  display: block;
+  margin-top: 50px;
+}
+
+.no-image i {
+  font-size: 25px;
+  color: grey;
 }
 /*# sourceMappingURL=lms_theme.css.map */

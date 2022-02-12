@@ -59,7 +59,7 @@ export default {
                 this.$store.dispatch("SetSelected", value);
                 this.thisComponent = CreateCourseComponent 
               
-                this.$router.push({ name: 'New Course', replace: true })
+                this.$router.push({ name: 'Edit Course', replace: true })
          
             }
         },

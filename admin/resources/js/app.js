@@ -45,10 +45,22 @@ window.Vue = require('vue');
 Vue.use(VueRouter)
 Vue.use(ElementUI, { locale })
 Vue.prototype.$routers = routes
+
 const router = new VueRouter({
   routes,
   mode: 'hash',
 })
+
+router.beforeEach((to, from, next) => {
+  if(localStorage.getItem('state_action')) {
+    localStorage.removeItem('state_action')
+    localStorage.setItem('state_action', JSON.stringify(to))
+  } else {
+    localStorage.setItem('state_action', JSON.stringify(to))
+  }
+
+  next();
+});
 
 Vue.component('index-component', require('./components/Layout/Index.vue').default);
 

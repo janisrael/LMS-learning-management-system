@@ -6,7 +6,7 @@
       </li>
     </ul>
     <span class="page-title"> 
-      {{ route.name }} 
+      {{ this.$route.name }} 
     </span>
       <!-- <el-page-header :content="route.name" title=""> -->
         <!-- <i class="el-icon-back"></i> -->
@@ -89,11 +89,7 @@
     },
     methods: {
       handleLogout() {
-        // axios.post('logout').then (res => {
-        //   localStorage.removeItem('user_token');
-        //   this.$router.go('/login');
-        //   this.$router.push('login')
-      // })
+        localStorage.clear()
         this.$store.dispatch('handleLogout')
       },
       hasProfileName(){

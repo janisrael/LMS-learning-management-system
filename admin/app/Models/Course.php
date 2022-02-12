@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Categories;
 use App\Models\Author;
+use App\Models\Lesson;
 use App\Models\CourseHasSubscriptions;
 use Illuminate\Support\Facades\Storage;
 
@@ -40,7 +41,7 @@ class Course extends Model
     const TEMP_DIRECTORY = 'public';
     const PERMANENT_DIRECTORY = 'courses';
     
-    protected $appends = ['authors','attachment_absolute_path','subscriptions','category'];
+    protected $appends = ['authors','attachment_absolute_path','subscriptions','category','lessons'];
 
     public function getCourseAttachmentAttribute()
     {
@@ -110,6 +111,16 @@ class Course extends Model
 
     public function getSubscriptionsAttribute(){
         return $this->subscriptions()->get();
+    }
+
+
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);
+    }
+
+    public function getLessonsAttribute(){
+        return $this->lessons()->get();
     }
 
 

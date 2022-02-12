@@ -8,9 +8,10 @@ use App\Http\Validator\CourseValidator;
 use App\Models\Course;
 use App\Models\CourseHasSubscriptions;
 use Illuminate\Support\Str;
-
+use App\Models\Lesson;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class CourseController extends Controller
 {
@@ -150,51 +151,45 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $newdata = Course::findorfail($id);
         $data = $request->only($this->model->getModel()->fillable);
         $validated = $this->validate($data, $this->validator->storerules($data['id']), $this->validator->getMessages());
 
         if ($validated->fails()) {
             return $this->validationErrors($validated->errors());
         }
-        else {
 
-            $subs_collection = $request->subs_list;
-            if (!$subs_collection) {
-                $err = [];
-                array_push($err, 'No Subscription selected');
-                $message = [
-                    'status' => 'error',
-                    'data' => [
-                        'errors' => [
-                            'name' => $err
-                        ],
-                        'messages' => 'Validator Errors'
-                    ]
-                ];
-                return $message;
-            }
-            DB::transaction(function () use ($id, $subs_collection, $request) {
-                $check_subs = CourseHasSubscriptions::where('course_id', '=', $request->id)->get();
+        $result = $this->repository->handleUpdate($request, $data, $id);
+        return response()->json($result->original);
+        // $newdata = Course::findorfail($id);
+        // $subs_collection = $request->subs_list;
+        // if (!$subs_collection) {
+        //     return $this->toJson(['status' => 'error', 'message' => 'Please Select atleast 1 Subscriptions'], 400);
+        // }
+        // else {
 
-                foreach($check_subs as $check => $check_value) {
-                    $item_to_delete = CourseHasSubscriptions::find($check_value->id);
-                    $item_to_delete->delete();
-                };
+        //     DB::transaction(function () use ($id, $subs_collection, $request) {
+        //         $check_subs = CourseHasSubscriptions::where('course_id', '=', $request->id)->get();
 
-                foreach($subs_collection as $item => $value){
-                    $subscriptions = new CourseHasSubscriptions;
-                    $subscriptions->course_id = $id;
-                    $subscriptions->subscription_id = $value;
-                    $subscriptions->created_by = 1;
-                    $subscriptions->save();
-                };
+        //         foreach($check_subs as $check => $check_value) {
+        //             $item_to_delete = CourseHasSubscriptions::find($check_value->id);
+        //             $item_to_delete->delete();
+        //         };
+
+        //         foreach($subs_collection as $item => $value){
+        //             $subscriptions = new CourseHasSubscriptions;
+        //             $subscriptions->course_id = $id;
+        //             $subscriptions->subscription_id = $value;
+        //             $subscriptions->created_by = 1;
+        //             $subscriptions->save();
+        //         };
         
-            });
+        //     });
 
-            $newdata->update($data);
-            return $this->toJson(['status' => 'success', 'data' => $newdata], 200);
-        }
+        //     $newdata->update($data);
+        // dd($result);
+        
+            // return $this->toJson(['response' => $result]);
+        // }
     }
 
     /**
@@ -205,20 +200,16 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
-        // $has_item = $this->repository->checkBiddingHasItems($id);
-
-        // if ($has_item) {
-        //     throw new BadRequestHttpException('You cannot delete bidding with PR items.');
-        // }
+        $lessons = Lesson::query()->where('course_id', '=', $id)->exists();
+        if ($lessons) {
+            return $this->toJson(['error'=>'You cannot delete Course with active lessons.'], 400);
+        }
 
         // $validation = $this->repository->validateUser($request);
         // if ($validation) {
-        //     BiddingStatus::query()->where('bid_id', '=', $id)->delete();
-        //     Bidding::destroy($id);
-        // } else {
-        //     throw new BadRequestHttpException('Error: Invalid password entered.');
+            Course::destroy($id);
         // }
 
-        // return $this->toJson(['status'=>'success'], 200);
+        return $this->toJson(['status'=>'success'], 200);
     }
 }

@@ -10,7 +10,6 @@
                             <i class="el-icon-back"></i>
                           </el-page-header>
                         </span>
-                      <!-- {{ this.$store.getters.this_selected }} {{ action }} -->
                       <span class="page-header-btn-wrapper">
                         <el-button type="primary" plain @click="handleAddCourse('ruleForm')" size="small">
                           <span v-if="action === 'add'"> <i class="el-icon-plus"></i> Create Course</span>
@@ -91,7 +90,7 @@
                             ></el-input>
                           </el-form-item>
                           <el-form-item label="Active">
-                            <el-switch v-model="ruleForm.is_active" size="mini"></el-switch>
+                            <el-switch v-model="ruleForm.is_active === 'true' ? true : false" size="mini"></el-switch>
                             <span style="width: 80%; display: inline-block">
                               <el-alert
                                 title="Status of the Course, if set to Inactive will not be visible to all client. default: Active"
@@ -101,7 +100,7 @@
                             </span>
                           </el-form-item>
                           <el-form-item label="Live Event">
-                            <el-switch v-model="ruleForm.is_live" size="mini"></el-switch>
+                            <el-switch v-model="ruleForm.is_live === 'true' ? true : false" size="mini"></el-switch>
                             <span style="width: 80%; display: inline-block">
                               <el-alert
                                 title="Turn on to make course as Live Event"
@@ -111,9 +110,8 @@
                               </el-alert>
                             </span>
                           </el-form-item>
-        
                           <el-form-item label="Global Gallery">
-                            <el-switch v-model="ruleForm.is_global" size="mini"></el-switch>
+                            <el-switch v-model="ruleForm.is_global === 'true' ? true : false" size="mini"></el-switch>
                             <span style="width: 80%; display: inline-block">
                               <el-alert
                                 title="Turn on to add course to Global Gallery"
@@ -124,9 +122,7 @@
                             </span>
                           </el-form-item>
                           <el-form-item label="Featured">
-                            <el-switch
-                              v-model="ruleForm.is_featured"
-                              size="mini"
+                            <el-switch v-model="ruleForm.is_featured === 'true' ? true : false" size="mini"
                             ></el-switch>
                             <span style="width: 80%; display: inline-block">
                               <el-alert
@@ -215,61 +211,95 @@ export default {
         }
     },
     data() {
-        return {
-            ruleForm: {
-                name: '',
-                description: '',
-                is_live: true,
-                is_active: true,
-                is_global: false,
-                is_featured: false,
-                subscriptions: [],
-                category_id: null
-            },
-            rules: {
-                name: [{
-                        required: true,
-                        message: "Please input Course name",
-                        trigger: "blur",
-                    },
-                    // { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' }
-                ],
-                subs_list: [{
-                    required: true,
-                    message: "Please select Atleast one Subscription Product",
-                    trigger: ["blur", "change"],
-                }, ],
-                description: [{
-                    required: true,
-                    message: "Please input Course Description",
-                    trigger: "blur",
-                }, ],
-            },
-            loading: false,
-            data: [],
-            roles_and_permission: this.$store.state.user,
-
-            new_data: {},
-            dialogImageUrl: "",
-            dialogVisible: false,
-            disabled: false,
-            subscriptions: [],
-            subs_list: [],
-            action: this.$store.getters.this_selected.mode,
-            this_selected: this.$store.getters.this_selected.data
-        };
-    },
-    computed: {
-      // this_selected() {
-      //   return this.$store.getters.this_selected
-      // }
+      return {
+        ruleForm: {
+          name: '',
+          description: '',
+          is_live: 'true',
+          is_active: 'true',
+          is_global: 'false',
+          is_featured: 'false',
+          subscriptions: [],
+          category_id: null
+        },
+        rules: {
+          name: [{
+                required: true,
+                message: "Please input Course name",
+                trigger: "blur",
+            }
+          ],
+          subs_list: [{
+            required: true,
+            message: "Please select Atleast one Subscription Product",
+            trigger: ["blur", "change"],
+          }],
+          description: [{
+            required: true,
+            message: "Please input Course Description",
+            trigger: "blur",
+          }]
+        },
+        loading: false,
+        data: [],
+        roles_and_permission: this.$store.state.user,
+        new_data: {},
+        dialogImageUrl: "",
+        dialogVisible: false,
+        disabled: false,
+        subscriptions: [],
+        subs_list: [],
+        action: localStorage.getItem('action'),
+        this_selected: this.$store.getters.this_selected.data,
+        current_route: this.$route.name
+      };
     },
     created: function() {
-        // this.handleResize();
-        this.loading = true;
-        if (this.action === "edit") {
-            this.populate();
+      // this.handleResize();
+      console.log(this.this_selected)
+      this.loading = true;
+      let curr_route = this.current_route.toLowerCase()
+      if(curr_route.includes('edit')) {
+        // this.action = localStorage.setItem('state_action', 'edit')
+        if(!localStorage.getItem('reactiveData') || localStorage.getItem('reactiveData') === 'undefined') {
+          this.action = 'edit'
+          localStorage.setItem('action', 'edit')
+          localStorage.setItem('reactiveData', JSON.stringify(this.this_selected))
+          localStorage.setItem('subscriptions', JSON.stringify(this.this_selected.subscriptions))
+          let data = JSON.parse(localStorage.getItem('reactiveData'))
+          let subs = JSON.parse(localStorage.getItem('subscriptions'))
+          this.populate(data, subs);
+        } else {
+          localStorage.setItem('action', 'edit')
+          let data = JSON.parse(localStorage.getItem('reactiveData'))
+          let subs = JSON.parse(localStorage.getItem('subscriptions'))
+          this.populate(data, subs);
         }
+      } else {
+        this.action = 'add'
+        localStorage.setItem('action', 'add')
+      }
+    },
+    watch: {
+      ruleForm: {
+        handler: function(after, before) {
+        let curr_route = this.current_route.toLowerCase()
+      
+        if(curr_route.includes('edit')) {
+          if(localStorage.getItem('reactiveData') || localStorage.getItem('reactiveData') !== 'undefined') {
+            localStorage.removeItem('reactiveData')
+
+            localStorage.setItem('state_action', 'edit')
+            localStorage.setItem('reactiveData', JSON.stringify(this.ruleForm))
+          } else {
+            localStorage.setItem('reactiveData', JSON.stringify(this.ruleForm))
+            localStorage.removeItem('state_action')
+            localStorage.setItem('state_action', 'edit')
+          }
+          }
+        },
+        deep: true
+      } 
     },
     computed: {
         this_subscriptions() {
@@ -277,81 +307,88 @@ export default {
         },
         this_categories() {
             return this.$store.getters.this_categories;
-        }
+        },
     },
     mounted() {},
     methods: {
         handleSave(row) {},
         triggerUploader() {
-            this.$refs.uploadFile.show();
+          this.$refs.uploadFile.show();
         },
-        populate() {
-            this.ruleForm = this.this_selected;
-            let subs = [];
-            this.ruleForm.subscriptions.forEach((value, index) => {
-                subs.push(value.subscription_id);
-            });
-            this.ruleForm.is_active = this.ruleForm.is_active === 1 ? true : false
-            this.ruleForm.is_featured = this.ruleForm.is_featured === 1 ? true : false
-            this.ruleForm.is_global = this.ruleForm.is_featured === 1 ? true : false
-            this.ruleForm.is_live = this.ruleForm.is_live === 1 ? true : false
-
-            this.ruleForm["subs_list"] = subs;
-            this.subs_list = subs;
+        populate(data, subscriptions) {
+          this.ruleForm = data
+          let subs = [];
+          this.ruleForm.subscriptions.forEach((value, index) => {
+            subs.push(value.subscription_id);
+          });
+          this.ruleForm["subs_list"] = subs;
+          this.subs_list = subs;
         },
         resetForm(formName) {
-            this.$refs[formName].resetFields();
+          this.$refs[formName].resetFields();
         },
         handleRemove(file) {
-            console.log(file);
+          console.log(file);
         },
         handlePictureCardPreview(file) {
-            this.dialogImageUrl = file.url;
-            this.dialogVisible = true;
+          this.dialogImageUrl = file.url;
+          this.dialogVisible = true;
         },
         handleAddCourse(formName, ruleForm) {
-            this.ruleForm.subs_list = this.subs_list
+          this.ruleForm.subs_list = this.subs_list
             this.$refs['ruleForm'].validate((valid) => {
-                if (valid) {
-                    if(this.action === 'edit') {
-                      let result = this.$store.dispatch("EditCourse", this.ruleForm).then(response => {
-                        this.$notify({
-                          title: "Success",
-                          message: "New Course Successfuly Updated",
-                          type: "success",
-                        });
-                      }).catch(error => {
-                        console.log('error')
-                      })
-                    
-                    } else {
-                      let result = this.$store.dispatch("AddCourse", this.ruleForm)
-                      .then(response => {
-                        this.$notify({
-                          title: "Success",
-                          message: "New Course Successfuly Added",
-                          type: "success",
-                        });
-                      }).catch(error => {
-                        console.log('adding error')
-                      })
-                      
-                    }
+              if (valid) {
+                if(this.action === 'edit') {
+                  let result = this.$store.dispatch("EditCourse", this.ruleForm).then(response => {
+                    this.$notify({
+                      title: "Success",
+                      message: "New Course Successfuly Updated",
+                      type: "success",
+                    });
+                    this.removeCache()
+                  }).catch(error => {
+                    console.log('error')
+                    this.$notify({
+                      title: "Error",
+                      message: 'Invalid Data',
+                      type: "error",
+                    });
+                  })
+                
                 } else {
-                    console.log("error submit!!");
-                    return false;
+                  let result = this.$store.dispatch("AddCourse", this.ruleForm)
+                  .then(response => {
+                    this.$notify({
+                      title: "Success",
+                      message: "New Course Successfuly Added",
+                      type: "success",
+                    });
+                  }).catch(error => {
+                    console.log('adding error')
+                  })
+                  
                 }
-            });
+              } else {
+                console.log("error submit!!");
+                return false;
+              }
+          });
         },
         handleCancel() {
-            let value = {
-                mode: "back",
-                data: "back",
-            };
-            console.log(value ,'BACK')
-            this.$emit("change", value);
-            this.$router.push({ name: 'Courses', replace: true })
+          let value = {
+            mode: "back",
+            data: "back",
+          };
+          console.log(value ,'BACK')
+          this.$emit("change", value);
+          this.$router.push({ name: 'Courses', replace: true })
+          this.removeCache()
         },
+        removeCache() {
+          localStorage.removeItem('reactiveData')
+          localStorage.removeItem('action')
+          localStorage.removeItem('subscriptions')
+        }
     },
 };
 </script>

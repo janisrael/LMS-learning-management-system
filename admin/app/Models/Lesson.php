@@ -11,16 +11,18 @@ class Lesson extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'course_id',
         'chapter_id',
         'name',
-        'video_url',
         'description',
+        'video_url',
         'sort_order',
-        'preview_image_url',
+        'image_url',
         'is_active',
         'author_id',
         'duration',
-        'percentage'
+        'percentage',
+        'craeted_by'
     ];
 
   

@@ -24,10 +24,10 @@ class CreateCoursesTable extends Migration
             $table->longText('description')->nullable();
             $table->integer('category_id')->nullable();
             $table->smallInteger('sort_order');
-            $table->boolean('is_global')->default(0);
-            $table->boolean('is_featured')->default(0);
-            $table->boolean('is_active')->default(1);
-            $table->boolean('is_live')->default(1);
+            $table->string('is_global',5)->default('false');
+            $table->string('is_featured',5)->default('false');
+            $table->string('is_active',5)->default('true');
+            $table->string('is_live',5)->default('true');
             $table->text('course_image_url')->nullable();
             $table->decimal('percentage', 5,2)->nullable()->default(0);
             $table->integer('created_by')->nullable();

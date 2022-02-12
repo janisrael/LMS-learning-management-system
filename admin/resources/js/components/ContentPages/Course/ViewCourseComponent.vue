@@ -52,19 +52,21 @@
                                 </el-col>
                                 <el-col v-for="(course, i) in this_courses" :key="i" :xs="24" :sm="8" :md="8" :lg="6" :xl="6">
                                     <div class="course-card course-add-card md-card md-card-chart md-theme-default" @click="manageCourse(course)">
-    
+                                        <div v-if="course.course_image_url === null" class="no-image"> 
+                                          <i class="el-icon-picture-outline"></i>
+                                        </div>
                                         <div :style="{'background-image': 'url(' + course.attachment_absolute_path + ')'}" class="md-card-header animated md-card-header-blue" data-header-animation="true">
-    
+                               
                                         </div>
                                         <div class="course-item-actions" data-header-animation="true">
                                             <el-col :span="8" class="course-item-action-icon">
                                                 <i class="fas fa-edit" @click="handleEdit(course, i)"></i>
                                             </el-col>
                                             <el-col :span="8" class="course-item-action-icon">
-                                                <i class="fas fa-eye"></i>
+                                                <i class="el-icon-s-grid" @click="manageCourse(course, i)" style="font-size: 16px !important;"></i>
                                             </el-col>
                                             <el-col :span="8" class="course-item-action-icon">
-                                                <i class="fas fa-trash-alt"></i>
+                                                <i class="fas fa-trash-alt" @click="handleDelete(course, i)"></i>
                                             </el-col>
                                         </div>
                                         <div style="padding: 14px; text-align: left;" class="course-card-details-wrapper">
@@ -111,7 +113,8 @@ export default {
             current_route: this.$route.name,
             filters: ['Featured', 'Global', 'Live','Active'],
             selectedfilters: ['Active'],
-            filteredAuthors: []
+            filteredAuthors: [],
+            no_image: ''
         }
     },
     watch: {
@@ -141,7 +144,7 @@ export default {
         handleShowFilter() {
 
         },
-        manageCourse(course) {
+        manageCourse(course, i) {
             console.log('manage')
         },
         handleAdd() {
@@ -151,38 +154,46 @@ export default {
             }
             this.$emit('change', value)
         },
-        handleDelete(row) {
-            this.forms.fill(row)
-            this.$confirm('Are you sure you want to delete this Maintenance Schedule?', 'Warning', {
-                confirmButtonText: 'OK',
-                cancelButtonText: 'Cancel',
-                type: 'warning'
-            }).then(() => {
-                this.forms.get('/maintenance/delete/' + row.id)
-                    .then((response) => {
-                        let stat = response.data.status;
-                        Notification[stat]({
-                            title: stat.charAt(0).toUpperCase() + stat.slice(1),
-                            message: response.data.message,
-                            duration: 4 * 1000
-                        });
-                        this.getRecords();
-                    }).catch(() => {})
-            }).catch(() => {
-                // this.$message({
-                //   type: 'info',
-                //   message: 'Delete canceled'
-                // });
-            });
+        handleDelete(row, i) {
+          let value = {
+              data: row,
+              index: i
+          }
+
+          this.$confirm('Are you sure you want to delete this Course?', 'Warning', {
+              confirmButtonText: 'Confirm',
+              cancelButtonText: 'Cancel',
+              type: 'warning'
+          }).then(() => {
+              this.$store.dispatch('DeleteFunction', value)
+              // this.forms.get('/maintenance/delete/' + row.id)
+              //     .then((response) => {
+              //         let stat = response.data.status;
+              //         Notification[stat]({
+              //             title: stat.charAt(0).toUpperCase() + stat.slice(1),
+              //             message: response.data.message,
+              //             duration: 4 * 1000
+              //         });
+              //         this.getRecords();
+              //     }).catch(() => {})
+          }).catch(() => {
+              // this.$message({
+              //   type: 'info',
+              //   message: 'Delete canceled'
+              // });
+          });
         },
         handleEdit(row,i) {
-            this.passData = row
-            row.index = i
-            let value = {
-                mode: 'edit',
-                data: row
-            }
-            this.$emit('change', value)
+          localStorage.removeItem('reactiveData')
+          localStorage.removeItem('action')
+          localStorage.removeItem('subscriptions')
+          this.passData = row
+          row.index = i
+          let value = {
+              mode: 'edit',
+              data: row
+          }
+          this.$emit('change', value)
         },
         ex_call_modal() {
             this.$refs.modalComponent.show()
