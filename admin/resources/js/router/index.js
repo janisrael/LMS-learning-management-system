@@ -5,6 +5,8 @@ import IndexCourseComponent from '../components/ContentPages/Course/IndexCompone
 import CreateCourseComponent from '../components/ContentPages/Course/CreateCourseComponent'
 
 import IndexLessonComponent from '../components/ContentPages/Lesson/IndexLessonComponent'
+import ViewLessonComponent from '../components/ContentPages/Lesson/ViewLessonComponent'
+import CreateLessonComponent from '../components/ContentPages/Lesson/CreateLessonComponent'
 Vue.use(Router)
 export const routes = [
     {
@@ -87,6 +89,30 @@ export const routes = [
         group: 'lesson-management',
         icon: '<i class="fas fa-hand-holding-usd"></i>',
         type: 'page',
+        key: 'fe_phone_sales',
+        meta: {
+            permission: 'fe_phone_sales'
+        }
+    },
+    {
+        path: '/lesson-management/new-lesson',
+        component:CreateLessonComponent,
+        name: 'New Lesson',
+        group: 'lesson-management',
+        icon: '<i class="fas fa-hand-holding-usd"></i>',
+        type: 'create',
+        key: 'fe_phone_sales',
+        meta: {
+            permission: 'fe_phone_sales'
+        }
+    },
+    {
+        path: '/lesson-management/edit-lesson',
+        component:CreateLessonComponent,
+        name: 'Edit Lesson',
+        group: 'lesson-management',
+        icon: '<i class="fas fa-hand-holding-usd"></i>',
+        type: 'edit',
         key: 'fe_phone_sales',
         meta: {
             permission: 'fe_phone_sales'

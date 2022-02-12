@@ -1,18 +1,26 @@
 <template>
-  <div>
-     <!-- {{ this.$store.getters.this_lessons }} -->
-
-     {{ this_lessons }}
-  </div>
+     <div>
+        <transition name="component-fade" mode="out-in">
+            <component :is="thisComponent" @change="changeComponent" :act="action" :selected="selected_data"></component>
+        </transition>
+    </div>
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex'
+import CreateLessonComponent from './CreateLessonComponent'
+import ViewLessonComponent from './ViewLessonComponent'
   export default {
     name: 'IndexLessonComponent',
+    components: {
+      ViewLessonComponent,
+      CreateLessonComponent
+    },
     data() {
       return {
-        lessons: []
+        lessons: [],
+        thisComponent: null,
+        selected_data: {},
+        action: ''
       }
     },
     computed: {
@@ -22,25 +30,45 @@ import { mapState, mapGetters, mapActions } from 'vuex'
     },
     created () {
       // this.getdLessons()
-      
+      this.loadPrimaryComponent()
     },
     mounted () {
-      this.getdLessons()
+      
     },
     methods: {
-      // ...mapActions(['getLessons']),
-      getdLessons() {
-      //   console.log('asdasd')
-      //   // this.add()
-      let id = 1
-      let res = this.$store.dispatch('getLessons')
-      if(res) {
-        this.lessons = this.this_lessons
-      }
-      //   // .then(response => {
-      //   //   this.lessons = this.$store.getters.this_lessons
-      //   // })
-      }
+      loadPrimaryComponent() {
+        this.thisComponent = ViewLessonComponent
+      },
+      changeComponent(value) {
+        console.log(value, 'emited')
+        this.action = value.mode
+        this.selected_data = value.data
+        if (value.mode === 'add') {
+          this.thisComponent = null
+          // this.data = {}
+          // this.action = 'create'
+          this.$store.dispatch("SetSelected", value);
+          this.thisComponent = CreateLessonComponent
+          this.$router.push({ name: 'New Lesson', replace: true })
+            
+        }
+        if (value.mode === 'back') {
+          this.thisComponent = null
+          // this.data = {}
+          // this.action = 'back'
+          this.$store.dispatch("SetSelected", value);
+          this.thisComponent = ViewLessonComponent
+        }
+        if (value.mode === 'edit') {
+          this.thisComponent = null
+          // this.data = value.data
+          this.$store.dispatch("SetSelected", value);
+          this.thisComponent = CreateLessonComponent 
+        
+          this.$router.push({ name: 'Edit Lesson', replace: true })
+      
+        }
+      },
     },
   }
 </script>

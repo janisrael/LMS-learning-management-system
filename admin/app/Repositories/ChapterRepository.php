@@ -16,7 +16,12 @@ class ChapterRepository extends Repository
     public function search($filter)
     {
         $term = $filter['term'];
+        $id = $filter['id'];
         $query = Chapter::query();
+
+        if($id) {
+            $query = $query->where('id','=', $id);
+        }
         return $query;
     }
 }

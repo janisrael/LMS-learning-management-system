@@ -37,8 +37,25 @@ Vue.use(Vuex)
             reject(error)
           })
         })
-  
-      // return response
+    },
+    addtLesson({ commit, dispatch, rootState }, value) {
+      console.log(rootState,'root')
+        return new Promise((resolve, reject) => {
+          var AjaxUrl = "/api/v1/lessons";
+          axios.post(AjaxUrl, value, {
+            headers: {
+              'Authorization': 'Bearer ' + rootState.token
+            }
+          })
+          .then(response => {
+            console.log(response,'ress')
+            commit('GET_LESSONS', response.data.lesson)
+            
+            resolve(response)
+          }).catch(error => {
+            reject(error)
+          })
+        })
     }
   }
 

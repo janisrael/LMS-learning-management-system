@@ -16,7 +16,9 @@ class LessonRepository extends Repository
     public function search($filter)
     {
         $term = $filter['term'];
-        $query = Lesson::query();
+
+        $query = Lesson::join('courses','lessons.course_id','courses.id')
+        ->select('lessons.*','courses.name as course_name');
 
         return $query;
     }

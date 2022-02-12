@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Chapter;
+use App\Models\Course;
 
 class Lesson extends Model
 {
@@ -35,5 +36,12 @@ class Lesson extends Model
     public function getChapterAttribute(){
         return $this->chapter()->first();
     }
-  
+    public function course()
+    {
+        return $this->hasOne(Course::class, 'id', 'course_id');
+    }
+
+    public function getCourseAttribute(){
+        return $this->course()->first();
+    }
 }
