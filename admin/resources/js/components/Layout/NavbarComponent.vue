@@ -89,7 +89,6 @@
     },
     methods: {
       handleLogout() {
-        localStorage.clear()
         this.$store.dispatch('handleLogout')
       },
       hasProfileName(){

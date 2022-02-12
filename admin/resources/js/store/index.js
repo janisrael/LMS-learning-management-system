@@ -132,6 +132,7 @@ const store = new Vuex.Store({
     async handleLogout({ commit }, value) {
       let res = await axios.post('logout').then(response => {
         localStorage.removeItem('user_token');
+        localStorage.clear()
         commit('SET_LOGOUT_COMPONENT', 'LoginComponent')
       })
     },
@@ -218,7 +219,7 @@ const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios.post('/api/v1/courses', value, {
           headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('user_token'),
+            'Authorization': 'Bearer ' + state.user_token,
             'Accept': '*/*'
           }
           
@@ -241,7 +242,7 @@ const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios.put('/api/v1/courses/edit/' + value.id, value, {
           headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('user_token'),
+            'Authorization': 'Bearer ' + state.user_token,
             'Accept': '*/*'
           }
           
@@ -267,7 +268,7 @@ const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios.get('/api/v1/courses/delete/' + value.data.id, {
           headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('user_token'),
+            'Authorization': 'Bearer ' + state.user_token,
             'Accept': '*/*'
           }
         }).then(response => {
