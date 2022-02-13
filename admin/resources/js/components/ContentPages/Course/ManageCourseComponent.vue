@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-col :span="4" style="height: 100vh; margin-top: -20px;">
-      <div class="chapter-list-left">
+      <div class="chapter-list-left active">
         <div><strong>Chapter 1</strong></div>
         <div>This is the description</div>
       </div>
@@ -27,75 +27,35 @@
 
         <div class="md-card md-card-timeline md-theme-default md-card-plain">
             <ul class="timeline timeline-simple">
-              <li class="timeline-inverted">
-                  <!-- <div class="timeline-badge danger">
-                      <i class="md-icon md-icon-font md-theme-default"
-                      >card_travel
-                      </i>
-                  </div> -->
+              <li v-for="(lesson, i) in this_selected.lessons" :key="i" class="timeline-inverted">
                   <div class="timeline-panel">
+                    <div class="lesson-resources-wrapper">
+                        <el-col :span="8" class="lesson-media-wrapper lesson-media">
+                          <i class="el-icon-picture"/>
+                          <h5 style="font-weight: 400 !important;">Video</h5>
+                        </el-col>
+                        <el-col :span="8" class="lesson-media-wrapper lesson-media">
+                          <i class="fa fa-file" aria-hidden="true"></i>
+                            <h5 style="font-weight: 400 !important;">Resources</h5>
+                        </el-col>
+                        <el-col :span="8" class="lesson-media-wrapper">
+                          <i class="fa fa-comment" aria-hidden="true"></i>
+                          <h5 style="font-weight: 400 !important;">FAQ</h5>
+                        </el-col>
+                    </div>
                     <div class="timeline-heading">
-                      <span class="badge badge-danger">
-                      Lesson Title 1
-                      </span>
+                      <h4 class="card-title-course" style="color: black !important; font-weight: 400 !important;">{{ lesson.name }}</h4>
                     </div>
                     <div class="timeline-body">
-                        <p> Wifey made the best Father's Day meal ever. So thankful so happy so blessed. Thank you for making my family We just had fun with the “future” theme !!! It was a fun night all together ... The always rude Kanye Show at 2am Sold Out Famous viewing @ Figueroa and 12th in downtown. </p>
+                        <span class="lesson-li-body"> {{ lesson.description }}</span>
                     </div>
-                    <h6>
-                      <h6>
-                      <i class="ti-time"></i> 
-                      11 hours ago via Twitter 
-                      </h6>
-                    </h6>
-                  </div>
-              </li>
-
-              <li class="timeline-inverted">
-                  <!-- <div class="timeline-badge danger">
-                      <i class="md-icon md-icon-font md-theme-default"
-                      >card_travel
-                      </i>
-                  </div> -->
-                  <div class="timeline-panel">
-                    <div class="timeline-heading">
+                   
                       <span class="badge badge-danger">
-                      Lesson Title 2
-                      </span>
-                    </div>
-                    <div class="timeline-body">
-                        <p> Wifey made the best Father's Day meal ever. So thankful so happy so blessed. Thank you for making my family We just had fun with the “future” theme !!! It was a fun night all together ... The always rude Kanye Show at 2am Sold Out Famous viewing @ Figueroa and 12th in downtown. </p>
-                    </div>
-                    <h6>
                       <h6>
-                      <i class="ti-time"></i> 
-                      11 hours ago via Twitter 
+                       {{ lesson.chapter.name }}
                       </h6>
-                    </h6>
-                  </div>
-              </li>
-
-              <li class="timeline-inverted">
-                  <!-- <div class="timeline-badge danger">
-                      <i class="md-icon md-icon-font md-theme-default"
-                      >card_travel
-                      </i>
-                  </div> -->
-                  <div class="timeline-panel">
-                    <div class="timeline-heading">
-                      <span class="badge badge-danger">
-                      Lesson Title 3
                       </span>
-                    </div>
-                    <div class="timeline-body">
-                        <p> Wifey made the best Father's Day meal ever. So thankful so happy so blessed. Thank you for making my family We just had fun with the “future” theme !!! It was a fun night all together ... The always rude Kanye Show at 2am Sold Out Famous viewing @ Figueroa and 12th in downtown. </p>
-                    </div>
-                    <h6>
-                      <h6>
-                      <i class="ti-time"></i> 
-                      11 hours ago via Twitter 
-                      </h6>
-                    </h6>
+                
                   </div>
               </li>
             </ul>

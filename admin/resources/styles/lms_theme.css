@@ -397,7 +397,6 @@ li.el-upload-list__item.is-success {
   position: relative;
   width: 100%;
   overflow: unset;
-  font-size: .875rem;
   border-radius: 6px;
   color: #333;
   background: #fff;
@@ -638,9 +637,7 @@ span.page-title {
   flex-direction: column;
   position: relative;
   width: 100%;
-  margin: 30px 0;
   overflow: unset;
-  font-size: .875rem;
   -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
   border-radius: 6px;
@@ -673,8 +670,21 @@ span.page-title {
   margin-top: 30px;
 }
 
+.timeline.timeline-simple:before {
+  left: 5%;
+  background-color: #e5e5e5;
+}
+
 .timeline:before {
   display: none !important;
+  top: 50px;
+  bottom: 0;
+  position: absolute;
+  content: " ";
+  width: 3px;
+  background-color: #e5e5e5;
+  left: 50%;
+  margin-left: -1px;
 }
 
 .timeline > li {
@@ -772,6 +782,7 @@ span.page-title {
 
 .timeline.timeline-simple > li > .timeline-panel {
   width: 95%;
+  overflow: hidden;
 }
 
 .timeline > li > .timeline-panel {
@@ -839,5 +850,67 @@ span.page-title {
   position: inherit;
   padding-top: 20%;
   border: 1px solid rgba(0, 0, 0, 0.13);
+}
+
+.lesson-resources-wrapper {
+  position: absolute;
+  float: right;
+  background-color: rgba(205, 205, 205, 0.17);
+  display: block;
+  right: 0;
+  width: 410px;
+  height: -webkit-fill-available;
+  margin-top: -20px;
+  overflow: hidden;
+}
+
+.lesson-resources-wrapper i {
+  font-size: 30px;
+  display: -ms-grid;
+  display: grid;
+  padding-top: 31px;
+  text-align: center;
+  color: #b7b7b7;
+}
+
+.lesson-media-wrapper {
+  height: 100%;
+  /* background-color: red; */
+  display: block;
+  text-align: center;
+}
+
+.lesson-media {
+  border-right: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+.timeline-body span {
+  height: 45px !important;
+  display: block !important;
+  font-weight: 400 !important;
+  font-family: inherit;
+}
+
+span.badge.badge-danger {
+  /* margin-bottom: -20px; */
+  position: absolute;
+  margin-left: -20px;
+  margin-bottom: 30px;
+  bottom: -33px;
+  width: 190px;
+  padding: 0px !important;
+  color: #fff !important;
+}
+
+span.badge.badge-danger h6 {
+  color: #fff !important;
+  font-weight: 400 !important;
+  text-align: left !important;
+  padding-left: 10px !important;
+}
+
+.chapter-list-left.active {
+  background: linear-gradient(60deg, #1c82cf, #328bcc) !important;
+  color: #fff !important;
 }
 /*# sourceMappingURL=lms_theme.css.map */

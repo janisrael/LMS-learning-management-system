@@ -8,6 +8,7 @@ import store from './store'
 import Vue from 'vue';
 import '../../resources/styles/theme.css';
 import '../../resources/styles/lms_theme.css';
+// import '@fortawesome/fontawesome-free/js/all.js';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'element-ui/lib/theme-chalk/index.css';
 import locale from 'element-ui/lib/locale/lang/en' // lang i18n

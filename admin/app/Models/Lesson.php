@@ -44,4 +44,6 @@ class Lesson extends Model
     public function getCourseAttribute(){
         return $this->course()->first();
     }
+
+  
 }
