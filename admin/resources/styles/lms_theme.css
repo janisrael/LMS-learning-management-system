@@ -829,4 +829,15 @@ span.page-title {
   /* border-radius: 10px; */
   border-radius: 0px !important;
 }
+
+.chapter-list-left {
+  background-color: white;
+  height: 170px;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  position: inherit;
+  padding-top: 20%;
+  border: 1px solid rgba(0, 0, 0, 0.13);
+}
 /*# sourceMappingURL=lms_theme.css.map */
