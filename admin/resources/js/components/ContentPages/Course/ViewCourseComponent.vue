@@ -24,6 +24,12 @@
                                                  <el-checkbox-group v-model="selectedfilters" size="mini">
                                                     <el-checkbox v-for="filter in filters" :label="filter" :key="filter">
                                                     </el-checkbox>
+                                                    <el-button type="success" plain>
+                                                      OK
+                                                    </el-button>
+                                                    <el-button type="success" plain>
+                                                      Clear
+                                                    </el-button>
                                                 </el-checkbox-group>
                                             </div>
                                         </div>
@@ -52,11 +58,14 @@
                                 </el-col>
                                 <el-col v-for="(course, i) in this_courses" :key="i" :xs="24" :sm="8" :md="8" :lg="6" :xl="6">
                                     <div class="course-card course-add-card md-card md-card-chart md-theme-default" @click="manageCourse(course)">
+
                                         <div v-if="course.course_image_url === null" class="no-image"> 
                                           <i class="el-icon-picture-outline"></i>
                                         </div>
                                         <div :style="{'background-image': 'url(' + course.attachment_absolute_path + ')'}" class="md-card-header animated md-card-header-blue" data-header-animation="true">
-                               
+                                          <div v-if="course.is_featured" class="featured">
+                                            <i class="fa fa-star feature-star" aria-hidden="false"></i>
+                                          </div>
                                         </div>
                                         <div class="course-item-actions" data-header-animation="true">
                                             <el-col :span="8" class="course-item-action-icon">
@@ -88,20 +97,20 @@
                 </transition>
             </el-card>
         </el-col>
-        <currentComponent :is="currentComponent" :selected="manageData" @change_close="ManageClose"/>
+        <!-- <currentComponent :is="currentComponent" :selected="manageData" @change_close="ManageClose"/> -->
     </el-col>
 </template>
 
 <script>
 import CreateCourseComponent from "./CreateCourseComponent.vue";
-import ManageCourseComponent from './ManageCourseComponent.vue'
+// import ManageCourseComponent from './ManageCourseComponent.vue'
 import { Notification } from "element-ui";
 import Sortable from 'sortablejs';
 export default {
     name: "ViewCourseComponent",
     components: {
         CreateCourseComponent,
-        ManageCourseComponent
+        // ManageCourseComponent
     },
     data() {
         return {
@@ -153,9 +162,15 @@ export default {
 
         },
         manageCourse(course, i) {
-          console.log('manage')
-          this.manageData = course
-          this.currentComponent = ManageCourseComponent
+          // console.log('manage')
+          // this.manageData = course
+          // this.currentComponent = ManageCourseComponent
+            let value = {
+                mode: 'manage',
+                data: course
+            }
+            this.$emit('change', value)
+
         },
         handleAdd() {
             let value = {

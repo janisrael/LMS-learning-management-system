@@ -1,27 +1,56 @@
 <template>
   <div>
-    <el-drawer
-      :title="selected.name"
-      :visible.sync="drawer"
-      direction="ltr"
-      size="100%"
-      :before-close="handleClose">
-      <!-- <span>{{ selected.lessons }}</span> -->
-   
-        <el-col :span="24" style="padding: 10px;">
-          <el-card class="box-card layout-card" shadow="never">
+    <el-col :span="4" style="background-color:#fff; height: 100vh; margin-top: -20px;">
+      Chapters
+      <div>
+      Chapter 1
+      </div>
+    </el-col>
+
+    <el-col :span="20" style="height: 100vh;">
+    <el-col :span="24" style="padding: 10px;">
+
+    <div class="md-card md-card-timeline md-theme-default md-card-plain">
+      <ul class="timeline timeline-simple">
+        <li class="timeline-inverted">
+            <!-- <div class="timeline-badge danger">
+                <i class="md-icon md-icon-font md-theme-default"
+                >card_travel
+                </i>
+            </div> -->
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <span class="badge badge-danger">
+                Lesson Title 1
+                </span>
+              </div>
+              <div class="timeline-body">
+                  <p> Wifey made the best Father's Day meal ever. So thankful so happy so blessed. Thank you for making my family We just had fun with the “future” theme !!! It was a fun night all together ... The always rude Kanye Show at 2am Sold Out Famous viewing @ Figueroa and 12th in downtown. </p>
+              </div>
+              <h6>
+                <h6>
+                <i class="ti-time"></i> 
+                11 hours ago via Twitter 
+                </h6>
+              </h6>
+            </div>
+          </li>
+      </ul>
+    </div>
+    
+          <!-- <el-card class="box-card layout-card" shadow="never">
             <el-col :span="18">
                 <el-button type="success" plain size="small">
                   Add New Lesson
                 </el-button>
-                <el-tabs tab-position="top" style="height: 200px;">
+                <el-tabs tab-position="top" >
                   <el-tab-pane label="Lessons">
                     <el-table
                       ref="multipleTable"
                       class="manageCourseTable"
                       highlight-current-row
                       @current-change="handleCurrentChange"
-                      :data="selected.lessons"
+                      :data="this_selected.lessons"
                       border
                       style="width: 100%">
                       <el-table-column
@@ -122,11 +151,21 @@
                   </el-table-column>
                 </el-table>
             </el-col>
-          </el-card>
+          </el-card> -->
         </el-col>
-        </el-col>
+    </el-col>
+    <!-- <el-drawer
+      :title="selected.name"
+      :visible.sync="drawer"
+      direction="ltr"
+      size="100%"
+      :before-close="handleClose"> -->
+      <!-- <span>{{ selected.lessons }}</span> -->
+   <!-- {{ this_selected }} -->
+        
+      </el-col>
     
-    </el-drawer>
+    <!-- </el-drawer> -->
   </div>
 </template>
 
@@ -135,16 +174,16 @@
     name: 'ManageCourseComponent',
     props: {
       selected: {
-        required: true,
-        type: Object,
-        currentRow: null
+        required: false,
+        type: Object
       },
     },
     data() {
       return {
         drawer: false,
-        id: this.selected.id,
-        chapters: this.$store.getters.this_chapters
+        id: 1,
+        chapters: this.$store.getters.this_chapters,
+        this_selected: this.$store.getters.this_selected.data,
       }
     },
     // computed: {
