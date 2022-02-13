@@ -90,7 +90,7 @@
                             ></el-input>
                           </el-form-item>
                           <el-form-item label="Active">
-                            <el-switch v-model="ruleForm.is_active === 'true' ? true : false" size="mini"></el-switch>
+                            <el-switch v-model="ruleForm.is_active" size="mini"></el-switch>
                             <span style="width: 80%; display: inline-block">
                               <el-alert
                                 title="Status of the Course, if set to Inactive will not be visible to all client. default: Active"
@@ -100,7 +100,7 @@
                             </span>
                           </el-form-item>
                           <el-form-item label="Live Event">
-                            <el-switch v-model="ruleForm.is_live === 'true' ? true : false" size="mini"></el-switch>
+                            <el-switch v-model="ruleForm.is_live" size="mini"></el-switch>
                             <span style="width: 80%; display: inline-block">
                               <el-alert
                                 title="Turn on to make course as Live Event"
@@ -111,7 +111,7 @@
                             </span>
                           </el-form-item>
                           <el-form-item label="Global Gallery">
-                            <el-switch v-model="ruleForm.is_global === 'true' ? true : false" size="mini"></el-switch>
+                            <el-switch v-model="ruleForm.is_global" size="mini"></el-switch>
                             <span style="width: 80%; display: inline-block">
                               <el-alert
                                 title="Turn on to add course to Global Gallery"

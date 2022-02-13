@@ -9,11 +9,13 @@
 <script>
 import ViewCourseComponent from './ViewCourseComponent.vue'
 import CreateCourseComponent from './CreateCourseComponent'
+import ManageCourseComponent from './ManageCourseComponent.vue'
 export default {
     name: 'IndexCourseComponent',
     components: {
         ViewCourseComponent,
-        CreateCourseComponent
+        CreateCourseComponent,
+        ManageCourseComponent
     },
     data() {
         return {
@@ -61,6 +63,16 @@ export default {
               
                 this.$router.push({ name: 'Edit Course', replace: true })
          
+            }
+            if (value.mode === 'manage') {
+                this.thisComponent = null
+                // this.data = {}
+                // this.action = 'create'
+                this.selected_data = value.data
+                this.$store.dispatch("SetSelected", value);
+                this.thisComponent = ManageCourseComponent
+                this.$router.push({ name: 'Manage Course', replace: true })
+                
             }
         },
    

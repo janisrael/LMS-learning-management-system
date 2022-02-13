@@ -3,13 +3,14 @@ import Router from 'vue-router'
 import LoginComponent from '../components/Auth/LoginComponent'
 import IndexCourseComponent from '../components/ContentPages/Course/IndexComponent'
 import CreateCourseComponent from '../components/ContentPages/Course/CreateCourseComponent'
-
+import ManageCourseComponent from '../components/ContentPages/Course/ManageCourseComponent'
 import IndexLessonComponent from '../components/ContentPages/Lesson/IndexLessonComponent'
 // import ViewLessonComponent from '../components/ContentPages/Lesson/ViewLessonComponent'
 import CreateLessonComponent from '../components/ContentPages/Lesson/CreateLessonComponent'
 
 import IndexChapterComponent from '../components/ContentPages/Chapter/IndexChapterComponent'
 import CreateChapterComponent from '../components/ContentPages/Chapter/CreateChapterComponent'
+
 
 Vue.use(Router)
 export const routes = [
@@ -74,7 +75,18 @@ export const routes = [
             permission: 'maintenance_schedule.view'
         }
     },
-
+    {
+        path: '/course-management/manage-course',
+        component: ManageCourseComponent,
+        name: 'Manage Course',
+        group: 'course-managemnent',
+        icon: '<i class="fas fa-book parent-nav-icon"></i>',
+        type: 'manage',
+        key: 'maintenance_schedule_view',
+        meta: {
+            permission: 'maintenance_schedule.view'
+        }
+    },
     // chapter
     {
         path: '/chapter-management/all-chapters',

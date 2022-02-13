@@ -16,11 +16,11 @@
             <transition name="fade">
                 <div class="flex-grow-1" style="flex-grow: 1 !important;">
                     <ul class="menu-list grid d-flex flex-wrap border rounded mx-auto">
-                        <li v-for="(route, i) in routes" :key="i" @click="assignRoute(route)" class="menu-li">
-                            <a class="m-link" :to="route.path" :href="'#' + route.path">
-                        <span v-html="route.icon"></span>
-                        <span>{{ route.name }}</span>
-                      </a>
+                        <li v-for="(route, i) in routes" :key="i" :class="['menu-li route-li-' + i]">
+                            <a :class="{ active: i === activeId }" class="m-link" @click="assignRoute(route, i, route.id)" :to="route.path" :href="'#' + route.path">
+                                <span v-html="route.icon"></span>
+                                <span>{{ route.name }}</span>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -44,14 +44,16 @@ export default {
     },
     data() {
         return {
-            currentRoute: this.$route
+            currentRoute: this.$route,
+            current_index: null,
+            active: null,
+            activeId: 0
         }
     },
     methods: {
-      assignRoute(route) {
-          console.log(route,'asd')
+      assignRoute(route, i, id) {
+        this.activeId = i
         this.currentRoute = route
-        //   console.log(this.$router,'asd')
         this.$router.push({ path: '/course-management/create', replace: true })
       }
     },
