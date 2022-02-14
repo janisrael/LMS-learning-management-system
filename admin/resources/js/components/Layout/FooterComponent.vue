@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="position: fixed; width: 100%; bottom:0; z-index: 1;">
     <footer class="main-footer">
       <strong>&copy; {{ new Date().getFullYear() }} <a href="/"></a>APP MNAME.</strong>
       <div style="display: block; float: right; padding: 5px;">

@@ -49,6 +49,7 @@ Route::group(['middleware'=>'auth:api'], function(){
         Route::post('/', 'LessonController@store');
         Route::put('edit/{id}', 'LessonController@update');
         Route::get('delete/{id}', 'LessonController@destroy');
+        Route::get('by-chapter', 'ChapterController@getlesson');
     });
 
     Route::group(['prefix' => 'chapters','namespace'=>'api\v1'], function () {
@@ -56,7 +57,7 @@ Route::group(['middleware'=>'auth:api'], function(){
         Route::post('/', 'ChapterController@store');
         Route::put('edit/{id}', 'ChapterController@update');
         Route::get('delete/{id}', 'ChapterController@destroy');
-        Route::get('lessons', 'ChapterController@getlesson');
+  
     });
 
     Route::group(['prefix' => 'authors','namespace'=>'api\v1'], function () {

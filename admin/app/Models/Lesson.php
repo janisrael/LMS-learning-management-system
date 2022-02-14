@@ -26,7 +26,7 @@ class Lesson extends Model
         'percentage',
         'craeted_by'
     ];
-    protected $appends = ['chapter'];
+    // protected $appends = ['chapter'];
 
     public function chapter()
     {

@@ -42,6 +42,8 @@ class ChapterController extends Controller
     public function getlesson(Request $request) {
         
         $result = $this->repository->getLessonByChapter($request);
+        
+        return $result;
     }
     /**
      * Show the form for creating a new resource.
