@@ -439,6 +439,7 @@ li.el-upload-list__item.is-success {
   display: block !important;
   -webkit-transform: translateY(0) !important;
           transform: translateY(0) !important;
+  height: 50px !important;
 }
 
 .course-item-action-icon {
