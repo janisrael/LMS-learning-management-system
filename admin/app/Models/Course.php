@@ -37,7 +37,7 @@ class Course extends Model
 
     //     }
     // }
-    // protected $hidden = ['chapters'];
+    protected $hidden = ['created_by','created_at','updated_at'];
     const TEMP_DIRECTORY = 'public';
     const PERMANENT_DIRECTORY = 'courses';
     

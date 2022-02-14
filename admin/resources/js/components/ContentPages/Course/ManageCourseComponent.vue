@@ -1,7 +1,6 @@
 <template>
   <div>
     <el-col :span="4" style="height: 100vh; margin-top: -20px;">
-
       <ul class="chapter-item-selection grid d-flex flex-wrap rounded mx-auto">
           <li v-for="(chapter, i) in this_chapters.data" :key="i" :class="['chapter-selection menu-li route-li-' + i]">
               <a :class="{ active: i === activeId }" class="chapter-list-left m-link" @click="selectChapter(chapter, i)">
@@ -10,15 +9,8 @@
               </a>
           </li>
       </ul>
-      <!-- <div v-for="(chapter, i) in this_chapters.data" :key="i" class="chapter-list-left active">
-        <div><strong>{{ chapter.name }}</strong></div>
-        <div>{{ chapter.description }}</div>
-      </div> -->
-
     </el-col>
-<!-- {{ this_chapters }} -->
     <el-col :span="20" style="height: 100vh;">
-
     <div class="search-input-suffix" style="width: 100%; text-align: center;">
       <el-col :span="24">
         <!-- <h4>{{ this_chapters.course }}</h4> -->
@@ -59,27 +51,44 @@
           </el-input>
       </el-col>
   </div>
-
       <el-col :span="24" style="padding: 10px;">
         <span v-for="(chapter, index) in this_chapters.data" :key="index">
-        <!-- <span> {{ chapter.name }}</span> -->
           <el-divider :id="['lesson_section_' + index]" content-position="left">{{ chapter.name }}:{{ chapter.description }}</el-divider>
-          <!-- <el-divider></el-divider> -->
           <div class="md-card md-card-timeline md-theme-default md-card-plain">
             <ul class="timeline timeline-simple">
               <li v-for="(lesson, i) in chapter.lessons" :key="i" class="timeline-inverted">
-              <!-- {{ i }} -->
                   <div class="timeline-panel">
                     <div class="lesson-resources-wrapper">
                         <el-col :span="8" class="lesson-media-wrapper lesson-media">
+                          <el-popover
+                            ref="popover"
+                            placement="left-start"
+                            title="Warning"
+                            width="300"
+                            trigger="hover"
+                            class="manage-course-popover"
+                            content="Lesson Video is not properly setup!">
+                            <div class="status-badge" slot="reference">
+                              <i v-if="lesson.video_url === null || lesson.preview_url === null" class="fa fa-exclamation-triangle warning" aria-hidden="true"></i>
+                              <!-- <i v-else class="fa fa-check good" aria-hidden="true"></i> -->
+                            </div>
+                          </el-popover>
                           <i class="el-icon-picture"/>
                           <h5 style="font-weight: 400 !important;">Video</h5>
                         </el-col>
                         <el-col :span="8" class="lesson-media-wrapper lesson-media">
+                          <div class="status-badge">
+                            <i v-if="lesson.resources_status === 0" class="fa fa-exclamation-triangle warning" aria-hidden="true"></i>
+                            <!-- <i v-else class="fa fa-check good" aria-hidden="true"></i> -->
+                          </div>
                           <i class="fa fa-file" aria-hidden="true"></i>
                             <h5 style="font-weight: 400 !important;">Resources</h5>
                         </el-col>
                         <el-col :span="8" class="lesson-media-wrapper">
+                          <div class="status-badge">
+                            <i v-if="lesson.faqs_status === 0" class="fa fa-exclamation-triangle warning" aria-hidden="true"></i>
+                            <!-- <i v-else class="fa fa-check good" aria-hidden="true"></i> -->
+                          </div>
                           <i class="fa fa-comment" aria-hidden="true"></i>
                           <h5 style="font-weight: 400 !important;">FAQ</h5>
                         </el-col>
@@ -88,16 +97,14 @@
                       <h4 class="card-title-course" style="color: black !important; font-weight: 400 !important;">{{ lesson.name }}</h4>
                     </div>
                     <div class="timeline-body">
-                        <span class="lesson-li-body"> {{ lesson.description }}</span>
+                      <span class="lesson-li-body"> {{ lesson.description }}</span>
                     </div>
-                   
-                      <span class="badge badge-danger">
+                    <span class="badge badge-danger">
                       <h6>
                        {{ chapter.name }}
                       </h6>
-                      </span>
-                
-                  </div>
+                    </span>
+                </div>
               </li>
             </ul>
           </div>
@@ -173,13 +180,8 @@
       selectChapter(value, i) {
         this.activeId = i
         var section_id = 'lesson_section_' + i
-        // console.log(section_id)
-        console.log(section_id)
-        //  window.location.href = "#lesson_section_" + i;
-        //  document.getElementById(section_id).scrollIntoView(true);
         var elmnt = document.getElementById(section_id);
         elmnt.scrollIntoView({behavior: "smooth", block: "start", inline: "start"});
-  
       }
     },
   }

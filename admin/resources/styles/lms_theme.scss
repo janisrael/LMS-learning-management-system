@@ -617,7 +617,7 @@ span.page-title {
 }
 
 .md-card {
-  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .20), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+  // box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .20), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
   position: relative;
   z-index: 1;
   border-radius: 2px;
@@ -733,7 +733,11 @@ span.page-title {
   justify-content: center;
   vertical-align: middle;
 }
-
+.timeline-panel:hover {
+  box-shadow: 0 0 12px rgba(25, 24, 24, .20);
+  transform: scale(1.01) !important;
+  transition: ease 0.3s !important;
+}
 .timeline>li.timeline-inverted>.timeline-panel {
   float: right;
   background-color: #fff;
@@ -742,7 +746,8 @@ span.page-title {
 .timeline.timeline-simple>li>.timeline-panel {
   width: 95%;
   overflow: hidden;
- 
+  cursor: pointer;
+  transition: ease 0.3s !important;
 }
 
 
@@ -935,3 +940,55 @@ span.badge.badge-danger h6 {
   font-style: italic;
 }
 
+.status-badge {
+  position: absolute;
+  display: block;
+  /* top: -50px; */
+  z-index: 99;
+  bottom: 25px;
+  // display: inline-block;
+  // left: 118px;
+  /* height: 30px; */
+}
+
+.status-badge i.warning {
+  font-size: 13px;
+  color: indianred;
+  margin-left: 10px;
+}
+
+.status-badge i.good {
+  font-size: 13px;
+  color: #409eff;
+  margin-left: 10px;
+}
+
+.el-popover {
+  position: absolute;
+  background: #ffe2e2 !important;
+  min-width: 150px;
+  top: 0;
+  right: 0;
+  border: 1px solid rgba(245, 108, 108, .24) !important;
+  padding: 12px;
+  color: #f56c6c !important;
+  z-index: 2000;
+  color: #606266;
+  line-height: 1.4;
+  text-align: justify;
+  font-size: 14px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .10);
+  word-break: break-all;
+}
+
+.el-popover__title {
+  color: #f56c6c !important;
+}
+
+.el-popper[x-placement^=left-start] .popper__arrow:after {
+  border-left-color: #ffe2e2 !important;
+}
+
+.el-popper[x-placement^=left-start] .popper__arrow { 
+  border-left-color: rgba(245, 108, 108, .24) !important;
+}

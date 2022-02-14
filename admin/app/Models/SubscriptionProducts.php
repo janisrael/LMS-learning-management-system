@@ -16,5 +16,5 @@ class SubscriptionProducts extends Model
         'description',
         'created_by'
     ];
-
+    protected $hidden = ['created_by','created_at','updated_at'];
 }

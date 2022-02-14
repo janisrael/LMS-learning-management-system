@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Lesson;
+
 class Chapter extends Model
 {
     const NAME = "chapter";
@@ -20,7 +21,7 @@ class Chapter extends Model
         'course_percentage',
         'created_by'
     ];
-
+    protected $hidden = ['created_by','created_at','updated_at'];
     // protected $hidden = array('lessons');
     // protected $appends = array('course');
 

@@ -16,4 +16,6 @@ class Author extends Model
         'image_url',
         'created_by'
     ];
+
+    protected $hidden = ['created_by','created_at','updated_at'];
 }
