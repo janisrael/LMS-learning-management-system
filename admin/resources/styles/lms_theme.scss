@@ -849,6 +849,8 @@ a.chapter-list-left.m-link.active:hover {
 ul.chapter-item-selection.grid.d-flex.flex-wrap.rounded.mx-auto {
   margin-left: -5px !important;
   padding-left: 0px !important;
+  // position: sticky !important;
+  // top: 80px;
 }
 .chapter-list-left {
   background-color: white;

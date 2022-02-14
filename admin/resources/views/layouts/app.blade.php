@@ -42,7 +42,8 @@
     </div>
     <script>
         window.ENV = {
-          APP_URL: '{{ env('APP_URL') }}'
+          APP_URL: '{{ env('APP_URL') }}',
+          APP_NAME: '{{ env('APP_NAME') }}'
         };
       </script>
 </body>

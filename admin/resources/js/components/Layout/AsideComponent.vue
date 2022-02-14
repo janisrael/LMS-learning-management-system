@@ -1,6 +1,7 @@
 <template>
     <div>
         <!-- <NavbarComponent ref="navbarComponent" :route="currentRoute" :me="selected"  @changed="emitChange()"></NavbarComponent> -->
+                  <vue-progress-bar></vue-progress-bar>
         <navbar-component :route="currentRoute"></navbar-component>
         <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-image: url('../../img/bg.svg?v=1620469277'), linear-gradient( 141deg, #1781d0 0%, #1f81b6 51%, #2d7cb0 100%) !important;">
             <a href="/" class="brand-link logo">

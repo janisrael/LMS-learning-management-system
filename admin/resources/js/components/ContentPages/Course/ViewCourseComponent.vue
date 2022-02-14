@@ -34,7 +34,7 @@
                                             </div>
                                         </div>
                                         <el-button slot="reference">
-                                            <i class="el-icon-s-unfold search-filter-icon"></i>
+                                          <i class="el-icon-s-unfold search-filter-icon"></i>
                                         </el-button>
                                     </el-popover>
                                 </template>
@@ -57,7 +57,7 @@
                                     </el-card>
                                 </el-col>
                                 <el-col v-for="(course, i) in this_courses" :key="i" :xs="24" :sm="8" :md="8" :lg="6" :xl="6">
-                                    <div class="course-card course-add-card md-card md-card-chart md-theme-default" @click="manageCourse(course)">
+                                    <div class="course-card course-add-card md-card md-card-chart md-theme-default">
 
                                         <div v-if="course.course_image_url === null" class="no-image"> 
                                           <i class="el-icon-picture-outline"></i>
@@ -79,7 +79,7 @@
                                             </el-col>
                                         </div>
                                         <div style="padding: 14px; text-align: left;" class="course-card-details-wrapper">
-                                            <h5 class="card-title-course" style="">{{ course.name }}</h5>
+                                            <h5 class="card-title-course" style="margin-top: 0px !important;">{{ course.name }}</h5>
                                             <div class="bottom clearfix " style="color: #000;">
                                                 <!-- <span>Category</span> -->
                                                 <el-button type="primary" plain class="button" size="mini">
