@@ -367,7 +367,7 @@ li.el-upload-list__item.is-success {
   width: 100%;
   // margin: 30px 0;
   overflow: unset;
-  font-size: .875rem;
+  // font-size: .875rem;
   // -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .14);
   // box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .14%);
   border-radius: 6px;
@@ -605,9 +605,9 @@ span.page-title {
   flex-direction: column;
   position: relative;
   width: 100%;
-  margin: 30px 0;
+  // margin: 30px 0;
   overflow: unset;
-  font-size: .875rem;
+  // font-size: .875rem;
   -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .14);
   box-shadow: 0 1px 4px 0 rgba(0, 0 ,0, .14);
   border-radius: 6px;
@@ -634,24 +634,25 @@ span.page-title {
   list-style: none;
   padding: 20px 0 20px;
   position: relative;
-  margin-top: 30px;
+  margin-bottom: 0px !important;
+  margin-top: 20px;
 }
 
 .timeline.timeline-simple:before {
-  // left: 5%;
-  // background-color: #e5e5e5;
+  left: 5%;
+  background-color: #e5e5e5;
 }
 
 .timeline:before {
   display: none !important;
-  // top: 50px;
-  // bottom: 0;
-  // position: absolute;
-  // content: " ";
-  // width: 3px;
-  // background-color: #e5e5e5;
-  // left: 50%;
-  // margin-left: -1px;
+  top: 50px;
+  bottom: 0;
+  position: absolute;
+  content: " ";
+  width: 3px;
+  background-color: #e5e5e5;
+  left: 50%;
+  margin-left: -1px;
 }
 
 .timeline>li {
@@ -739,6 +740,8 @@ span.page-title {
 
 .timeline.timeline-simple>li>.timeline-panel {
   width: 95%;
+  overflow: hidden;
+ 
 }
 
 
@@ -796,7 +799,138 @@ span.page-title {
   /* border-radius: 10px; */
   border-radius: 0px !important;
 }
+a.chapter-list-left.m-link {
+  height: 100%;
+  color: #000;
+  width: 100% !important;
+  display: inline-flex !important;
+}
+// background: linear-gradient(60deg, #1c82cf, #328bcc) !important;
+li.chapter-selection.menu-li {
+  background-color: white;
+  height: 170px !important;
+  display: inline-block;
+  width: 100% !important;
+  text-align: center;
+  position: inherit;
+  cursor: pointer;
+  // padding-top: 20% !important;
+  // border: 1px solid rgba(0, 0, 0, .13);
+}
 
+li.chapter-selection.menu-li a.chapter-list-left.m-link.active {
+  background: linear-gradient(60deg, #1c82cf, #328bcc) !important;
+  height: 170px !important;
+  display: inline-block;
+  width: 100% !important;
+  text-align: center;
+  position: inherit;
+  color: #fff;
+  // padding-top: 20% !important;
+  border: 1px solid rgba(0, 0, 0, .13);
+}
+ul.chapter-list-left li.chapter-selection.menu-li {
+  background-color: white;
+  height: 170px !important;
+  display: inline-block;
+  width: 100% !important;
+  text-align: center;
+  position: inherit;
+  padding-top: 20% !important;
+  border: 1px solid rgba(0, 0, 0, .13);
+}
+a.chapter-list-left.m-link:hover {
+  color: #1f81c3 !important;
+}
+
+a.chapter-list-left.m-link.active:hover {
+  color: #96d3ff !important;
+}
+ul.chapter-item-selection.grid.d-flex.flex-wrap.rounded.mx-auto {
+  margin-left: -5px !important;
+  padding-left: 0px !important;
+  // position: sticky !important;
+  // top: 80px;
+}
+.chapter-list-left {
+  background-color: white;
+  height: 170px;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  position: inherit;
+  padding-top: 20%;
+  border: 1px solid rgba(0, 0, 0, .13);
+}
 .badge.badge-danger {
   // background-color: #f44336;
 }
+
+.lesson-resources-wrapper {
+  position: absolute;
+  float: right;
+  background-color: rgba(205, 205, 205, .17%);
+  display: block;
+  right: 0;
+  width: 410px;
+  height: -webkit-fill-available;
+  margin-top: -20px;
+  overflow: hidden;
+}
+
+.lesson-resources-wrapper i {
+  font-size: 30px;
+  display: grid;
+  padding-top: 31px;
+  text-align: center;
+  color: #b7b7b7;
+}
+
+.lesson-media-wrapper {
+  height: 100%;
+  /* background-color: red; */
+  display: block;
+  text-align: center;
+ 
+}
+
+.lesson-media {
+  border-right: 1px solid rgba(0, 0 ,0, .06) !important;
+}
+
+.timeline-body span {
+  height: 45px !important;
+  display: block !important;
+  font-weight: 400 !important;
+  font-family: inherit;
+}
+
+span.badge.badge-danger {
+  /* margin-bottom: -20px; */
+  position: absolute;
+  margin-left: -20px;
+  margin-bottom: 30px;
+  bottom: -33px;
+  width: 190px;
+  padding: 0px !important;
+  color: #fff !important;
+}
+span.badge.badge-danger h6 {
+  color: #fff !important;
+  font-weight: 400 !important;
+  text-align: left !important;
+  padding-left: 10px !important;
+}
+
+.chapter-list-left.active {
+  background: linear-gradient(60deg, #1c82cf, #328bcc) !important;
+  color: #fff !important;
+}
+
+.el-divider__text.is-left {
+  color: #777777;
+  font-weight: 500;
+  background-color: transparent !important;
+  font-style: italic;
+}
+

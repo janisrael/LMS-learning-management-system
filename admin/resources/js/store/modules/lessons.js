@@ -6,11 +6,15 @@ Vue.use(Vuex)
 // const lesson = new Vuex.Store({
   // namespaced: true,
   export const state = {
-    v_lessons: []
+    v_lessons: [],
+    v_lessons_by_chapter: {}
   }
   export const mutations = {
     GET_LESSONS: (state, lessons) => {
       state.v_lessons = lessons
+    },
+    GET_LESSONS_BY_CHAPTER: (state, lessons_by_chapter) => {
+      state.v_lessons_by_chapter = lessons_by_chapter
     },
     ADD_LESSON: (state, lesson) => {
       // state.v_lessons = lessons
@@ -112,6 +116,28 @@ Vue.use(Vuex)
           reject(error)
         })
       })
+    },
+    getLessonsByChapter({ commit, dispatch, rootState }, course_id) {
+        return new Promise((resolve, reject) => {
+          var AjaxUrl = "/api/v1/lessons/by-chapter"
+          axios.get(AjaxUrl, {
+            headers: {
+              'Authorization': 'Bearer ' + rootState.token
+            },
+            params: {
+              term: '',
+              course_id: course_id
+            }
+          })
+          .then(response => {
+            console.log(response.data.data,'ress')
+            commit('GET_LESSONS_BY_CHAPTER', response.data)
+            
+            resolve(response)
+          }).catch(error => {
+            reject(error)
+          })
+        })
     },
   }
 

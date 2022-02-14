@@ -11,6 +11,7 @@ class Chapter extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'course_id',
         'chapter_num',
         'name',
         'description',
@@ -20,14 +21,15 @@ class Chapter extends Model
         'created_by'
     ];
 
-    // protected $appends= array('lessons');
+    // protected $hidden = array('lessons');
+    // protected $appends = array('course');
 
-    // public function lessons()
+    // public function course()
     // {
-    //     return $this->hasMany(Lesson::class);
+    //     return $this->hasOne(Course::class, 'id', 'course_id');
     // }
 
-    // public function getLessonsAttribute(){
-    //     return $this->lessons()->get();
+    // public function getCourseAttribute(){
+    //     return $this->course()->first();
     // }
 }

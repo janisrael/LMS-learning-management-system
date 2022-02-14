@@ -120,7 +120,7 @@ class Course extends Model
     }
 
     public function getLessonsAttribute(){
-        return $this->lessons()->get();
+        return $this->lessons()->count();
     }
 
 

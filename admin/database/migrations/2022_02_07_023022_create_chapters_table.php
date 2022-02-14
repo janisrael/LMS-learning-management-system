@@ -17,6 +17,7 @@ class CreateChaptersTable extends Migration
             $table->id();
             $table->string('name');
             $table->longText('description')->nullable();
+            $table->foreignId('course_id')->nullable()->nullOnDelete();
             $table->integer('sort_order');
             $table->string('is_active', 5)->default('false');
             $table->integer('author_id')->nullable();

@@ -345,7 +345,8 @@ const store = new Vuex.Store({
     this_categories: state => state.v_categories,
     this_chapters: state => state.v_chapters,
     // lesson.js
-    this_lessons: state => state.lesson.v_lessons 
+    this_lessons: state => state.lesson.v_lessons,
+    this_lessons_by_chapter: state => state.lesson.v_lessons_by_chapter
   }
 
 })

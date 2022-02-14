@@ -26,7 +26,7 @@ class Lesson extends Model
         'percentage',
         'craeted_by'
     ];
-    protected $appends = ['chapter'];
+    // protected $appends = ['chapter'];
 
     public function chapter()
     {
@@ -44,4 +44,6 @@ class Lesson extends Model
     public function getCourseAttribute(){
         return $this->course()->first();
     }
+
+  
 }

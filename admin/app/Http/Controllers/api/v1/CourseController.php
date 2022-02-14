@@ -119,6 +119,7 @@ class CourseController extends Controller
         return $message;
     }
 
+ 
     /**
      * Display the specified resource.
      *
