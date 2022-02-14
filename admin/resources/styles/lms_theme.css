@@ -439,6 +439,7 @@ li.el-upload-list__item.is-success {
   display: block !important;
   -webkit-transform: translateY(0) !important;
           transform: translateY(0) !important;
+  height: 50px !important;
 }
 
 .course-item-action-icon {
@@ -646,8 +647,6 @@ span.page-title {
 }
 
 .md-card {
-  -webkit-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-          box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   position: relative;
   z-index: 1;
   border-radius: 2px;
@@ -776,6 +775,15 @@ span.page-title {
   vertical-align: middle;
 }
 
+.timeline-panel:hover {
+  -webkit-box-shadow: 0 0 12px rgba(25, 24, 24, 0.2);
+          box-shadow: 0 0 12px rgba(25, 24, 24, 0.2);
+  -webkit-transform: scale(1.01) !important;
+          transform: scale(1.01) !important;
+  -webkit-transition: ease 0.3s !important;
+  transition: ease 0.3s !important;
+}
+
 .timeline > li.timeline-inverted > .timeline-panel {
   float: right;
   background-color: #fff;
@@ -784,6 +792,9 @@ span.page-title {
 .timeline.timeline-simple > li > .timeline-panel {
   width: 95%;
   overflow: hidden;
+  cursor: pointer;
+  -webkit-transition: ease 0.3s !important;
+  transition: ease 0.3s !important;
 }
 
 .timeline > li > .timeline-panel {
@@ -974,5 +985,57 @@ span.badge.badge-danger h6 {
   font-weight: 500;
   background-color: transparent !important;
   font-style: italic;
+}
+
+.status-badge {
+  position: absolute;
+  display: block;
+  /* top: -50px; */
+  z-index: 99;
+  bottom: 25px;
+  /* height: 30px; */
+}
+
+.status-badge i.warning {
+  font-size: 13px;
+  color: indianred;
+  margin-left: 10px;
+}
+
+.status-badge i.good {
+  font-size: 13px;
+  color: #409eff;
+  margin-left: 10px;
+}
+
+.el-popover {
+  position: absolute;
+  background: #ffe2e2 !important;
+  min-width: 150px;
+  top: 0;
+  right: 0;
+  border: 1px solid rgba(245, 108, 108, 0.24) !important;
+  padding: 12px;
+  color: #f56c6c !important;
+  z-index: 2000;
+  color: #606266;
+  line-height: 1.4;
+  text-align: justify;
+  font-size: 14px;
+  -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  word-break: break-all;
+}
+
+.el-popover__title {
+  color: #f56c6c !important;
+}
+
+.el-popper[x-placement^=left-start] .popper__arrow:after {
+  border-left-color: #ffe2e2 !important;
+}
+
+.el-popper[x-placement^=left-start] .popper__arrow {
+  border-left-color: rgba(245, 108, 108, 0.24) !important;
 }
 /*# sourceMappingURL=lms_theme.css.map */
