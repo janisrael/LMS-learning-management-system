@@ -4,9 +4,15 @@ namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+
+    public function authenticate(Request $request) {
+        $accessToken = Auth::user()->createToken('authToken')->accessToken;
+        return response(['access_token' => $accessToken]);
+    }
     /**
      * Display a listing of the resource.
      *

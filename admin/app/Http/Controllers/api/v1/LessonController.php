@@ -6,7 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\LessonRepository;
 use App\Http\Validator\LessonValidator;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Lesson;
+use App\Models\Resource;
+use App\Models\Faq;
+use Illuminate\Support\Facades\DB;
 
 class LessonController extends Controller
 {
@@ -49,7 +53,94 @@ class LessonController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->only($this->model->getModel()->fillable);
+
+        $last_order = Lesson::orderBy('sort_order', 'desc')->first();
+
+        if(!$last_order) {
+            $data['sort_order'] = $last_order + 1;
+        } else {
+            $data['sort_order'] = 1;
+        }
+
+        $data['created_by'] = Auth::user()->id;
+        $data['author_id'] = 1;
+        
+        $validated = $this->validate($data, $this->validator->rules($data), $this->validator->getMessages());
+
+        if ($validated->fails()) {
+            $error = $this->validationErrors($validated->errors());
+            $message = [
+                'status' => 'error',
+                'data' => $error->original
+            ];
+            return $message;
+        }
+
+        $subs_collection_resources = $request->resources;
+        $subs_collection_faqs = $request->faqs;
+        
+        // if (!$subs_collection_resources) {
+        //     $err = [];
+        //     array_push($err, 'Resources is required');
+        //     $message = [
+        //         'status' => 'error',
+        //         'data' => [
+        //             'errors' => [
+        //                 'name' => $err
+        //             ],
+        //             'messages' => 'Validator Errors'
+        //         ]
+        //     ];
+        //     return $message;
+        // }
+
+        // if (!$subs_collection_faqs) {
+        //     $err = [];
+        //     array_push($err, 'Faq is required');
+        //     $message = [
+        //         'status' => 'error',
+        //         'data' => [
+        //             'errors' => [
+        //                 'name' => $err
+        //             ],
+        //             'messages' => 'Validator Errors'
+        //         ]
+        //     ];
+        //     return $message;
+        // }
+      
+        DB::transaction(function () use ($data, $subs_collection_resources, $subs_collection_faqs) {
+            $newData = $this->model->create($data);
+            foreach($subs_collection_resources as $item){
+                // dd(array($item));
+                $resource = new Resource;
+                $resource->lesson_id = $newData->id;;
+                $resource->name = $item['name'];
+                $resource->file = $item['path'];
+                $resource->created_by = 1;
+                $resource->status = 1;
+                $resource->save();
+            };
+
+            foreach($subs_collection_faqs as $faq_item => $faq_value){
+                $faq = new Faq;
+                $faq->lesson_id = $newData->id;
+                $faq->question = $faq_value['question'];
+                $faq->answer = $faq_value['answer'];
+                $faq->created_by = 1;
+                $faq->status = 1;
+                $faq->save();
+            };
+        });
+
+        $message = [
+            'status' => 'success',
+            'data' => $data
+        ];
+
+
+        return $message;
     }
 
     /**

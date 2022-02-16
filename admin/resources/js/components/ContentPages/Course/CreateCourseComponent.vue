@@ -122,7 +122,7 @@
                             </span>
                           </el-form-item>
                           <el-form-item label="Featured">
-                            <el-switch v-model="ruleForm.is_featured === 'true' ? true : false" size="mini"
+                            <el-switch v-model="ruleForm.is_featured" size="mini"
                             ></el-switch>
                             <span style="width: 80%; display: inline-block">
                               <el-alert
@@ -145,6 +145,7 @@
                                 <uploader-component
                                   ref="uploadFile"
                                   :path.sync="ruleForm.form"
+                                  :action_from="'course'" 
                                   style="width: 100%"
                                   @setAttachment="ruleForm.course_image_url = $event"
                                 />
@@ -171,6 +172,7 @@
                                     <uploader-component
                                       ref="uploadFile"
                                       :path.sync="ruleForm.course_image_url"
+                                      :action_from="'course'"
                                       style="width: 100%"
                                       @setAttachment="ruleForm.course_image_url = $event"
                                     />
