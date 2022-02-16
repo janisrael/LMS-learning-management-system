@@ -28,7 +28,7 @@
                       class="demo-ruleForm"
                       label-width="200px"
                     >
-                      <el-col :span="24" class="lesson-section">
+                      <el-col :span="24" class="lesson-section" style="padding-top: 10px !important;">
                         <el-col :span="16">
                           <el-form-item label="Lesson Name" prop="name">
                             <el-input
@@ -181,21 +181,21 @@
                       <el-col :span="24" style="background-color: rgba(181, 181, 181, .13); " class="lesson-section">
                         <span class="lesson-section-title">
                           Video
-                          <i class="el-icon-warning" style="color: #f56c6c"/>
+                          <i v-if="ruleForm.video_url === null || ruleForm.video_url === ''" class="el-icon-warning" style="color: #f56c6c"/>
                         </span>
                           <LessonVideoComponent @setVideo="setVideo" @setPreview="setPreview" :ruleForm="ruleForm"/>
                       </el-col>
                       <el-col :span="24" class="lesson-section">
                         <span class="lesson-section-title" style="background-color: #f3f6f9 !important;">
                         Resources
-                        <i class="el-icon-warning" style="color: #f56c6c"/>
+                        <i v-if="ruleForm.resources.length === 0" class="el-icon-warning" style="color: #f56c6c"/>
                         </span>
                         <LessonResourcesComponent @setResource="setResources"/>
                       </el-col>
                       <el-col :span="24" class="lesson-section" style="background-color: rgba(181, 181, 181, .13); padding-bottom: 15% !important">
                         <span class="lesson-section-title">
                           FAQ's
-                          <i class="el-icon-warning" style="color: #f56c6c"/>
+                          <i v-if="ruleForm.faqs.length === 0" class="el-icon-warning" style="color: #f56c6c"/>
                         </span>
                         <LessonFaqComponent @setFaqs="setFaqs"/>
                       </el-col>
@@ -239,6 +239,7 @@ import LessonFaqComponent from "./ContentParts/LessonFaqComponent.vue"
           is_active: 'true',
           is_global: 'false',
           is_featured: 'false',
+          video_url: null,
           resources: [],
           faqs: []
         },

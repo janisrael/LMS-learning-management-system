@@ -14,14 +14,14 @@ class DeleteFileController extends Controller
      */
 
     public function deletefile(Request $request) {
-        $file_path = '';
-        if($request->req_from == 'course') {
-            $file_path = 'public/courses/';
-        }
+        $file_path = 'public/temp_files/';
+        // if($request->req_from == 'course') {
+        //     $file_path = 'public/temp_files/';
+        // }
 
-        if($request->req_from == 'lesson') {
-            $file_path = 'public/lessons/';
-        }
+        // if($request->req_from == 'lesson') {
+        //     $file_path = 'public/lessons/';
+        // }
         $file = $request->filename;
         $res = Storage::delete($file_path . $file);
    

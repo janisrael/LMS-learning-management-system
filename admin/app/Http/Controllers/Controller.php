@@ -280,14 +280,11 @@ class Controller extends BaseController
         $old_file =  $oldFilePath . $file_name;
         $new_file = $putFilesTo . $file_name;
 
-        $response = Storage::copy($old_file, $new_file);
+        $response = Storage::move($old_file, $new_file);
         if($response === false) {
             return false;
         }
-        $res = Storage::delete($oldFilePath . $file_name);
-        if($res === false) {
-            return false;
-        }
+
         return true;
     }
 }

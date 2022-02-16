@@ -224,6 +224,10 @@ ul.menu-list.grid.d-flex.flex-wrap.border.rounded.mx-auto {
   height: auto !important;
 }
 
+nav.main-header {
+  border-bottom-left-radius: 0px !important;
+}
+
 .component-fade-enter-active, .component-fade-leave-active {
   -webkit-transition: opacity .3s ease;
   transition: opacity .3s ease;
@@ -1051,6 +1055,7 @@ span.badge.badge-danger h6 {
 
 .chapter-menu {
   position: fixed;
+  width: 310px !important;
   z-index: 1 !important;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;

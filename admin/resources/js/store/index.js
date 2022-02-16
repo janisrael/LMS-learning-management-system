@@ -15,6 +15,7 @@ const store = new Vuex.Store({
     token: '',
     user: '',
     login_in_state: false,
+    v_id: 0,
     v_courses: [],
     v_chapters: [],
     v_lessons: [],
@@ -64,6 +65,9 @@ const store = new Vuex.Store({
     },
     SET_SELECTED: (state, value) => {
       state.v_selected = value
+    },
+    SET_ID: (state, value) => {
+      state.v_id = value
     },
     GET_CATEGORIES: (state, value) => {
       state.v_categories = value
@@ -120,7 +124,9 @@ const store = new Vuex.Store({
           localStorage.removeItem('user_token')
           localStorage.setItem('user_token', response.data.access_token)
           stored_token = localStorage.getItem('user_token')
-          
+          let id =localStorage.getItem('selected_id')
+          commit('SET_ID', id)
+          console.log(id, 'sd')
           commit('SET_TOKEN', stored_token)
           dispatch('GetCourses', stored_token)
           dispatch('GetAuthors', stored_token)
@@ -350,7 +356,8 @@ const store = new Vuex.Store({
     this_chapters: state => state.v_chapters,
     // lesson.js
     this_lessons: state => state.lesson.v_lessons,
-    this_lessons_by_chapter: state => state.lesson.v_lessons_by_chapter
+    this_lessons_by_chapter: state => state.lesson.v_lessons_by_chapter,
+    this_v_id: state => state.v_id
   }
 
 })
