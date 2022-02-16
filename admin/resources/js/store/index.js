@@ -116,7 +116,12 @@ const store = new Vuex.Store({
         }
       })
         .then(response => {
-          localStorage.setItem('user_token', stored_token)
+          console.log(response)
+          localStorage.removeItem('user_token')
+          localStorage.setItem('user_token', response.data.access_token)
+          stored_token = localStorage.getItem('user_token')
+          
+          commit('SET_TOKEN', stored_token)
           dispatch('GetCourses', stored_token)
           dispatch('GetAuthors', stored_token)
           dispatch('GetSubscriptions', stored_token)
@@ -149,7 +154,7 @@ const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios.get('/api/v1/courses', {
           headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('user_token'),
+            'Authorization': 'Bearer ' + state.token,
           },
           params: {
             term: '',
@@ -197,7 +202,7 @@ const store = new Vuex.Store({
         var AjaxUrl = "/api/v1/authors";
         axios.get(AjaxUrl, {
           headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('user_token'),
+            'Authorization': 'Bearer ' + state.token,
           },
         })
           .then(response => {
@@ -212,7 +217,7 @@ const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios.get('/api/v1/category', {
           headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('user_token'),
+            'Authorization': 'Bearer ' + state.token,
           },
         }).then(response => {
           commit('GET_CATEGORIES', response.data.category)
@@ -226,7 +231,7 @@ const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios.get('/api/v1/subscriptions', {
           headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('user_token'),
+            'Authorization': 'Bearer ' + state.token,
           },
         }).then(response => {
           commit('GET_SUBSCRIPTIONS', response.data.subscription_product)
@@ -241,7 +246,7 @@ const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios.post('/api/v1/courses', value, {
           headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('user_token'),
+            'Authorization': 'Bearer ' + state.token,
             'Accept': '*/*'
           }
           
@@ -264,7 +269,7 @@ const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios.put('/api/v1/courses/edit/' + value.id, value, {
           headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('user_token'),
+            'Authorization': 'Bearer ' + state.token,
             'Accept': '*/*'
           }
           
@@ -290,12 +295,11 @@ const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios.get('/api/v1/courses/delete/' + value.data.id, {
           headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('user_token'),
+            'Authorization': 'Bearer ' + state.token,
             'Accept': '*/*'
           }
         }).then(response => {
-          let res = response
-          console.log(res)          
+          let res = response 
           // res.attachment_absolute_path = window.ENV.APP_URL + '/storage/' + res.course_image_url
           // data.course = res
           // data.index = index
@@ -314,7 +318,7 @@ const store = new Vuex.Store({
         var AjaxUrl = "/api/v1/chapters";
         axios.get(AjaxUrl, {
           headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('user_token'),
+            'Authorization': 'Bearer ' + state.token,
           },
           params: {
             term: '',

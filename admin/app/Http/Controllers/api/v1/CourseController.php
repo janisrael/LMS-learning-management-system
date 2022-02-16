@@ -33,10 +33,7 @@ class CourseController extends Controller
      */
     public function index(Request $request)
     {
-     
-
-        return $this->searchList($this->repository, $request);
-        
+        return $this->searchList($this->repository, $request);   
     }
 
     /**
@@ -82,8 +79,8 @@ class CourseController extends Controller
             ];
             return $message;
         }
-
-        $subs_collection = [1,2];
+        
+        $subs_collection = $request->subs_list;
 
         // dd($subs_collection);
         if (!$subs_collection) {
@@ -100,7 +97,12 @@ class CourseController extends Controller
             ];
             return $message;
         }
-        DB::transaction(function () use ($data, $subs_collection) {
+        DB::transaction(function () use ($data, $subs_collection, $request) {
+            $move_file = $this->moveFile($request);
+            // dd($move_file);
+            if($move_file === false) {
+                return abort(403, 'Unauthorized action.');
+            }
             $newData = $this->model->create($data);
             foreach($subs_collection as $item => $value){
                 $subscriptions = new CourseHasSubscriptions;

@@ -28,8 +28,55 @@ class Lesson extends Model
         'percentage',
         'craeted_by'
     ];
+    const TEMP_DIRECTORY = 'public';
+    const PERMANENT_DIRECTORY = 'lessons';
+
+
     protected $hidden = ['created_by','created_at','updated_at'];
-    protected $appends = ['resources','faqs','faqs_status','resources_status'];
+    
+    protected $appends = ['resources','faqs','faqs_status','resources_status','attachment_absolute_path'];
+
+    public function getLessonAttachmentAttribute()
+    {
+        return url(self::PERMANENT_DIRECTORY.'/storage/images/'.$this->image_url);
+    }
+
+
+    public static function boot()
+    {
+        parent::boot();
+        self::created(function($model){
+            if (!is_null(@$model->attributes['path']))
+            {
+                $oldFilePath = 'public/lessons/'.$model->attributes['path'];
+                $newFilePath = 'public/lessons/new/'.$model->attributes['path'];
+                if (!Storage::exists($newFilePath) && Storage::exists($oldFilePath)){
+                    Storage::copy($oldFilePath, $newFilePath);
+                    Storage::setVisibility($newFilePath, 'public/lessons/new');
+                }
+            }
+        });
+
+        self::updating(function($model){
+            if (!is_null(@$model->attributes['path']))
+            {
+                $oldFilePath = 'public/lessons/'.$model->attributes['path'];
+                $newFilePath = 'public/lessons/new'.$model->attributes['path'];
+                if (!Storage::exists($newFilePath) && Storage::exists($oldFilePath)){
+                    Storage::copy($oldFilePath, $newFilePath);
+                    Storage::setVisibility($newFilePath, 'public/lessons/new');
+                }
+              
+            }
+        });
+    }
+    
+
+    public function getAttachmentAbsolutePathAttribute()
+    {
+        $image_url = $this->image_url ? 'storage/lessons/' . $this->image_url : '/';
+        return url($image_url);
+    }
 
     public function chapter()
     {

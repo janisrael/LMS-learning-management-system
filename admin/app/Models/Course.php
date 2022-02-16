@@ -81,7 +81,7 @@ class Course extends Model
 
     public function getAttachmentAbsolutePathAttribute()
     {
-        $image_url = $this->course_image_url ? 'storage/' . $this->course_image_url : '/';
+        $image_url = $this->course_image_url ? 'storage/courses/' . $this->course_image_url : '/';
         return url($image_url);
     }
 

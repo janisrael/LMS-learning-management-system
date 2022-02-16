@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import axios from 'axios'
+
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
@@ -62,9 +63,10 @@ Vue.use(Vuex)
           .then(response => {
             console.log(response,'ress')
             commit('GET_LESSONS', response.data.lesson)
-            
+       
             resolve(response)
           }).catch(error => {
+        
             reject(error)
           })
         })
@@ -92,7 +94,7 @@ Vue.use(Vuex)
           })
         })
     },
-    DeleteLesson({ commit, state }, value) {
+    DeleteLesson({ commit, state, rootState }, value) {
       let index = value.index
       let data = {
         course: value.data,
@@ -101,7 +103,7 @@ Vue.use(Vuex)
       return new Promise((resolve, reject) => {
         axios.get('/api/v1/lessons/delete/' + value.data.id, {
           headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('user_token'),
+            'Authorization': 'Bearer ' + rootState.token,
             'Accept': '*/*'
           }
         }).then(response => {

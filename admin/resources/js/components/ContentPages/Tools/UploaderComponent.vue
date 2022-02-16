@@ -1,7 +1,7 @@
 <template>
   <div >
     <el-col :span="24">
-      <!-- <el-upload
+      <el-upload
         v-if="!avatar"
         id="customUploader"
         ref="upload"
@@ -20,7 +20,7 @@
         <i class="el-icon-upload" />
         <div class="el-upload__text">Drop file here or <em>click to upload</em></div>
         <div slot="tip" class="el-upload__tip">pdf files with a size less than 3mb</div>
-      </el-upload> -->
+      </el-upload>
       <el-upload
         v-if="avatar"
         ref="upload"
@@ -84,6 +84,9 @@ export default {
     avatar: {
       type: Boolean,
       default: true
+    },
+    action_from: {
+      type:String
     }
   },
   data() {
@@ -106,6 +109,12 @@ export default {
   },
   created: function() {
     this.headers = this.$store.getters.headers
+    if(this.action_from === 'lesson') {
+        this.fileUploadPath = 'https://e-learning-admin.app/api/v1/uploads/file/lessons'
+    }
+    if(this.action_from === 'course') {
+        this.fileUploadPath = 'https://e-learning-admin.app/api/v1/uploads/file/courses'
+    }
     if (this.attachment_path) {
       this.fileList = [{ name: this.attachment_path }]
     }
@@ -120,6 +129,9 @@ export default {
     handleRemove(file) {
       console.log(file);
       console.log(this.fileList)
+      // 
+
+    
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
@@ -146,10 +158,23 @@ export default {
     beforeRemove(file, fileList) {
       return this.$confirm(`Remove ${file.name} ?`)
     },
-    removeFile() {
-      console.log(this.fileList)
+    removeFile(response, file) {
+      console.log(response.response.path)
       this.attachment_path = ''
       this.fileList = []
+        var AjaxUrl = "/api/v1/deletefile";
+          axios.post(AjaxUrl, {
+              filename: response.response.path,
+              req_from: this.action_from
+          })
+          .then(response => {
+            console.log(response,'gggggg')
+            
+            resolve(response)
+          }).catch(error => {
+            console.log(error)
+            // reject(error)
+          })
       this.$emit('setAttachment', '')
     },
     setList(response, file, fileList) {

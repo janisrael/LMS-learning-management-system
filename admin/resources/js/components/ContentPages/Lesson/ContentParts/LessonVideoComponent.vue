@@ -1,20 +1,17 @@
 <template>
-  <div style="display: block; padding-top: 30px; max-width: 80%;">
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
-      <el-form-item label="Video Url" prop="ruleForm.video_url">
-       <el-input placeholder="Please input" v-model="ruleForm.video_url" size="medium">
+  <div style="display: block; width: 90%; margin: 0 auto !important;">
+    <el-form ref="ruleForm4" label-width="120px" class="demo-ruleForm">
+      <el-form-item label="Video Url">
+       <el-input placeholder="Please input" v-model="ruleForm.video_url" size="medium" @change="handleAddVideo(ruleForm.video_url)">
           <template slot="prepend">Https://</template>
         </el-input>
       </el-form-item>
-      <el-form-item label="Preview Url" prop="ruleForm.preview">
-        <el-input placeholder="Please input" v-model="ruleForm.preview_url" size="medium">
+      <el-form-item label="Preview Url">
+        <el-input placeholder="Please input" v-model="ruleForm.preview_url" size="medium" @change="handleAddPreview(ruleForm.preview_url)">
             <template slot="prepend">Https://</template>
           </el-input>
       </el-form-item>
-      <!-- <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">Create</el-button>
-        <el-button @click="resetForm('ruleForm')">Reset</el-button>
-      </el-form-item> -->
+   
     </el-form>
   </div>
 </template>
@@ -22,12 +19,18 @@
 <script>
   export default {
     name: 'LessonVideoComponent',
+    props: {
+      ruleForm: {
+        required: false,
+
+      }
+    },
     data() {
       return {
-         ruleForm: {
-          video_url: '',
-          preview_url: ''
-        },
+        //  ruleForm: {
+        //   video_url: '',
+        //   preview_url: ''
+        // },
          rules: {
           video_url: [
             { required: true, message: 'Please input Video URL', trigger: 'blur' }
@@ -35,7 +38,26 @@
           preview_url: [
             { required: true, message: 'Please input Preview URL', trigger: 'blur' }
           ],
-        }
+        },
+        video_url: '',
+        preview_url: ''
+      }
+    },
+    // computed: {
+    //   new_ruleform_video() {
+    //     return this.ruleForm.video_url
+    //   },
+    //   new_ruleform_image() {
+    //     return this.ruleForm.preview_url
+    //   }
+    // },
+    methods: {
+      handleAddVideo(value) {
+        // let newData = this.ruleForm
+        this.$emit('setVideo', value)
+      },
+      handleAddPreview(value) {
+        this.$emit('setPreview', value)
       }
     },
   }

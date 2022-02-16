@@ -19,8 +19,8 @@
                     </el-col>
                   </div>
                 </div>
-                <div class="card-content">
-                    <template>
+                <div class="card-content" style="padding: 10px 0px !important">
+                  <template>
                     <el-form
                       ref="ruleForm"
                       :model="ruleForm"
@@ -28,7 +28,7 @@
                       class="demo-ruleForm"
                       label-width="200px"
                     >
-                      <el-col :span="24">
+                      <el-col :span="24" class="lesson-section">
                         <el-col :span="16">
                           <el-form-item label="Lesson Name" prop="name">
                             <el-input
@@ -117,7 +117,7 @@
                             ></el-input>
                           </el-form-item>
                           <el-form-item label="Active">
-                            <el-switch v-model="ruleForm.is_active === 'true' ? true : false" size="mini"></el-switch>
+                            <el-switch v-model="ruleForm.is_active" size="mini"></el-switch>
                             <span style="width: 80%; display: inline-block">
                               <el-alert
                                 title="Status of the Course, if set to Inactive will not be visible to all client. default: Active"
@@ -136,9 +136,10 @@
                               >
                                 <uploader-component
                                   ref="uploadFile"
-                                  :path.sync="ruleForm.form"
+                                  :path.sync="ruleForm.image_url"
+                                  :action_from="'lesson'"
                                   style="width: 100%"
-                                  @setAttachment="ruleForm.course_image_url = $event"
+                                  @setAttachment="ruleForm.image_url = $event"
                                 />
                               </div>
                             </div>
@@ -150,7 +151,7 @@
                                     @click="triggerUploader()"
                                     :style="{
                                       'background-image':
-                                        'url(' + ruleForm.course_image_url + ')',
+                                        'url(' + ruleForm.image_url + ')',
                                     }">
                                   <div class="edit-preview-container">
                                       <i class="el-icon-upload"></i>
@@ -162,13 +163,14 @@
                                     style="display: inline-block">
                                     <uploader-component
                                       ref="uploadFile"
-                                      :path.sync="ruleForm.course_image_url"
+                                      :path.sync="ruleForm.image_url"
+                                      :action_from="'lesson'" 
                                       style="width: 100%"
-                                      @setAttachment="ruleForm.course_image_url = $event"
+                                      @setAttachment="ruleForm.image_url = $event"
                                     />
                                   </div>
-                                  <span v-if="ruleForm.course_image_url" class="image-url">
-                                      {{ ruleForm.course_image_url }}
+                                  <span v-if="ruleForm.mage_url" class="image-url">
+                                      {{ ruleForm.image_url }}
                                   </span>
                               </div>
                             </div>
@@ -176,28 +178,26 @@
                           </el-form-item>
                         </el-col>
                       </el-col>
-                      <el-col :span="24" style="padding-bottom: 50px;">
-                        <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
-                          <el-tab-pane label="Video" name="video">
-                          <span slot="label">
-                            <i class="fas fa-video"></i> Video
-                            </span>
-                              <LessonVideoComponent/>
-                          </el-tab-pane>
-                          <el-tab-pane label="Resources" name="resources">
-                            <span slot="label">     
-                              <i class="fas fa-file-pdf"></i> Resources
-                            </span>
-                              <LessonResourcesComponent/>
-                          </el-tab-pane>
-                          <el-tab-pane label="FAQ" name="faq">
-                            <span slot="label">    
-                              <i class="fas fa-comment-alt"></i> FAQ
-                            </span>
-                            <LessonFaqComponent/>
-                          </el-tab-pane>
-  
-                        </el-tabs>
+                      <el-col :span="24" style="background-color: rgba(181, 181, 181, .13); " class="lesson-section">
+                        <span class="lesson-section-title">
+                          Video
+                          <i class="el-icon-warning" style="color: #f56c6c"/>
+                        </span>
+                          <LessonVideoComponent @setVideo="setVideo" @setPreview="setPreview" :ruleForm="ruleForm"/>
+                      </el-col>
+                      <el-col :span="24" class="lesson-section">
+                        <span class="lesson-section-title" style="background-color: #f3f6f9 !important;">
+                        Resources
+                        <i class="el-icon-warning" style="color: #f56c6c"/>
+                        </span>
+                        <LessonResourcesComponent @setResource="setResources"/>
+                      </el-col>
+                      <el-col :span="24" class="lesson-section" style="background-color: rgba(181, 181, 181, .13); padding-bottom: 15% !important">
+                        <span class="lesson-section-title">
+                          FAQ's
+                          <i class="el-icon-warning" style="color: #f56c6c"/>
+                        </span>
+                        <LessonFaqComponent @setFaqs="setFaqs"/>
                       </el-col>
                     </el-form>
             </template>
@@ -238,13 +238,15 @@ import LessonFaqComponent from "./ContentParts/LessonFaqComponent.vue"
           is_live: 'true',
           is_active: 'true',
           is_global: 'false',
-          is_featured: 'false'
+          is_featured: 'false',
+          resources: [],
+          faqs: []
         },
         rules: {
           name: [{
-                required: true,
-                message: "Please input Course name",
-                trigger: "blur",
+            required: true,
+            message: "Please input Course name",
+            trigger: "blur",
             }
           ],
           subs_list: [{
@@ -271,7 +273,10 @@ import LessonFaqComponent from "./ContentParts/LessonFaqComponent.vue"
         this_selected: this.$store.getters.this_selected.data,
         current_route: this.$route.name,
         chapters: [],
-        activeName: 'video'
+        activeName: 'video',
+        videoData: {},
+        resourceData: [],
+        faqsData: []
       };
     },
     created: function() {
@@ -334,6 +339,21 @@ import LessonFaqComponent from "./ContentParts/LessonFaqComponent.vue"
         }
     },
     methods: {
+        setFaqs(value) {
+          this.videoData = value
+          this.faqsData = value
+          this.ruleForm.faqs = this.faqsData
+        },
+        setResources(value) {
+          this.resourceData = value
+          this.ruleForm.resources = value
+        },
+        setPreview(value) {
+          this.ruleForm.preview_url = value
+        },
+        setVideo(value) {
+          this.ruleForm.video_url = value
+        },
         handleClick(tab, event) {
           console.log(tab, event);
         },
@@ -372,34 +392,38 @@ import LessonFaqComponent from "./ContentParts/LessonFaqComponent.vue"
             this.$refs['ruleForm'].validate((valid) => {
               if (valid) {
                 if(this.action === 'edit') {
-                  let result = this.$store.dispatch("EditLesson", this.ruleForm).then(response => {
-                    this.$notify({
-                      title: "Success",
-                      message: "New Course Successfuly Updated",
-                      type: "success",
-                    });
+                  this.$store.dispatch("EditLesson", this.ruleForm).then(response => {
+                    if(response.request.status === 200){
+                      this.$notify({
+                        title: "Success",
+                        message: "New Course Successfuly Updated",
+                        type: "success",
+                      });
+                    }
                     this.removeCache()
                   }).catch(error => {
-                    console.log('error')
                     this.$notify({
                       title: "Error",
-                      message: 'Invalid Data',
+                      message: error,
                       type: "error",
                     });
                   })
-                
                 } else {
-                  let result = this.$store.dispatch("AddLesson", this.ruleForm)
-                  .then(response => {
+                 this.$store.dispatch("addtLesson", this.ruleForm).then(response => {
+                    if(response.request.status === 200) {
+                      this.$notify({
+                        title: "Success",
+                        message: "New Lesson Successfuly Added",
+                        type: "success",
+                      });
+                    }
+                 }).catch(error => {
                     this.$notify({
-                      title: "Success",
-                      message: "New Course Successfuly Added",
-                      type: "success",
+                      title: "Error",
+                      message: error,
+                      type: "error",
                     });
-                  }).catch(error => {
-                    console.log('adding error')
-                  })
-                  
+                 })
                 }
               } else {
                 console.log("error submit!!");

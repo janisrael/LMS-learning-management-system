@@ -897,9 +897,20 @@ ul.chapter-item-selection.grid.d-flex.flex-wrap.rounded.mx-auto {
   /* background-color: red; */
   display: block;
   text-align: center;
- 
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+
 }
 
+.lesson-media-wrapper:hover {
+  height: 100%;
+  /* background-color: red; */
+  display: block;
+  text-align: center;
+  background-color: #eaeaea;
+}
 .lesson-media {
   border-right: 1px solid rgba(0, 0 ,0, .06) !important;
 }
@@ -991,4 +1002,95 @@ span.badge.badge-danger h6 {
 
 .el-popper[x-placement^=left-start] .popper__arrow { 
   border-left-color: rgba(245, 108, 108, .24) !important;
+}
+
+.chapter-menu {
+  position: fixed;
+  z-index: 1 !important;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.chapter-menu.el-col.el-col-4.moveclass {
+  margin-top: -82px !important;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.chapter-title {
+  font-weight: 500;
+  text-transform: uppercase;
+  /* font-size: 12px; */
+  font-family: Roboto,Helvetica,Arial,sans-serif;
+}
+
+.chapter-sub {
+  font-family: Roboto,Helvetica,Arial,sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+.lesson-li-body {
+  color: #7f7f7f !important;
+  font-style: italic;
+  text-transform: capitalize;
+}
+
+.chapter-title-wrapper {
+  width: 100%;
+    /* background-color: red; */
+  margin-top: 30px !important;
+  display: block;
+}
+
+.lesson-media-wrapper.enabled {
+  background-color: #fff;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+
+.lesson-media-wrapper.enabled:hover {
+  background-color: #eaeaea;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+h4.card-title-course {
+  text-transform: capitalize;
+}
+
+.upload-pdf ul.el-upload-list.el-upload-list--text li.el-upload-list__item.is-success {
+  height: 22px !important;
+}
+
+.lesson-section-title {
+  margin-top: -71px;
+  position: absolute;
+  margin-left: 0;
+  background-color: #eaedf0;
+  color: rgba(0, 0, 0, .54);
+  padding: 5px 20px;
+  width: 130px;
+  font-weight: 400;
+}
+
+.lesson-section {
+  padding: 50px 0 70px;
+}
+
+.main-sidebar {
+  z-index: 50 !important;
+}
+
+button.el-button.el-button--tiny.is-plain {
+  padding: 8px 15px !important;
 }

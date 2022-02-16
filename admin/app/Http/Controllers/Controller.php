@@ -12,6 +12,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\UnauthorizedException;
 
 class Controller extends BaseController
@@ -256,5 +257,37 @@ class Controller extends BaseController
             'page' => $page,
             'per_page' => $perPage
         ];
+    }
+
+    public function moveFile($request) {
+        $request_from = $request->path();
+        $putFilesTo = '';
+        $oldFilePath = 'public\temp_files' . '\\';
+        if(strpos($request_from, 'lessons') !== false){
+            if(strpos($request_from, 'resources') !== false){
+                $putFilesTo = 'public\lessons\resources';
+            }
+            else {
+                $putFilesTo = 'public\lessons';
+            }
+        }
+
+        if(strpos($request_from, 'courses') !== false){
+            $putFilesTo = 'public\courses' . '\\';
+        }
+
+        $file_name = $request->course_image_url;
+        $old_file =  $oldFilePath . $file_name;
+        $new_file = $putFilesTo . $file_name;
+
+        $response = Storage::copy($old_file, $new_file);
+        if($response === false) {
+            return false;
+        }
+        $res = Storage::delete($oldFilePath . $file_name);
+        if($res === false) {
+            return false;
+        }
+        return true;
     }
 }
