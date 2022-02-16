@@ -19,6 +19,7 @@
                     </el-col>
                   </div>
                 </div>
+                {{ this_chapters }}
                 <div class="card-content" style="padding: 10px 0px !important">
                   <template>
                     <el-form
@@ -40,7 +41,6 @@
                           </el-form-item>
                           <el-form-item
                             label="Course"
-                            required
                             prop="course_id"
                             label-width="200px"
                           >
@@ -68,6 +68,7 @@
                             prop="chapter_id"
                             label-width="200px"
                           >
+                            <div style="display: inline-block; width: 90%; float:left;">
                             <el-select
                               ref="chapterid"
                               v-model="ruleForm.chapter_id"
@@ -84,6 +85,27 @@
                               >
                               </el-option>
                             </el-select>
+                            </div>
+                            <div style="display: inline-block; width: 10%; padding-left: 10px;">
+                              <el-button type="primary" plain icon="el-icon-plus" @click="addChapter = true"></el-button>
+                            </div>
+                             <!-- <transition name="fade">
+                              <div v-if="addChapter" style="padding:20px;background-color: rgba(109, 109, 109, .08);">
+                                <el-form-item
+                                label="Chapter Name"
+                                label-width="150px"
+                                style="padding-bottom: 20px;"
+                                >
+                                  <el-input type="textarea" v-model="new_chapter.name"></el-input>
+                                </el-form-item>
+                                <el-form-item
+                                label="Chapter Description"
+                                label-width="150px"
+                                >
+                                  <el-input type="textarea" v-model="new_chapter.description"></el-input>
+                                </el-form-item>
+                              </div>
+                             </transition> -->
                           </el-form-item>
                           <el-form-item
                             label="Author"
@@ -206,6 +228,39 @@
       </el-card>
     </el-col>
     <!-- <component ref="modalComponent" :is="currentComponent" :selected="passData" @changed="emitChange()"/> -->
+    <el-dialog
+      title="Add New Chapter"
+      :visible.sync="addChapter"
+      width="30%"
+      :before-close="handleClose">
+      <el-col :span="24">
+      <el-form
+        ref="addForm"
+        :model="new_chapter"
+        class="demo-ruleForm"
+        label-width="200px"
+      >
+          <el-form-item
+          label="Chapter Name"
+          label-width="150px"
+          style="padding-bottom: 20px;"
+          >
+            <el-input type="textarea" v-model="new_chapter.name"></el-input>
+          </el-form-item>
+          <el-form-item
+          label="Chapter Description"
+          label-width="150px"
+          >
+            <el-input type="textarea" v-model="new_chapter.description"></el-input>
+          </el-form-item>
+          
+      </el-form>
+      </el-col>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="addChapter = false">Cancel</el-button>
+        <el-button type="primary" @click="handleAddChapter()">Confirm</el-button>
+      </span>
+    </el-dialog>
   </el-col>
 </template>
 
@@ -231,6 +286,10 @@ import LessonFaqComponent from "./ContentParts/LessonFaqComponent.vue"
     },
     data() {
       return {
+        new_chapter: {
+          name: '',
+          description: ''
+        },
         ruleForm: {
           name: '',
           description: '',
@@ -241,7 +300,8 @@ import LessonFaqComponent from "./ContentParts/LessonFaqComponent.vue"
           is_featured: 'false',
           video_url: null,
           resources: [],
-          faqs: []
+          faqs: [],
+          addChapter: false
         },
         rules: {
           name: [{
@@ -277,7 +337,8 @@ import LessonFaqComponent from "./ContentParts/LessonFaqComponent.vue"
         activeName: 'video',
         videoData: {},
         resourceData: [],
-        faqsData: []
+        faqsData: [],
+        addChapter: false
       };
     },
     created: function() {
@@ -337,116 +398,160 @@ import LessonFaqComponent from "./ContentParts/LessonFaqComponent.vue"
         },
         this_authors() {
           return this.$store.getters.allAuthors;
+        },
+        this_chapters() {
+          return this.$store.getters.this_chapters;
         }
     },
     methods: {
-        setFaqs(value) {
-          this.videoData = value
-          this.faqsData = value
-          this.ruleForm.faqs = this.faqsData
-        },
-        setResources(value) {
-          this.resourceData = value
-          this.ruleForm.resources = value
-        },
-        setPreview(value) {
-          this.ruleForm.preview_url = value
-        },
-        setVideo(value) {
-          this.ruleForm.video_url = value
-        },
-        handleClick(tab, event) {
-          console.log(tab, event);
-        },
-        getChapters(id) {
-          let result = this.$store.dispatch('GetChapters', id).then(response => {
-            if(result) {
-              this.chapters = this.$store.getters.this_chapters
-            }
-          })
-        },
-        handleSave(row) {},
-        triggerUploader() {
-          this.$refs.uploadFile.show();
-        },
-        populate(data, subscriptions) {
-          this.ruleForm = data
-          let subs = [];
-          this.ruleForm.subscriptions.forEach((value, index) => {
-            subs.push(value.subscription_id);
-          });
-          this.ruleForm["subs_list"] = subs;
-          this.subs_list = subs;
-        },
-        resetForm(formName) {
-          this.$refs[formName].resetFields();
-        },
-        handleRemove(file) {
-          console.log(file);
-        },
-        handlePictureCardPreview(file) {
-          this.dialogImageUrl = file.url;
-          this.dialogVisible = true;
-        },
-        handleAddLesson(formName, ruleForm) {
-          // this.ruleForm.subs_list = this.subs_list
-            this.$refs['ruleForm'].validate((valid) => {
-              if (valid) {
-                if(this.action === 'edit') {
-                  this.$store.dispatch("EditLesson", this.ruleForm).then(response => {
-                    if(response.request.status === 200){
-                      this.$notify({
-                        title: "Success",
-                        message: "New Course Successfuly Updated",
-                        type: "success",
-                      });
-                    }
-                    this.removeCache()
-                  }).catch(error => {
+      handleClose() {
+
+      },
+      handleAddChapter() {
+        this.new_chapter.course_id = this.ruleForm.course_id
+        this.$store.dispatch("AddChapter", this.new_chapter)
+        this.addChapter = false
+        // this.new_chapter = {}
+        let this_id = this.ruleForm.course_id
+        setTimeout(() => {
+            this.getChapters(this_id);
+        }, 300);
+        // this.getChapters(this_id)
+      },
+      setFaqs(value) {
+        this.videoData = value
+        this.faqsData = value
+        this.ruleForm.faqs = this.faqsData
+      },
+      setResources(value) {
+        this.resourceData = value
+        this.ruleForm.resources = value
+      },
+      setPreview(value) {
+        this.ruleForm.preview_url = value
+      },
+      setVideo(value) {
+        this.ruleForm.video_url = value
+      },
+      handleClick(tab, event) {
+        console.log(tab, event);
+      },
+      getChapters(value) {
+        console.log('asdffff')
+        // this.$store.dispatch('GetChapters', value)
+        // console.log(value, this.$store.getters.this_chapters)
+            // this.chapters.push(this.new_chapter)
+          // if(result) {
+        var AjaxUrl = "/api/v1/chapters";
+        axios.get(AjaxUrl,{
+          headers: {
+            'Authorization': 'Bearer ' + this.$store.state.token,
+          },
+          params: {
+            term: '',
+            course_id: value
+          }
+        })
+        .then(response => {
+          console.log(response,'ressss')
+          this.chapters = response.data.chapter
+        }).catch(error => {
+          reject(error)
+        })
+
+        // let chapters = this.$store.state.v_chapters
+        // let new_chapters = []
+        // chapters.forEach((item, index) => {
+        //   if(item.course_id === value) {
+        //     new_chapters.push(item)
+        //   }
+        // })
+        // this.chapters = new_chapters
+          // }
+      
+      },
+      handleSave(row) {},
+      triggerUploader() {
+        this.$refs.uploadFile.show();
+      },
+      populate(data, subscriptions) {
+        this.ruleForm = data
+        let subs = [];
+        this.ruleForm.subscriptions.forEach((value, index) => {
+          subs.push(value.subscription_id);
+        });
+        this.ruleForm["subs_list"] = subs;
+        this.subs_list = subs;
+      },
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      },
+      handleRemove(file) {
+        console.log(file);
+      },
+      handlePictureCardPreview(file) {
+        this.dialogImageUrl = file.url;
+        this.dialogVisible = true;
+      },
+      handleAddLesson(formName, ruleForm) {
+        // this.ruleForm.subs_list = this.subs_list
+          this.$refs['ruleForm'].validate((valid) => {
+            if (valid) {
+              if(this.action === 'edit') {
+                this.$store.dispatch("EditLesson", this.ruleForm).then(response => {
+                  if(response.request.status === 200){
                     this.$notify({
-                      title: "Error",
-                      message: error,
-                      type: "error",
+                      title: "Success",
+                      message: "New Course Successfuly Updated",
+                      type: "success",
                     });
-                  })
-                } else {
-                 this.$store.dispatch("addtLesson", this.ruleForm).then(response => {
-                    if(response.request.status === 200) {
-                      this.$notify({
-                        title: "Success",
-                        message: "New Lesson Successfuly Added",
-                        type: "success",
-                      });
-                    }
-                 }).catch(error => {
-                    this.$notify({
-                      title: "Error",
-                      message: error,
-                      type: "error",
-                    });
-                 })
-                }
+                  }
+                  this.removeCache()
+                }).catch(error => {
+                  this.$notify({
+                    title: "Error",
+                    message: error,
+                    type: "error",
+                  });
+                })
               } else {
-                console.log("error submit!!");
-                return false;
+                this.$store.dispatch("addtLesson", this.ruleForm).then(response => {
+                  if(response.request.status === 200) {
+                    this.$notify({
+                      title: "Success",
+                      message: "New Lesson Successfuly Added",
+                      type: "success",
+                    });
+                  }
+                }).catch(error => {
+                  this.$notify({
+                    title: "Error",
+                    message: error,
+                    type: "error",
+                  });
+                })
               }
-          });
-        },
-        handleCancel() {
-          let value = {
-            mode: "back",
-            data: "back",
-          };
-          console.log(value ,'BACK')
-          this.$emit("change", value);
-          this.$router.push({ name: 'Lessons', replace: true })
-          this.removeCache()
-        },
-        removeCache() {
-          localStorage.removeItem('reactiveData')
-          localStorage.removeItem('action')
-          localStorage.removeItem('subscriptions')
-        }
+            } else {
+              console.log("error submit!!");
+              return false;
+            }
+        });
+      },
+      handleCancel() {
+        let value = {
+          mode: "back",
+          data: "back",
+        };
+        console.log(value ,'BACK')
+        this.$emit("change", value);
+        this.$router.push({ name: 'Lessons', replace: true })
+        this.removeCache()
+      },
+      removeCache() {
+        localStorage.removeItem('reactiveData')
+        localStorage.removeItem('action')
+        localStorage.removeItem('subscriptions')
+      }
     },
   }
 </script>

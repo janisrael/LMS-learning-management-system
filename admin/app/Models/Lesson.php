@@ -34,7 +34,7 @@ class Lesson extends Model
 
     protected $hidden = ['created_by','created_at','updated_at'];
     
-    protected $appends = ['resources','faqs','faqs_status','resources_status','attachment_absolute_path'];
+    protected $appends = ['resources','faqs','faqs_status','resources_status','attachment_absolute_path','chapter'];
 
     public function getLessonAttachmentAttribute()
     {

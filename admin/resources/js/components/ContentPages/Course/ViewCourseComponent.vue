@@ -165,6 +165,8 @@ export default {
           // console.log('manage')
           // this.manageData = course
           // this.currentComponent = ManageCourseComponent
+          localStorage.removeItem('selected_id')
+          localStorage.setItem('selected_id', course.id)
             let value = {
                 mode: 'manage',
                 data: course

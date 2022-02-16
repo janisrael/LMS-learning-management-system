@@ -226,6 +226,7 @@ ul.menu-list.grid.d-flex.flex-wrap.border.rounded.mx-auto {
 
 nav.main-header {
   border-bottom-left-radius: 0px !important;
+  z-index: 4 !important;
 }
 
 .component-fade-enter-active, .component-fade-leave-active {

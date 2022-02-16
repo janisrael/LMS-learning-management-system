@@ -187,6 +187,8 @@ export default {
             localStorage.removeItem('reactiveData')
             localStorage.removeItem('action')
             localStorage.removeItem('subscriptions')
+            localStorage.removeItem('selected_id')
+            localStorage.setItem('selected_id',row.id)
             this.passData = row
             row.index = i
             let value = {
