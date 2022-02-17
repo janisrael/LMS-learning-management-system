@@ -20,7 +20,6 @@ const store = new Vuex.Store({
     v_chapters: [],
     v_lessons: [],
     v_authors: [],
-    v_chapters: [],
     v_categories: [],
     v_subscriptions: [],
     v_component_name: 'LoginComponent',
@@ -74,6 +73,9 @@ const store = new Vuex.Store({
     },
     GET_CHAPTERS: (state, chapters) => {
       state.v_chapters = chapters
+    },
+    ADD_CHAPTER: (state, chapter) => {
+      state.v_chapters.push(chapter)
     }
   },
   actions: {
@@ -328,12 +330,29 @@ const store = new Vuex.Store({
           },
           params: {
             term: '',
-            id: id
+            course_id: id
           }
         })
         .then(response => {
           commit('GET_CHAPTERS', response.data.chapter)
           console.log(response.data.chapter)
+          resolve(response)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    AddChapter({ commit, state }, value) {
+      return new Promise((resolve, reject) => {
+        var AjaxUrl = "/api/v1/chapters";
+        axios.post(AjaxUrl, value, {
+          headers: {
+            'Authorization': 'Bearer ' + state.token,
+          }
+        })
+        .then(response => {
+          commit('ADD_CHAPTER', response.data)
+          console.log(response.data)
           resolve(response)
         }).catch(error => {
           reject(error)

@@ -4,9 +4,15 @@
     <el-col :span="4" style="height: 100vh; margin-top: -20px;" class="chapter-menu" :class="{ moveclass: windowTop > 50 }">
       <ul class="chapter-item-selection grid d-flex flex-wrap rounded mx-auto">
           <li v-for="(chapter, i) in this_chapters.data" :key="i" :class="['chapter-selection menu-li route-li-' + i]">
-              <a :class="{ active: i === activeId }" class="chapter-list-left m-link" @click="selectChapter(chapter, i)">
-                <span class="chapter-title" style="font-size: 14px !important; font-weight: 600 !important;">{{ chapter.name }}</span>
-                <span class="chapter-sub">{{ chapter.description }}</span>
+            <!-- <span v-if="chapter.chapter">{{ chapter.chapter.name }}</span>
+            <span v-if="chapter.Unassigned">{{ chapter.Unassigned.lessons }}</span> -->
+              <a v-if="chapter.chapter" :class="{ active: i === activeId }" class="chapter-list-left m-link" @click="selectChapter(chapter.chapter, i)">
+                <span class="chapter-title" style="font-size: 14px !important; font-weight: 600 !important;">{{ chapter.chapter.name }}</span>
+                <span class="chapter-sub">{{ chapter.chapter.description }}</span>
+              </a>
+              <a v-if="chapter.Unassigned" :class="{ active: i === activeId }" class="chapter-list-left m-link" @click="selectChapter(chapter.Unassigned, i)">
+                <span class="chapter-title" style="font-size: 14px !important; font-weight: 600 !important;">Unassigned</span>
+                <span class="chapter-sub">Lessons dont belong to a chapter</span>
               </a>
           </li>
       </ul>
@@ -14,7 +20,7 @@
     <el-col :span="18" style="height: 100vh; float:right !important;">
     <div class="search-input-suffix" style="width: 100%; text-align: center;">
       <el-col :span="24">
-      {{ this_id }} {{ windowTop }}
+      <!-- {{ this_id }} {{ windowTop }} -->
         <!-- <h4>{{ this_chapters.course }}</h4> -->
        <!-- {{ this.$store.getters.this_selected }} -->
           <el-input :placeholder="moveclass" class="input-with-select search-input" clearable v-model="search" style="max-width: 600px;">
@@ -52,17 +58,36 @@
               </template>
               <el-button slot="append" icon="el-icon-search" @click="getRecords('1')"></el-button>
           </el-input>
+            <el-dropdown style="float:right; margin-right: 20px;">
+              <span class="el-dropdown-link">
+                <el-button type="primary" plain size="medium" style="float:right; margin-right: 20px;"><i class="el-icon-s-grid"/> Manage Lesson <i class="el-icon-arrow-down el-icon--right"></i></el-button>
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item icon="el-icon-plus">Add New Lesson</el-dropdown-item>
+                <el-dropdown-item icon="el-icon-download">Import Existing Lesson</el-dropdown-item>
+                <!-- <el-dropdown-item icon="el-icon-circle-plus-outline">Action 3</el-dropdown-item>
+                <el-dropdown-item icon="el-icon-check">Action 4</el-dropdown-item>
+                <el-dropdown-item icon="el-icon-circle-check">Action 5</el-dropdown-item> -->
+              </el-dropdown-menu>
+          </el-dropdown>
+          <!-- <el-button type="primary" plain size="medium" style="float:right; margin-right: 20px;"><i class="el-icon-plus"/> Add Lesson </el-button> -->
       </el-col>
   </div>
       <el-col :span="24" style="padding: 10px;">
         <span v-for="(chapter, index) in this_chapters.data" :key="index" class="chapter-title-wrapper">
-          <span :id="['lesson_section_' + index]" content-position="left">
-            <span class="chapter-title">{{ chapter.name }}</span>: 
-            <span class="chapter-sub">{{ chapter.description }}</span>
+          <span v-if="chapter.chapter" :id="['lesson_section_' + index]" content-position="left">
+            <span class="chapter-title">{{ chapter.chapter.name }}</span>: 
+            <span class="chapter-sub">{{ chapter.chapter.description }}</span>
           </span> 
+
+          <span v-if="chapter.Unassigned" :id="['lesson_section_' + index]" content-position="left">
+            <span class="chapter-title">Unassigned</span>: 
+            <span class="chapter-sub">Lessons dont belong to a chapter</span>
+          </span> 
+
           <div class="md-card md-card-timeline md-theme-default md-card-plain">
-            <ul class="timeline timeline-simple">
-              <li v-for="(lesson, i) in chapter.lessons" :key="i" class="timeline-inverted">
+            <ul v-if="chapter.chapter" class="timeline timeline-simple">
+              <li v-for="(lesson, i) in chapter.chapter.lessons" :key="i" class="timeline-inverted">
                   <div class="timeline-panel">
                     <div class="lesson-resources-wrapper">
                         <el-col :span="8" class="lesson-media-wrapper lesson-media" :class="{ enabled: lesson.video_url !== null }">
@@ -113,6 +138,60 @@
                 </div>
               </li>
             </ul>
+
+            <ul v-if="chapter.Unassigned" class="timeline timeline-simple">
+              <li v-for="(lesson, i) in chapter.Unassigned.lessons" :key="i" class="timeline-inverted">
+                  <div class="timeline-panel">
+                    <div class="lesson-resources-wrapper">
+                        <el-col :span="8" class="lesson-media-wrapper lesson-media" :class="{ enabled: lesson.video_url !== null }">
+                          <el-popover
+                            ref="popover"
+                            placement="left-start"
+                            title="Warning"
+                            width="300"
+                            trigger="hover"
+                            class="manage-course-popover"
+                            content="Lesson Video is not properly setup!">
+                            <div class="status-badge" slot="reference">
+                              <i v-if="lesson.video_url === null || lesson.preview_url === null" class="fa fa-exclamation-triangle warning" aria-hidden="true"></i>
+                              <!-- <i v-else class="fa fa-check good" aria-hidden="true"></i> -->
+                            </div>
+                          </el-popover>
+                          <i class="el-icon-picture"/>
+                          <h5 style="font-weight: 400 !important; color: #959595;">Video</h5>
+                        </el-col>
+                        <el-col :span="8" class="lesson-media-wrapper lesson-media" :class="{ enabled: lesson.resources_status !== 0 }">
+                          <div class="status-badge">
+                            <i v-if="lesson.resources_status === 0" class="fa fa-exclamation-triangle warning" aria-hidden="true"></i>
+                            <!-- <i v-else class="fa fa-check good" aria-hidden="true"></i> -->
+                          </div>
+                          <i class="fa fa-file" aria-hidden="true"></i>
+                            <h5 style="font-weight: 400 !important; color: #959595;">Resources</h5>
+                        </el-col>
+                        <el-col :span="8" class="lesson-media-wrapper" :class="{ enabled: lesson.faqs_status !== 0 }">
+                          <div class="status-badge">
+                            <i v-if="lesson.faqs_status === 0" class="fa fa-exclamation-triangle warning" aria-hidden="true"></i>
+                            <!-- <i v-else class="fa fa-check good" aria-hidden="true"></i> -->
+                          </div>
+                          <i class="fa fa-comment" aria-hidden="true"></i>
+                          <h5 style="font-weight: 400 !important; color: #959595;">FAQ</h5>
+                        </el-col>
+                    </div>
+                    <div class="timeline-heading">
+                      <h4 class="card-title-course" style="color: #636363 !important; font-weight: 400 !important;">{{ lesson.name }}</h4>
+                    </div>
+                    <div class="timeline-body">
+                      <span class="lesson-li-body"> {{ lesson.description }}</span>
+                    </div>
+                    <!-- <span class="badge badge-danger">
+                      <h6>
+                       {{ chapter.name }}
+                      </h6>
+                    </span> -->
+                </div>
+              </li>
+            </ul>
+
           </div>
           </span>
         </el-col>

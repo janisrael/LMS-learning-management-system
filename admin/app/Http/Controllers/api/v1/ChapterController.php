@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Chapter;
 use App\Repositories\ChapterRepository;
 use App\Http\Validator\ChapterValidator;
+use Illuminate\Support\Facades\Auth;
 
 class ChapterController extends Controller
 {
@@ -63,7 +64,25 @@ class ChapterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $data = $request->only($this->model->getModel()->fillable);
+        $data['added_by'] = Auth::id();
+        $data['updated_by'] = Auth::id();
+        $data['sort_order'] = 2;
+        // $data['ticket_no'] = date('Yds').mt_rand(10, 99);
+        $validated = $this->validate($data, $this->validator->rules($data), $this->validator->getMessages());
+
+        if ($validated->fails()) {
+            return $this->validationErrors($validated->errors());
+        } 
+
+        $res = $this->model->create($data);
+        $message = [
+            'status' => 'success',
+            'data' => $res
+        ];
+
+        return $message;
     }
 
     /**

@@ -12,6 +12,7 @@ class Chapter extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'id',
         'course_id',
         'chapter_num',
         'name',

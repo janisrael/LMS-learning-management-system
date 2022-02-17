@@ -183,9 +183,11 @@ ul.menu-list.grid.d-flex.flex-wrap.border.rounded.mx-auto {
   
 .main-header .nav-link {
   height: auto !important;
+
 }
 nav.main-header {
   border-bottom-left-radius: 0px !important;
+  z-index: 4 !important;
 }
 
 
