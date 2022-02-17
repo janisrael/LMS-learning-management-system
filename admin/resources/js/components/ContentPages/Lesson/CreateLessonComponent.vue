@@ -48,6 +48,7 @@
                               ref="subsList"
                               v-model="ruleForm.course_id"
                               filterable
+                              clearable
                               @change="getChapters(ruleForm.course_id)"
                               placeholder="Select Course"
                               style="width: 100%"
@@ -73,6 +74,7 @@
                               ref="chapterid"
                               v-model="ruleForm.chapter_id"
                               filterable
+                              clearable
                               placeholder="Select Course"
                               style="width: 100%"
                             >

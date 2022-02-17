@@ -12,7 +12,7 @@
               </a>
               <a v-if="chapter.Unassigned" :class="{ active: i === activeId }" class="chapter-list-left m-link" @click="selectChapter(chapter.Unassigned, i)">
                 <span class="chapter-title" style="font-size: 14px !important; font-weight: 600 !important;">Unassigned</span>
-                <span class="chapter-sub">Lessons dont have a chapter</span>
+                <span class="chapter-sub">Lessons dont belong to a chapter</span>
               </a>
           </li>
       </ul>
@@ -58,6 +58,19 @@
               </template>
               <el-button slot="append" icon="el-icon-search" @click="getRecords('1')"></el-button>
           </el-input>
+            <el-dropdown style="float:right; margin-right: 20px;">
+              <span class="el-dropdown-link">
+                <el-button type="primary" plain size="medium" style="float:right; margin-right: 20px;"><i class="el-icon-s-grid"/> Manage Lesson <i class="el-icon-arrow-down el-icon--right"></i></el-button>
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item icon="el-icon-plus">Add New Lesson</el-dropdown-item>
+                <el-dropdown-item icon="el-icon-download">Import Existing Lesson</el-dropdown-item>
+                <!-- <el-dropdown-item icon="el-icon-circle-plus-outline">Action 3</el-dropdown-item>
+                <el-dropdown-item icon="el-icon-check">Action 4</el-dropdown-item>
+                <el-dropdown-item icon="el-icon-circle-check">Action 5</el-dropdown-item> -->
+              </el-dropdown-menu>
+          </el-dropdown>
+          <!-- <el-button type="primary" plain size="medium" style="float:right; margin-right: 20px;"><i class="el-icon-plus"/> Add Lesson </el-button> -->
       </el-col>
   </div>
       <el-col :span="24" style="padding: 10px;">
@@ -69,7 +82,7 @@
 
           <span v-if="chapter.Unassigned" :id="['lesson_section_' + index]" content-position="left">
             <span class="chapter-title">Unassigned</span>: 
-            <span class="chapter-sub">Lessons dont have a chapter</span>
+            <span class="chapter-sub">Lessons dont belong to a chapter</span>
           </span> 
 
           <div class="md-card md-card-timeline md-theme-default md-card-plain">
