@@ -43,7 +43,7 @@ Vue.use(Vuex)
           })
           .then(response => {
             console.log(response,'ress')
-            commit('GET_LESSONS', response.data.lesson)
+            commit('GET_LESSONS', response)
             
             resolve(response)
           }).catch(error => {

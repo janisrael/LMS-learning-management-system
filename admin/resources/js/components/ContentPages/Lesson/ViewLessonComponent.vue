@@ -33,7 +33,7 @@
                                                 <i class="el-icon-s-unfold search-filter-icon"></i>
                                             </el-button>
                                         </el-popover>
-</template>
+                                    </template>
                                 <el-button slot="append" icon="el-icon-search" @click="getRecords('1')"></el-button>
                             </el-input>
                         </el-col>
@@ -41,7 +41,7 @@
                 </div>
                 <transition name="fade">
                     <div v-if="show" class="card-content">
-                        <el-row :gutter="10" style="margin-bottom: 10px;">
+                        <el-row :gutter="10" style="margin-bottom: 10px;padding-bottom: 100px;">
                             <el-col :span="24">
                                 <el-col :xs="24" :sm="8" :md="8" :lg="6" :xl="6">
                                     <el-card shadow="hover" border class="course-card course-add-card">
@@ -52,8 +52,9 @@
                                         </div>
                                     </el-card>
                                 </el-col>
-                                <el-col v-for="(lesson, i) in this_lessons" :key="i" :xs="24" :sm="8" :md="8" :lg="6" :xl="6">
-                                  <!-- {{ lesson }} -->
+                                <!-- {{ this_lessons.data }} -->
+                                <el-col v-for="(lesson, i) in this_lessons.data" :key="i" :xs="24" :sm="8" :md="8" :lg="6" :xl="6">
+                                  <!-- {{ lesson.lessons }} -->
                                     <div class="course-card course-add-card md-card md-card-chart md-theme-default" @click="manageCourse(lesson)">
                                         <div v-if="lesson.image_url === null" class="no-image"> 
                                           <i class="el-icon-picture-outline"></i>
@@ -76,11 +77,16 @@
                                             <h5 class="card-title-course" style="">{{ lesson.name }}</h5>
                                             <div class="bottom clearfix " style="color: #000;">
                                                 <!-- <span>Category</span> -->
-                                                <el-button type="primary" plain class="button" size="mini">
-                                                    <span v-if="lesson.course_name">{{ lesson.course_name }}</span>
-                                                    <span v-else> --- </span> 
-                                                    <!-- <i class="el-icon-success"></i> -->
-                                                </el-button>
+                                                <span v-if="lesson.course">
+                                                    <el-button type="primary" plain class="button" size="mini">
+                                                        <span>{{ lesson.course.name }}</span>
+                                                    </el-button>
+                                                </span>
+                                                <span v-else>
+                                                    <el-button type="danger" plain class="button" size="mini">
+                                                        <span> No Course </span>
+                                                    </el-button>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>

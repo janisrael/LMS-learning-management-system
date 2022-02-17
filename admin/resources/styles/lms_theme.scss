@@ -980,35 +980,35 @@ span.badge.badge-danger h6 {
   margin-left: 10px;
 }
 
-.el-popover {
-  position: absolute;
-  background: #ffe2e2 !important;
-  min-width: 150px;
-  top: 0;
-  right: 0;
-  border: 1px solid rgba(245, 108, 108, .24) !important;
-  padding: 12px;
-  color: #f56c6c !important;
-  z-index: 2000;
-  color: #606266;
-  line-height: 1.4;
-  text-align: justify;
-  font-size: 14px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .10);
-  word-break: break-all;
-}
+// .el-popover {
+//   position: absolute;
+//   background: #ffe2e2 !important;
+//   min-width: 150px;
+//   top: 0;
+//   right: 0;
+//   border: 1px solid rgba(245, 108, 108, .24) !important;
+//   padding: 12px;
+//   color: #f56c6c !important;
+//   z-index: 2000;
+//   color: #606266;
+//   line-height: 1.4;
+//   text-align: justify;
+//   font-size: 14px;
+//   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .10);
+//   word-break: break-all;
+// }
 
-.el-popover__title {
-  color: #f56c6c !important;
-}
+// .el-popover__title {
+//   color: #f56c6c !important;
+// }
 
-.el-popper[x-placement^=left-start] .popper__arrow:after {
-  border-left-color: #ffe2e2 !important;
-}
+// .el-popper[x-placement^=left-start] .popper__arrow:after {
+//   border-left-color: #ffe2e2 !important;
+// }
 
-.el-popper[x-placement^=left-start] .popper__arrow { 
-  border-left-color: rgba(245, 108, 108, .24) !important;
-}
+// .el-popper[x-placement^=left-start] .popper__arrow { 
+//   border-left-color: rgba(245, 108, 108, .24) !important;
+// }
 
 .chapter-menu {
   position: fixed;

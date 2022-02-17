@@ -32,7 +32,10 @@ class LessonController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->searchList($this->repository, $request);
+        // return $this->searchList($this->repository, $request);
+        // return $this->repository()
+        return $this->repository->search($request);
+        
     }
 
     /**

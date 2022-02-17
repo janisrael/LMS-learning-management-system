@@ -4,7 +4,10 @@ namespace App\Repositories;
 
 use App\Repositories\Repository;
 use App\Models\Lesson;
+use App\Models\Course;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+
 class LessonRepository extends Repository
 {
     protected $model = null;
@@ -16,10 +19,23 @@ class LessonRepository extends Repository
     public function search($filter)
     {
         $term = $filter['term'];
+        $lessons = Lesson::orderBy('course_id','DESC')->get();
 
-        $query = Lesson::join('courses','lessons.course_id','courses.id')
-        ->select('lessons.*','courses.name as course_name');
+        $collections = [];
+        foreach($lessons as $lesson) {
+            if($lesson->course_id != null) {
+               $course = Course::where('id','=',$lesson->course_id)->first();
 
-        return $query;
+               if($course) {
+                   $lesson['course'] = $course;
+               } else {
+                $lesson['course'] = null;
+               }
+            } else {
+                $lesson['course'] = null;
+            }
+        }
+
+        return $lessons;
     }
 }
